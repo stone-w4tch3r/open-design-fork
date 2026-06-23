@@ -1,0 +1,12 @@
+FROM node:24-bookworm-slim
+
+# Native build toolchain (required by better-sqlite3, node-pty)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    python3 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Ensure latest npm
+RUN npm install -g npm@latest
+
+WORKDIR /test

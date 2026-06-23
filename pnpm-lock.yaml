@@ -52,7 +52,7 @@ importers:
     dependencies:
       '@modelcontextprotocol/sdk':
         specifier: 1.29.0
-        version: 1.29.0(zod@4.4.2)
+        version: 1.29.0(zod@3.25.76)
       '@open-design/agui-adapter':
         specifier: workspace:*
         version: link:../../packages/agui-adapter
@@ -119,6 +119,9 @@ importers:
       undici:
         specifier: 7.25.0
         version: 7.25.0
+      zod:
+        specifier: 3.25.76
+        version: 3.25.76
     devDependencies:
       '@types/better-sqlite3':
         specifier: 7.6.13
@@ -132,6 +135,9 @@ importers:
       '@types/node':
         specifier: 20.19.39
         version: 20.19.39
+      esbuild:
+        specifier: 0.28.0
+        version: 0.28.0
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -6530,7 +6536,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@modelcontextprotocol/sdk@1.29.0(zod@4.4.2)':
+  '@modelcontextprotocol/sdk@1.29.0(zod@3.25.76)':
     dependencies:
       '@hono/node-server': 1.19.14(hono@4.12.19)
       ajv: 8.20.0
@@ -6547,8 +6553,8 @@ snapshots:
       json-schema-typed: 8.0.2
       pkce-challenge: 5.0.1
       raw-body: 3.0.2
-      zod: 4.4.2
-      zod-to-json-schema: 3.25.2(zod@4.4.2)
+      zod: 3.25.76
+      zod-to-json-schema: 3.25.2(zod@3.25.76)
     transitivePeerDependencies:
       - supports-color
 
@@ -10656,9 +10662,9 @@ snapshots:
 
   yocto-queue@1.2.2: {}
 
-  zod-to-json-schema@3.25.2(zod@4.4.2):
+  zod-to-json-schema@3.25.2(zod@3.25.76):
     dependencies:
-      zod: 4.4.2
+      zod: 3.25.76
 
   zod@3.25.76: {}
 

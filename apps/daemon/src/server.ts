@@ -617,7 +617,9 @@ const DAEMON_RESOURCE_ROOT = resolveDaemonResourceRoot({
 // export configured in next.config.ts. The folder name used to be `dist/`
 // when this project shipped with Vite; the daemon serves whatever the
 // frontend toolchain emits, no further config needed.
-const STATIC_DIR = path.join(PROJECT_ROOT, 'apps', 'web', 'out');
+const STATIC_DIR = DAEMON_RESOURCE_ROOT
+  ? path.join(DAEMON_RESOURCE_ROOT, 'web')
+  : path.join(PROJECT_ROOT, 'apps', 'web', 'out');
 // Baked plugin preview clips (scripts/bake-plugin-previews.mjs). Served at
 // PLUGIN_PREVIEWS_ROUTE; their manifest rewrites html plugins' previews to a
 // cheap poster + hover-play video in the home gallery.
