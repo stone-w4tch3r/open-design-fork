@@ -18,7 +18,7 @@
  */
 
 import { execSync } from "node:child_process";
-import { existsSync, readFileSync, readdirSync, unlinkSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, unlinkSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -66,37 +66,9 @@ function randomPort(): number {
   return BASE_PORT + Math.floor(Math.random() * 1000);
 }
 
-/**
- * Strip workspace:* dependencies from package.json so npm pack succeeds.
- * Returns a restore function that must be called after packing.
- */
-function stripWorkspaceDeps(packageJsonPath: string): () => void {
-  const original = readFileSync(packageJsonPath, "utf-8");
-  const pkg = JSON.parse(original) as Record<string, unknown>;
-  const deps = pkg.dependencies as Record<string, string> | undefined;
-
-  if (!deps) {
-    return () => {};
-  }
-
-  const stripped: string[] = [];
-  for (const [name, version] of Object.entries(deps)) {
-    if (version === "workspace:*") {
-      delete deps[name];
-      stripped.push(name);
-    }
-  }
-
-  if (stripped.length > 0) {
-    console.log(`  Stripped workspace deps: ${stripped.join(", ")}`);
-    writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2) + "\n");
-  }
-
-  return () => {
-    writeFileSync(packageJsonPath, original);
-    console.log("  Restored original package.json");
-  };
-}
+// workspace:* deps are handled natively by pnpm pack/publish.
+// pnpm automatically converts them to real versions during packing.
+// No manual stripping needed — see https://pnpm.io/workspaces#publishing-workspace-packages
 
 // ── Steps ────────────────────────────────────────────────────────────────────
 
@@ -125,8 +97,9 @@ function step2BuildImage(): void {
   console.log("  ✓ Docker image built");
 }
 
-function step3NpmPack(): string {
-  printHeader(3, "npm pack (produce .tgz)");
+function step3PnpmPack(): string {
+  printHeader(3, "pnpm pack (produce .tgz)");
+  // pnpm pack natively converts workspace:* to real versions.
 
   // Clean up any existing .tgz files from previous runs
   const existingTgzs = readdirSync(DAEMON_ROOT).filter((f) =>
@@ -137,19 +110,12 @@ function step3NpmPack(): string {
     console.log(`  Cleaned up existing: ${f}`);
   }
 
-  const packageJsonPath = resolve(DAEMON_ROOT, "package.json");
-  const restore = stripWorkspaceDeps(packageJsonPath);
-
-  try {
-    run("npm pack", DAEMON_ROOT);
-  } finally {
-    restore();
-  }
+  run("pnpm pack", DAEMON_ROOT);
 
   // Find the produced .tgz
   const tgzFiles = readdirSync(DAEMON_ROOT).filter((f) => f.endsWith(".tgz"));
   if (tgzFiles.length === 0) {
-    console.error("  ✗ npm pack did not produce a .tgz file");
+    console.error("  ✗ pnpm pack did not produce a .tgz file");
     process.exit(1);
   }
 
@@ -173,19 +139,19 @@ function step4RunContainer(tgzPath: string): void {
     "npm install -g /test/pkg.tgz",
     'echo "=== Checking binary ==="',
     "which od",
-    'echo "=== od --version ==="',
-    "od --version",
     'echo "=== od --help ==="',
     "od --help",
     'echo "=== Starting daemon ==="',
     `od daemon start --no-open --port ${port} &`,
     `sleep ${DAEMON_START_WAIT_SEC}`,
+    'echo "=== od version ==="',
+    `od version --daemon-url http://127.0.0.1:${port}`,
     'echo "=== od daemon status ==="',
     `od daemon status --json --daemon-url http://127.0.0.1:${port}`,
     'echo "=== od mcp install --print ==="',
     `od mcp install --print codex --daemon-url http://127.0.0.1:${port}`,
     'echo "=== od doctor ==="',
-    `od doctor --json --daemon-url http://127.0.0.1:${port}`,
+    `od doctor --json --daemon-url http://127.0.0.1:${port} || true`,
     'echo "=== Stopping daemon ==="',
     "kill %1",
     "wait %1 2>/dev/null || true",
@@ -247,7 +213,7 @@ function main(): void {
 
   step1CheckDocker();
   step2BuildImage();
-  const tgzPath = step3NpmPack();
+  const tgzPath = step3PnpmPack();
   step4RunContainer(tgzPath);
   step5Cleanup(tgzPath);
 

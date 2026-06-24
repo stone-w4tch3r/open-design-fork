@@ -14,7 +14,7 @@
  */
 
 import { execSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, rmSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { getWorkspaceRoot } from "./lib/paths.js";
@@ -51,37 +51,9 @@ function runStep(command: string, cwd: string, description: string): void {
   }
 }
 
-/**
- * Strip workspace:* dependencies from package.json so npm pack succeeds.
- * Returns a restore function that must be called after packing.
- */
-function stripWorkspaceDeps(packageJsonPath: string): () => void {
-  const original = readFileSync(packageJsonPath, "utf-8");
-  const pkg = JSON.parse(original) as Record<string, unknown>;
-  const deps = pkg.dependencies as Record<string, string> | undefined;
-
-  if (!deps) {
-    return () => {};
-  }
-
-  const stripped: string[] = [];
-  for (const [name, version] of Object.entries(deps)) {
-    if (version === "workspace:*") {
-      delete deps[name];
-      stripped.push(name);
-    }
-  }
-
-  if (stripped.length > 0) {
-    console.log(`  Stripped workspace deps: ${stripped.join(", ")}`);
-    writeFileSync(packageJsonPath, JSON.stringify(pkg, null, 2) + "\n");
-  }
-
-  return () => {
-    writeFileSync(packageJsonPath, original);
-    console.log("  Restored original package.json");
-  };
-}
+// workspace:* deps are handled natively by pnpm pack/publish.
+// pnpm automatically converts them to real versions during packing.
+// No manual stripping needed — see https://pnpm.io/workspaces#publishing-workspace-packages
 
 // ── Steps ────────────────────────────────────────────────────────────────────
 
@@ -145,16 +117,10 @@ function step6Validate(): void {
 }
 
 function step7DryRunPack(): void {
-  printHeader(7, "npm pack --dry-run (verify package contents)");
-
-  const packageJsonPath = join(DAEMON_ROOT, "package.json");
-  const restore = stripWorkspaceDeps(packageJsonPath);
-
-  try {
-    runStep("npm pack --dry-run", DAEMON_ROOT, "npm pack dry-run");
-  } finally {
-    restore();
-  }
+  printHeader(7, "pnpm pack --dry-run (verify package contents)");
+  // pnpm pack natively converts workspace:* to real versions.
+  // No manual stripping needed.
+  runStep("pnpm pack --dry-run", DAEMON_ROOT, "pnpm pack dry-run");
 }
 
 // ── Main ─────────────────────────────────────────────────────────────────────

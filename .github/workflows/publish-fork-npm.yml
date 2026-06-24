@@ -1,8 +1,9 @@
 name: publish-fork-npm
 
 # Fork-only: builds the daemon npm package, rewrites the name to
-# "open-design-dev-fork" via jq (no source edits), strips workspace:*
-# deps, packs, and publishes to npm with provenance.
+# "open-design-dev-fork" via jq (no source edits), and publishes to npm
+# with provenance using pnpm publish (which natively converts workspace:*
+# deps to real versions).
 #
 # Requires trusted publishing setup on npmjs.com:
 #   Package: open-design-dev-fork
@@ -37,28 +38,26 @@ jobs:
       - name: Build publishable package
         run: pnpm --filter @open-design/daemon exec tsx scripts/build-for-publish.ts
 
-      - name: Rewrite package name for fork + repack
+      - name: Rewrite package name for fork (jq, no source edits)
         working-directory: apps/daemon
         run: |
           set -e
           cp package.json package.json.orig
 
-          # Rewrite name and strip workspace:* deps in one jq pass.
-          # publishConfig.access stays — unscoped packages need it for first publish.
-          jq '
-            .name = "open-design-dev-fork" |
-            .dependencies |= with_entries(select(.value != "workspace:*"))
-          ' package.json > package.json.tmp
+          # Only rewrite the name. workspace:* deps are handled natively
+          # by pnpm publish — no manual stripping needed.
+          jq '.name = "open-design-dev-fork"' package.json > package.json.tmp
           mv package.json.tmp package.json
 
           echo "::group::Modified package.json"
           cat package.json
           echo "::endgroup::"
 
-          npm pack
-
-          mv package.json.orig package.json
-
-      - name: Publish to npm
+      - name: Publish to npm (pnpm handles workspace:* conversion)
         working-directory: apps/daemon
-        run: npm publish open-design-dev-fork-*.tgz --provenance --access public
+        run: pnpm publish --provenance --access public --no-git-checks
+
+      - name: Restore original package.json
+        if: always()
+        working-directory: apps/daemon
+        run: mv package.json.orig package.json
