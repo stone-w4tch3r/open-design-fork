@@ -1,4 +1,4 @@
-// Phase 4 / spec §14.1 — `od plugin publish` URL builder unit test.
+// Phase 4 / spec §14.1 — `od-cli plugin publish` URL builder unit test.
 //
 // The PR-template launcher is purely string assembly; we lock the
 // public contract here so a future spec patch that retargets a

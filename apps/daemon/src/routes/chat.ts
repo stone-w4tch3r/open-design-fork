@@ -2097,7 +2097,7 @@ export function registerChatRoutes(app: Express, ctx: RegisterChatRoutesDeps) {
     const sse = createSseResponse(res);
     // These gateways issue one API key that works for both
     // /v1/chat/completions and the image / TTS surfaces. Mirror the
-    // BYOK key into media-config so the CLI agent path (`od media
+    // BYOK key into media-config so the CLI agent path (`od-cli media
     // generate`) picks it up automatically — fire-and-forget; the
     // chat stream must not block on the disk write. seedProviderIfMissing
     // is idempotent and preserves env-var-resolved keys.

@@ -69,7 +69,7 @@ pnpm tools-dev status          # inspecte les runtimes gérés
 pnpm tools-dev logs            # affiche les logs daemon/web/desktop
 pnpm tools-dev check           # statut + logs récents + diagnostics courants
 pnpm tools-dev stop            # arrête les runtimes gérés
-pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js pour `od`
+pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js pour `od-cli`
 pnpm --filter @open-design/web build     # build du paquet web si nécessaire
 pnpm typecheck                 # typecheck du workspace
 ```
@@ -213,7 +213,7 @@ Ce Quickstart NE DOIT PAS répéter ce contrat ni définir de chemins de stockag
 
 ## Checks de génération média / agent dispatcher
 
-Les Skills image, vidéo, audio et HyperFrames appellent la CLI locale `od` via des variables d’environnement injectées par le daemon lorsqu’il lance un agent :
+Les Skills image, vidéo, audio et HyperFrames appellent la CLI locale `od-cli` via des variables d'environnement injectées par le daemon lorsqu'il lance un agent :
 
 - `OD_BIN` — chemin absolu vers `apps/daemon/dist/cli.js`.
 - `OD_DAEMON_URL` — URL du daemon en cours d’exécution.
@@ -292,7 +292,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — spawn les agents locaux + sert les APIs
 │   │   └── src/
-│   │       ├── cli.ts             # entrée bin `od`
+│   │       ├── cli.ts             # entrée bin `od-cli`
 │   │       ├── server.ts          # /api/* + static serving
 │   │       ├── agents.ts          # scanner PATH + adapters CLI de coding agents
 │   │       ├── skills.ts          # loader SKILL.md (frontmatter parser)
@@ -339,7 +339,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # réimport depuis le tarball getdesign upstream
 ├── docs/                      # vision produit + spec
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # scripts qualité root + bin `od`
+└── package.json               # scripts qualité root + bin `od-cli`
 ```
 
 ## Dépannage

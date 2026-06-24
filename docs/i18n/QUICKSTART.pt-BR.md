@@ -68,7 +68,7 @@ pnpm tools-dev status          # inspect managed runtimes
 pnpm tools-dev logs            # show daemon/web/desktop logs
 pnpm tools-dev check           # status + recent logs + common diagnostics
 pnpm tools-dev stop            # stop managed runtimes
-pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js for `od`
+pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js for `od-cli`
 pnpm --filter @open-design/web build     # build do pacote web quando necessário
 pnpm typecheck                 # workspace typecheck
 ```
@@ -212,7 +212,7 @@ Este Quickstart NÃO DEVE repetir esse contrato nem definir caminhos de armazena
 
 ## Verificações de geração de mídia / dispatcher de agente
 
-Skills de imagem, vídeo, áudio e HyperFrames chamam o CLI local `od` por meio de variáveis de ambiente que o daemon injeta ao spawnar um agente:
+Skills de imagem, vídeo, áudio e HyperFrames chamam o CLI local `od-cli` por meio de variáveis de ambiente que o daemon injeta ao spawnar um agente:
 
 - `OD_BIN` — caminho absoluto para `apps/daemon/dist/cli.js`.
 - `OD_DAEMON_URL` — URL do daemon em execução.
@@ -291,7 +291,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — spawns local agents + serves APIs
 │   │   └── src/
-│   │       ├── cli.ts             # `od` bin entry
+│   │       ├── cli.ts             # `od-cli` bin entry
 │   │       ├── server.ts          # /api/* + static serving
 │   │       ├── agents.ts          # PATH scanner for claude/codex/devin/gemini/opencode/cursor-agent/qwen/copilot
 │   │       ├── skills.ts          # SKILL.md loader (frontmatter parser)
@@ -338,7 +338,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # re-import from upstream getdesign tarball
 ├── docs/                      # product vision + spec
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # root quality scripts + `od` bin
+└── package.json               # root quality scripts + `od-cli` bin
 ```
 
 ## Solução de problemas

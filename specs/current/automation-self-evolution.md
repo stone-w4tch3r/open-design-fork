@@ -77,7 +77,7 @@ Every ingested item becomes a packet with:
 - `tokenStats` before and after compression.
 - `candidateSinks`: memory, skill, design system, automation template.
 
-The packet should be inspectable in UI and available to `od automation`.
+The packet should be inspectable in UI and available to `od-cli automation`.
 
 ## Automation templates
 
@@ -184,14 +184,14 @@ Every user-facing capability must land in both surfaces:
 
 | Capability | Web UI | CLI |
 |---|---|---|
-| List templates | Automations template picker | `od automation template list --json` |
-| Run ingestion | Automations "Ingest source" panel | `od automation source ingest --source-kind <kind> --body-file <path|-> --json` |
-| Inspect source packets | Recent ingestions list | `od automation source list/get --json` |
-| Review proposals | Review drawer with diff and apply/reject | `od automation proposal list/apply/reject --json` |
-| Edit memory tree | Settings -> Memory tree | `od memory tree ... --json` |
-| Manage token compression | Ingestion compression selector | `od automation source ingest --compression off|balanced|aggressive --json` |
-| Promote design system | Evolution proposal apply action | `od automation proposal apply <proposal> --json` |
-| Crystallize skill | Evolution proposal apply action | `od automation proposal apply <proposal> --json` |
+| List templates | Automations template picker | `od-cli automation template list --json` |
+| Run ingestion | Automations "Ingest source" panel | `od-cli automation source ingest --source-kind <kind> --body-file <path|-> --json` |
+| Inspect source packets | Recent ingestions list | `od-cli automation source list/get --json` |
+| Review proposals | Review drawer with diff and apply/reject | `od-cli automation proposal list/apply/reject --json` |
+| Edit memory tree | Settings -> Memory tree | `od-cli memory tree ... --json` |
+| Manage token compression | Ingestion compression selector | `od-cli automation source ingest --compression off|balanced|aggressive --json` |
+| Promote design system | Evolution proposal apply action | `od-cli automation proposal apply <proposal> --json` |
+| Crystallize skill | Evolution proposal apply action | `od-cli automation proposal apply <proposal> --json` |
 
 ## Implementation phases
 
@@ -210,7 +210,7 @@ Every user-facing capability must land in both surfaces:
 - Keep the current file-backed Markdown store; add an index layer rather than a
   hidden opaque database.
 - Inject selected tree nodes into daemon and BYOK/API-mode agent prompts.
-- Add `od memory tree list/view/edit/move` and matching Settings UI.
+- Add `od-cli memory tree list/view/edit/move` and matching Settings UI.
 
 Initial concrete surface:
 
@@ -218,7 +218,7 @@ Initial concrete surface:
   Markdown-backed memory store.
 - `PATCH /api/memory/tree/:id` edits entry-node metadata/body/type while folder
   nodes remain derived from entry buckets.
-- `od memory tree list/view/edit/move` mirrors the Settings memory-tree view so
+- `od-cli memory tree list/view/edit/move` mirrors the Settings memory-tree view so
   external agents can inspect and maintain the same prompt-consumed memory.
 
 ### Phase 2 - Automation template registry
@@ -226,14 +226,14 @@ Initial concrete surface:
 - Introduce built-in templates for ingestion, connector digest, memory upkeep,
   design-system extraction, skill crystallization, and context compression.
 - Add proposal storage and review status.
-- Update the existing Automations page and `od automation` commands to present
+- Update the existing Automations page and `od-cli automation` commands to present
   templates, not only schedule forms.
 
 Initial concrete surface:
 
 - `/api/automation-proposals` stores reviewable evolution proposals.
 - `/api/automation-proposals/:id/apply` and `/reject` provide the review gate.
-- `od automation proposal list/get/apply/reject` mirrors the UI review path.
+- `od-cli automation proposal list/get/apply/reject` mirrors the UI review path.
 - Memory-node proposals can apply into the Memory tree. Design-system proposals
   can write reviewed `DESIGN.md` drafts under the user design-system root, and
   skill proposals can write reviewed `SKILL.md` drafts under the user skill
@@ -245,7 +245,7 @@ Initial concrete surface:
   Markdown into a stored source packet.
 - `GET /api/automation-source-packets` and `/:id` expose packet provenance for
   UI and headless consumers.
-- `od automation source ingest/list/get` mirrors the Automations source panel.
+- `od-cli automation source ingest/list/get` mirrors the Automations source panel.
 - Ingestion creates reviewable memory, design-system, and skill proposals from
   the selected template, with optional off/balanced/aggressive token compression
   and before/after token reports.

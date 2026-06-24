@@ -45,7 +45,7 @@ export interface PluginEnvKnobs {
   // its run/conversation/project is terminal. Default unset -> unlimited.
   snapshotRetentionDays: number | null;
   // GC worker tick interval. Phase 5 reads this; Phase 1 just exposes the
-  // knob through `od config get` so operators can plan ahead.
+  // knob through `od-cli config get` so operators can plan ahead.
   snapshotGcIntervalMs: number;
 }
 

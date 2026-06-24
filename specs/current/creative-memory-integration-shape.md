@@ -153,8 +153,8 @@ space.
   memory subsystem.
 - **Headless / CLI parity.** Per the dual-track rule, every signal capture
   surface in the UI must have a CLI equivalent that emits the same event
-  shape. `od memory ingest` (or similar) is the contract; without it,
-  external agents driving Open Design through `od` cannot contribute to the
+  shape. `od-cli memory ingest` (or similar) is the contract; without it,
+  external agents driving Open Design through `od-cli` cannot contribute to the
   user's preference memory and the memory becomes UI-only.
 
 ## 2. Retrieval insertion into generation / critique
@@ -337,12 +337,12 @@ no other user surface. Everything else needs to be designed.
 
 | Surface | UI | CLI | Why required |
 |---|---|---|---|
-| Master enable/disable | Settings → Memory toggle | `od memory disable` / `od memory enable` | Trust posture; users must be able to turn it off. |
-| Per-project override | Project settings → "this project ignores global memory" | `od memory project-disable <project>` | Sensitive projects (client work, NDAs) should not leak general preference memory. |
-| "What's in my memory right now" inspector | Settings → Memory → Inspect | `od memory inspect --json` | Trust requires legibility. The engine emits diagnostics; this surface reads them. |
-| Forget a specific pattern | Inspector row → Forget | `od memory forget <type> <pattern>` | GDPR-shaped escape hatch and recovery from ingestion errors. |
-| Wipe all memory | Settings → Memory → Reset | `od memory reset --confirm` | Recovery from corruption, account handover, fresh start. |
-| Pause without forgetting | Settings → Memory → Pause | `od memory pause [--until <date>]` | Useful when the user knows they're working in an atypical mode (client work, exploration) without wanting to lose the existing model. |
+| Master enable/disable | Settings → Memory toggle | `od-cli memory disable` / `od-cli memory enable` | Trust posture; users must be able to turn it off. |
+| Per-project override | Project settings → "this project ignores global memory" | `od-cli memory project-disable <project>` | Sensitive projects (client work, NDAs) should not leak general preference memory. |
+| "What's in my memory right now" inspector | Settings → Memory → Inspect | `od-cli memory inspect --json` | Trust requires legibility. The engine emits diagnostics; this surface reads them. |
+| Forget a specific pattern | Inspector row → Forget | `od-cli memory forget <type> <pattern>` | GDPR-shaped escape hatch and recovery from ingestion errors. |
+| Wipe all memory | Settings → Memory → Reset | `od-cli memory reset --confirm` | Recovery from corruption, account handover, fresh start. |
+| Pause without forgetting | Settings → Memory → Pause | `od-cli memory pause [--until <date>]` | Useful when the user knows they're working in an atypical mode (client work, exploration) without wanting to lose the existing model. |
 
 ### Surfaces to consider
 
@@ -367,7 +367,7 @@ decisions:
   (`AGENTS.md` FAQ "Where is data written?"). Packaged installs and Home
   Manager / NixOS modules already point `OD_DATA_DIR` at a writable directory;
   memory should ride that contract.
-- **Portability.** `od memory export --to <path>` and `od memory import <path>`
+- **Portability.** `od-cli memory export --to <path>` and `od-cli memory import <path>`
   for moving memory across machines without a cloud sync layer. The engine's
   storage is already plain JSON; this is just CLI plumbing.
 
@@ -510,10 +510,10 @@ than starting from a blank page.
 - A specific pairwise event shape. The lean is `{ chose, over, dimensions? }`,
   but UX details (does the user pick one, or pick + dimension annotation?)
   belong to the surface that actually ships pairwise first (critique theater).
-- A specific CLI subcommand layout for `od memory`. The dual-track rule says
+- A specific CLI subcommand layout for `od-cli memory`. The dual-track rule says
   every UI control needs a CLI peer; the names in §3 are illustrative, the
   actual subcommand grammar follows whatever pattern the existing
-  `od automation`, `od plugin`, `od ui` family establishes.
+  `od-cli automation`, `od-cli plugin`, `od-cli ui` family establishes.
 - A rollout schedule. The decisions above are independent and can land in
   any order behind a `memory_enabled: false` default.
 
@@ -522,9 +522,9 @@ than starting from a blank page.
 - Confirm that `OD_DATA_DIR` precedence applies to the memory storage root
   (it should, per AGENTS.md FAQ, but the integration code has not been
   written yet).
-- Decide whether memory state is part of `od project export` /
+- Decide whether memory state is part of `od-cli project export` /
   per-project portability flows, or strictly user-scoped.
-- Sketch the `od memory inspect --json` output shape — likely just a passthrough
+- Sketch the `od-cli memory inspect --json` output shape — likely just a passthrough
   of the engine's diagnostic events plus the current preference list.
 
 These are tractable doc edits once the §5 decisions land; flagged here so

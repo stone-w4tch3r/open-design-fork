@@ -2,7 +2,7 @@
  * Single source of truth for the media-generation model registry.
  *
  * Both the frontend (NewProjectPanel model pickers, Settings dialog
- * provider list) and the daemon (od media generate dispatcher) consume
+ * provider list) and the daemon (od-cli media generate dispatcher) consume
  * this registry. When you add a model entry here, the picker shows it,
  * the daemon can dispatch to it, and the Settings dialog knows which
  * API keys are needed.

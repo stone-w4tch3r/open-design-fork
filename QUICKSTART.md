@@ -205,7 +205,7 @@ pnpm tools-dev status          # inspect managed runtimes
 pnpm tools-dev logs            # show daemon/web/desktop logs
 pnpm tools-dev check           # status + recent logs + common diagnostics
 pnpm tools-dev stop            # stop managed runtimes
-pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js for `od`
+pnpm --filter @open-design/daemon build  # build apps/daemon/dist/cli.js for `od-cli`
 pnpm --filter @open-design/web build     # build the web package when needed
 pnpm typecheck                 # workspace typecheck
 ```
@@ -218,7 +218,7 @@ During local development, `tools-dev` starts the daemon first, passes its port i
 
 ## Media generation / agent dispatcher checks
 
-Image, video, audio, and HyperFrames skills call the local `od` CLI through environment variables injected by the daemon when it spawns an agent:
+Image, video, audio, and HyperFrames skills call the local `od-cli` CLI through environment variables injected by the daemon when it spawns an agent:
 
 - `OD_BIN` — absolute path to `apps/daemon/dist/cli.js`.
 - `OD_DAEMON_URL` — the running daemon URL.
@@ -297,7 +297,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — spawns local agents + serves APIs
 │   │   └── src/
-│   │       ├── cli.ts             # `od` bin entry
+│   │       ├── cli.ts             # `od-cli` bin entry
 │   │       ├── server.ts          # /api/* + static serving
 │   │       ├── agents.ts          # PATH scanner for claude/codex/devin/gemini/opencode/cursor-agent/qwen/qoder/copilot
 │   │       ├── skills.ts          # SKILL.md loader (frontmatter parser)
@@ -344,7 +344,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # re-import from upstream getdesign tarball
 ├── docs/                      # product vision + spec
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # root quality scripts + `od` bin
+└── package.json               # root quality scripts + `od-cli` bin
 ```
 
 ## Troubleshooting

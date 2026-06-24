@@ -28,7 +28,7 @@ registry / distribution / website / multi-source 的细分用例。
 | REG-014 | registry backend parity | static/GitHub/DB backend 共享 list/search/resolve/publish contract；GitHub publish 产出稳定 PR mutation paths | `apps/daemon/tests/registry-backends.test.ts` |
 | REG-015 | install lockfile | installed plugin 可生成稳定 lockfile entry，包含 marketplace id、resolved ref、digest、integrity；测试文档不得定义 daemon 数据路径，必须阅读 root `AGENTS.md` → **Daemon data directory contract** | `apps/daemon/tests/plugins-lockfile.test.ts`, `apps/daemon/tests/plugins-installer.test.ts` |
 | REG-016 | marketplace doctor | invalid name、missing source、missing capability/license、yank reason 等会被 doctor 报告，并支持 strict warning-as-error | `apps/daemon/tests/plugins-marketplace-doctor.test.ts` |
-| REG-017 | static marketplace-json publish | `od plugin publish --to marketplace-json` 的纯 upsert 逻辑强制 `vendor/plugin-name`，从 GitHub URL 推导 reproducible source，并稳定更新 catalog | `apps/daemon/tests/plugins-publish.test.ts` |
+| REG-017 | static marketplace-json publish | `od-cli plugin publish --to marketplace-json` 的纯 upsert 逻辑强制 `vendor/plugin-name`，从 GitHub URL 推导 reproducible source，并稳定更新 catalog | `apps/daemon/tests/plugins-publish.test.ts` |
 | REG-018 | public plugin SEO/search renderer | `/plugins/search.json` 和 per-plugin detail pages 可静态构建，包含 official/community registry entry | `apps/landing-page` `typecheck` + `build` |
 | REG-019 | registry protocol future hooks | `RegistryBackend` 纯接口要求 vendor/plugin identity，并接受 metrics/signatures，为 DB/search/trust hardening 预留 | `packages/registry-protocol/tests/backend.test.ts` |
 
@@ -36,8 +36,8 @@ registry / distribution / website / multi-source 的细分用例。
 
 | ID | 场景 | 建议补法 |
 | --- | --- | --- |
-| REG-C01 | `od marketplace add/search/refresh/remove/trust` CLI 全链路 | CLI harness + fake fetcher，断言 JSON 输出、exit code、SQLite source row |
-| REG-C02 | `od plugin login/whoami` 只复用 `gh`，不保存 GitHub token | fake `GhClient` 或 fake `gh` bin，断言 stdout 和无 token 持久化 |
+| REG-C01 | `od-cli marketplace add/search/refresh/remove/trust` CLI 全链路 | CLI harness + fake fetcher，断言 JSON 输出、exit code、SQLite source row |
+| REG-C02 | `od-cli plugin login/whoami` 只复用 `gh`，不保存 GitHub token | fake `GhClient` 或 fake `gh` bin，断言 stdout 和无 token 持久化 |
 | REG-C03 | 完整 `gh repo fork` / `gh pr create` 外部流程 | fake `gh` bin + temp registry repo，断言真实 branch/commit/PR 命令序列 |
 | REG-C04 | `open-design-marketplace.json` 生成器 | 输入多个 `plugins/community/**/open-design.json`，输出排序稳定、schema 通过、source/digest 完整 |
 | REG-C05 | lockfile replay route-level behavior | 启动 daemon，先安装 `vendor/plugin@1.0.0` 写 lock，再默认安装 `vendor/plugin`，断言仍解析 lock 里的 exact version |

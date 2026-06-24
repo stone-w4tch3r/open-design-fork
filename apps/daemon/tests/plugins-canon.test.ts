@@ -1,4 +1,4 @@
-// Plan §3.CC1 — `od plugin canon <snapshotId>` route + helper.
+// Plan §3.CC1 — `od-cli plugin canon <snapshotId>` route + helper.
 //
 // The CLI subcommand fetches GET /api/applied-plugins/<id>/canon,
 // which calls renderPluginBlock() (re-exported as pluginPromptBlock

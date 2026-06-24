@@ -68,7 +68,7 @@ pnpm tools-dev status          # 管理対象ランタイムを検査
 pnpm tools-dev logs            # daemon/web/desktop のログを表示
 pnpm tools-dev check           # status + 最近のログ + 一般的な診断
 pnpm tools-dev stop            # 管理対象ランタイムを停止
-pnpm --filter @open-design/daemon build  # `od` 用に apps/daemon/dist/cli.js をビルド
+pnpm --filter @open-design/daemon build  # `od-cli` 用に apps/daemon/dist/cli.js をビルド
 pnpm --filter @open-design/web build     # 必要に応じて web パッケージをビルド
 pnpm typecheck                 # workspace の typecheck
 ```
@@ -212,7 +212,7 @@ OD_API_TOKEN=
 
 ## メディア生成 / エージェントディスパッチャーチェック
 
-Image、Video、Audio、HyperFrames スキルは、daemon がエージェントを起動する際に注入する環境変数を通じてローカル `od` CLI を呼び出します：
+Image、Video、Audio、HyperFrames スキルは、daemon がエージェントを起動する際に注入する環境変数を通じてローカル `od-cli` CLI を呼び出します：
 
 - `OD_BIN` — `apps/daemon/dist/cli.js` への絶対パス。
 - `OD_DAEMON_URL` — 実行中の daemon URL。
@@ -291,7 +291,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — ローカルエージェントを起動 + API を提供
 │   │   └── src/
-│   │       ├── cli.ts             # `od` bin エントリ
+│   │       ├── cli.ts             # `od-cli` bin エントリ
 │   │       ├── server.ts          # /api/* + 静的配信
 │   │       ├── agents.ts          # claude/codex/devin/gemini/opencode/cursor-agent/qwen/copilot 用 PATH スキャナ
 │   │       ├── skills.ts          # SKILL.md ローダー（フロントマターパーサー）
@@ -338,7 +338,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # 上流の getdesign tarball から再インポート
 ├── docs/                      # 製品ビジョン + 仕様
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # root quality スクリプト + `od` bin
+└── package.json               # root quality スクリプト + `od-cli` bin
 ```
 
 ## トラブルシューティング

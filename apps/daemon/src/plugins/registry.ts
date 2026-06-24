@@ -166,7 +166,7 @@ export async function resolvePluginFolder(opts: ResolveOptions): Promise<Resolve
   const sourceKind = opts.sourceKind ?? 'local';
   // Spec §5.3 / trust.ts: a `local` install is implicitly trusted (the user
   // copied the folder here themselves), everything else starts restricted
-  // until an explicit `od plugin trust` flip. Fall back to that source-kind
+  // until an explicit `od-cli plugin trust` flip. Fall back to that source-kind
   // policy when the caller did not pin a trust tier — previously this was
   // hard-coded to 'restricted', which left local scenario plugins unable to
   // obtain the `pipeline:*` capability they need to run their own pipeline.

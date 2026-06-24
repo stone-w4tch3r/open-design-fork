@@ -3,7 +3,7 @@
 // SKILL.md fragment lives at plugins/_official/atoms/handoff/. The
 // daemon-side helper updates an ArtifactManifest's provenance +
 // distribution metadata so subsequent runs (and the CLI's
-// `od plugin export`) can reverse-resolve the artifact's lineage
+// `od-cli plugin export`) can reverse-resolve the artifact's lineage
 // without mutating any prior fields. The contract is append-only:
 //
 //   - sourcePluginSnapshotId NEVER changes after first write.
@@ -136,7 +136,7 @@ export interface RunHandoffAtomInput {
   cwd: string;
   manifest: ArtifactManifest;
   // Optional explicit export target the caller is recording (e.g.
-  // 'cli' when od plugin export wrote to disk; 'docker' when the
+  // 'cli' when od-cli plugin export wrote to disk; 'docker' when the
   // tools-pack image build completes; 'figma' when Figma export
   // wrote a frame back).
   exportTarget?: ArtifactExportTarget;

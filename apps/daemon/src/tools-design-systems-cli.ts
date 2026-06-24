@@ -12,7 +12,7 @@ interface ParsedOptions {
 }
 
 const DESIGN_SYSTEMS_USAGE = `Usage:
-  od tools design-systems read --path <manifest-declared-path> [--design-system <id>]
+  od-cli tools design-systems read --path <manifest-declared-path> [--design-system <id>]
 
 Environment:
   OD_NODE_BIN     Node-compatible runtime for agent wrapper invocations

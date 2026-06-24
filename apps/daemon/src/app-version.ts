@@ -37,7 +37,7 @@ export interface ReadAppVersionInfoOptions extends ResolveAppVersionInfoOptions 
 const processWithResources = process as NodeJS.Process & { resourcesPath?: string };
 
 // The compiled daemon ships in two layouts depending on which tsconfig produced
-// it: `dist/app-version.js` (rootDir=src, used by the `od` CLI) and
+// it: `dist/app-version.js` (rootDir=src, used by the `od-cli` CLI) and
 // `dist/src/app-version.js` (rootDir=., used by the packaged sidecar entry).
 // A fixed relative path like `../package.json` only points at the daemon
 // `package.json` in the first layout — in the sidecar layout it resolves to

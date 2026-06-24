@@ -143,7 +143,7 @@ surface and resolved by the daemon from stored config or environment:
 ## Reviewer response draft
 
 Thanks for calling out the mismatch. We intentionally narrowed Research v1 to
-the agent-callable `/search` + `od research search` path and removed daemon
+the agent-callable `/search` + `od-cli research search` path and removed daemon
 pre-generation result injection instead of restoring the old Research toggle.
 That keeps external search text out of the prompt until the agent explicitly
 calls the command, preserves the prompt-injection boundary, and avoids stale

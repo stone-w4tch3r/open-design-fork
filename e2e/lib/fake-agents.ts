@@ -233,9 +233,9 @@ async function emitPluginAuthoringRun() {
   );
   const summary = [
     'Created generated-plugin with open-design.json, SKILL.md, and examples/demo.md.',
-    'od plugin validate: passed',
-    'od plugin pack: generated-plugin-0.1.0.tgz',
-    'od plugin install --source: passed',
+    'od-cli plugin validate: passed',
+    'od-cli plugin pack: generated-plugin-0.1.0.tgz',
+    'od-cli plugin install --source: passed',
   ].join('\\n');
   emitSuccess(summary, false, false);
   process.exitCode = 0;

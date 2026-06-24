@@ -110,27 +110,27 @@ Open Design가 무엇이고 무엇을 하는지 빠르게 살펴봅니다. **Hom
 
 ## 플랫폼 호환성
 
-> Open Design는 주류 코딩 에이전트가 네이티브로 사용하는 **스킬, CLI, MCP 서버**로 제공됩니다. OD를 설치한 뒤 `od mcp install <agent>` 한 번이면 MCP 서버가 해당 에이전트의 설정에 연결되고, 어떤 에이전트 안에서든 동일한 도구를 호출할 수 있습니다.
+> Open Design는 주류 코딩 에이전트가 네이티브로 사용하는 **스킬, CLI, MCP 서버**로 제공됩니다. OD를 설치한 뒤 `od-cli mcp install <agent>` 한 번이면 MCP 서버가 해당 에이전트의 설정에 연결되고, 어떤 에이전트 안에서든 동일한 도구를 호출할 수 있습니다.
 
 | 코딩 에이전트 / 플랫폼 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 상태 &nbsp;&nbsp; | 한 줄 MCP 서버 설치 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ 지원됨 | `od mcp install claude` |
-| [Codex CLI](https://github.com/openai/codex) | ✅ 지원됨 | `od mcp install codex` |
-| [Cursor](https://www.cursor.com/cli) | ✅ 지원됨 | `od mcp install cursor` |
-| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ 지원됨 | `od mcp install copilot` |
-| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ 지원됨 | `od mcp install copilot` |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ 지원됨 | `od mcp install gemini` |
-| [OpenCode](https://opencode.ai/) | ✅ 지원됨 | `od mcp install opencode` |
-| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ 지원됨 | `od mcp install openclaw` |
-| [Antigravity](https://antigravity.google) | ✅ 지원됨 | `od mcp install antigravity` |
-| [Cline](https://github.com/cline/cline) | ✅ 지원됨 | `od mcp install cline` |
-| [Trae](https://www.trae.ai/) | ✅ 지원됨 | `od mcp install trae` |
-| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ 지원됨 | `od mcp install kimi` |
-| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ 지원됨 | `od mcp install pi` |
-| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ 지원됨 | `od mcp install vibe` |
-| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ 지원됨 | `od mcp install hermes` |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ 지원됨 | `od-cli mcp install claude` |
+| [Codex CLI](https://github.com/openai/codex) | ✅ 지원됨 | `od-cli mcp install codex` |
+| [Cursor](https://www.cursor.com/cli) | ✅ 지원됨 | `od-cli mcp install cursor` |
+| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ 지원됨 | `od-cli mcp install copilot` |
+| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ 지원됨 | `od-cli mcp install copilot` |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ 지원됨 | `od-cli mcp install gemini` |
+| [OpenCode](https://opencode.ai/) | ✅ 지원됨 | `od-cli mcp install opencode` |
+| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ 지원됨 | `od-cli mcp install openclaw` |
+| [Antigravity](https://antigravity.google) | ✅ 지원됨 | `od-cli mcp install antigravity` |
+| [Cline](https://github.com/cline/cline) | ✅ 지원됨 | `od-cli mcp install cline` |
+| [Trae](https://www.trae.ai/) | ✅ 지원됨 | `od-cli mcp install trae` |
+| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ 지원됨 | `od-cli mcp install kimi` |
+| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ 지원됨 | `od-cli mcp install pi` |
+| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ 지원됨 | `od-cli mcp install vibe` |
+| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ 지원됨 | `od-cli mcp install hermes` |
 
-`od mcp install <agent> --print`로 드라이런 미리보기 · `--uninstall`로 제거 · 전체 목록은 `od mcp install --help`로 확인.
+`od-cli mcp install <agent> --print`로 드라이런 미리보기 · `--uninstall`로 제거 · 전체 목록은 `od-cli mcp install --help`로 확인.
 
 <p align="center">
   <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 21 coding-agent CLIs Open Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
@@ -302,7 +302,7 @@ GUI를 한 번도 열지 않고도 Open Design를 사용할 수 있습니다 —
 
 ```bash
 # One-line install into the agent you're using:
-od mcp install <agent>
+od-cli mcp install <agent>
 # <agent> = claude | codex | cursor | copilot | openclaw | antigravity | gemini
 #         | pi | vibe | hermes | cline | kimi | trae | opencode
 ```
@@ -361,14 +361,14 @@ Open Design는 **stdio MCP 서버**와 에이전트별 **설치 스크립트**�
 
 ```bash
 # One-line install (16+ CLIs supported):
-od mcp install <agent>
+od-cli mcp install <agent>
 
 # Then the agent can:
-od search-files "primary button"      # search files across projects
-od get-file design-systems/linear-app/DESIGN.md
-od get-artifact <slug>                # latest rendered artifact
-od plugin run web-prototype --brief "..."
-od skill list --scenario marketing
+od-cli search-files "primary button"      # search files across projects
+od-cli get-file design-systems/linear-app/DESIGN.md
+od-cli get-artifact <slug>                # latest rendered artifact
+od-cli plugin run web-prototype --brief "..."
+od-cli skill list --scenario marketing
 ```
 
 **왜 MCP인가?** 반복할 때마다 zip을 내보내고 다시 첨부하는 일은 흐름을 끊습니다. MCP는 디자인 소스를 직접 노출합니다 — 에이전트는 언제나 살아 있는 파일을 봅니다.
@@ -469,20 +469,20 @@ od skill list --scenario marketing
 
 ### 플러그인 사용하기
 
-플러그인은 **웹 UI**와 **`od` CLI**에서 완전히 동등하게 동작합니다 — 동일한 `/api/plugins` 엔드포인트를 쓰니, 맞는 쪽을 고르세요.
+플러그인은 **웹 UI**와 **`od-cli` CLI**에서 완전히 동등하게 동작합니다 — 동일한 `/api/plugins` 엔드포인트를 쓰니, 맞는 쪽을 고르세요.
 
 **데스크톱 / 웹 앱에서:** **Plugin** 페이지를 열어 마켓플레이스를 둘러보고 **Install**을 클릭하세요. 프로젝트의 Studio 안에서 플러그인은 클릭하여 적용하는 컴포저 칩으로 나타납니다(선언된 입력과 함께).
 
 **커맨드 라인에서**(UI 없이 실행됩니다 — 외부 에이전트가 사용하는 경로입니다):
 
 ```bash
-od plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
-od plugin search "landing page"      # search by keyword
-od plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
-od plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
-od plugin apply od-default --input brief="a one-page pitch for our seed round"
-od plugin upgrade od-default         # upgrade
-od plugin uninstall od-default       # uninstall
+od-cli plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
+od-cli plugin search "landing page"      # search by keyword
+od-cli plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
+od-cli plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
+od-cli plugin apply od-default --input brief="a one-page pitch for our seed round"
+od-cli plugin upgrade od-default         # upgrade
+od-cli plugin uninstall od-default       # uninstall
 ```
 
 모든 명령은 `--json`을 지원하므로 `jq` / `xargs`를 거쳐 자동화로 파이프할 수 있습니다.
@@ -505,8 +505,8 @@ my-plugin/
 로컬에서 스캐폴드 + 검증:
 
 ```bash
-od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
-od plugin validate ./my-plugin                          # check manifest / file layout
+od-cli plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
+od-cli plugin validate ./my-plugin                          # check manifest / file layout
 pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ```
 
@@ -515,7 +515,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ### 플러그인 기여하기
 
 1. 플러그인 폴더를 [`plugins/community/`](../../plugins/community/)(서드파티 플러그인)에 넣거나 — Open Design와 함께 번들로 제공하려면 — [`plugins/_official/`](../../plugins/_official/)의 알맞은 티어에 넣으세요.
-2. 검증 통과: `od plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
+2. 검증 통과: `od-cli plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
 3. [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md)의 템플릿을 사용해 PR을 작성하세요(ID, 버전, 레인, 모드, 기능, 트리거 예시; 비주얼 플러그인에는 스크린샷 / 미리보기 첨부).
 4. 외부 레지스트리(skills.sh / ClawHub / 독립 GitHub)에 게시하려면 → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
 
@@ -581,8 +581,8 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] 패키징된 Electron 빌드 — macOS(Apple Silicon + Intel) + Windows(x64) + Linux AppImage(선택적 레인)
 - [ ] 코멘트 모드 정밀 편집 — 부분 출시됨; 안정적인 타깃 패칭 진행 중
 - [ ] AI가 내보내는 tweaks 패널 UX — 아직 구현되지 않음
-- [ ] `DESIGN.md`로 프로젝트를 스캐폴드하는 `npx od init`
-- [ ] 플러그인 SDK + `od plugin {add,list,remove,test,publish}` CLI
+- [ ] `DESIGN.md`로 프로젝트를 스캐폴드하는 `npx od-cli init`
+- [ ] 플러그인 SDK + `od-cli plugin {add,list,remove,test,publish}` CLI
 - [ ] Figma / Pencil → React / Next / Vue 마이그레이션 플러그인(알파)
 - [ ] 기존 코드베이스 새롭게 하기 플러그인(git 저장소 + `DESIGN.md`에 겨눔)
 

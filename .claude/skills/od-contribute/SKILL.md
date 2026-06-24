@@ -237,7 +237,7 @@ If the schema has drifted from the template (`templates/ISSUE-BODY-bug.md`), reg
 | `description` | "What went wrong? One sentence is fine." |
 | `steps` | "How can I reproduce it? Walk me through step by step." |
 | `expected` | "What did you expect to happen?" |
-| `version` | "Which OD version are you running? (About menu, or `od --version`)" |
+| `version` | "Which OD version are you running? (About menu, or `od-cli --version`)" |
 | `platform` | dropdown: macOS (Apple Silicon) / macOS (Intel) / Windows / Linux / Other |
 | `logs` | "Any error logs you can paste? Skip if you don't have them." |
 | `screenshots` | "Path to a screenshot? Skip if you don't have one." |

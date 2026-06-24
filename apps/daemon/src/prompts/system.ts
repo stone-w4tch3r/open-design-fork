@@ -829,7 +829,7 @@ export function composeSystemPrompt({
     parts.push(renderMediaGenerationContract(mediaExecution));
   } else {
     // Non-media projects (prototype, deck, etc.): inject a lightweight hint
-    // so the agent uses `od media generate` if the user asks for an image/video
+    // so the agent uses `od-cli media generate` if the user asks for an image/video
     // mid-session, rather than hunting for provider API keys in the environment.
     parts.push(MEDIA_DISPATCH_HINT);
   }

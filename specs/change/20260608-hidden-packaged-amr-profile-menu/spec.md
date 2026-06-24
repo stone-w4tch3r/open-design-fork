@@ -117,7 +117,7 @@ Profile among `local`, `test`, and `prod` while reusing the same bundled Vela
   `PUT /api/app-config`; it explicitly recommends not writing
   `app-config.json` directly from Electron main. Source:
   `/private/tmp/open-design-amr-profile-packaged-handoff.md`.
-- Handoff notes `od config set agentCliEnv` replaces the whole top-level
+- Handoff notes `od-cli config set agentCliEnv` replaces the whole top-level
   `agentCliEnv` object, so callers must merge existing `agentCliEnv` before
   writing. Source:
   `/private/tmp/open-design-amr-profile-packaged-handoff.md`.

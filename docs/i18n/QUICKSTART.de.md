@@ -68,7 +68,7 @@ pnpm tools-dev status          # verwaltete Runtimes prüfen
 pnpm tools-dev logs            # daemon/web/desktop logs anzeigen
 pnpm tools-dev check           # status + aktuelle logs + gängige Diagnosen
 pnpm tools-dev stop            # verwaltete Runtimes stoppen
-pnpm --filter @open-design/daemon build  # apps/daemon/dist/cli.js für `od` bauen
+pnpm --filter @open-design/daemon build  # apps/daemon/dist/cli.js für `od-cli` bauen
 pnpm --filter @open-design/web build     # Web-Paket bei Bedarf bauen
 pnpm typecheck                 # Workspace-Typecheck
 ```
@@ -212,7 +212,7 @@ Dieser Quickstart DARF diesen Vertrag NICHT wiederholen oder Speicherpfade defin
 
 ## Prüfungen für Mediengenerierung und Agent-Dispatcher
 
-Image-, Video-, Audio- und HyperFrames-Skills rufen die lokale `od` CLI über Umgebungsvariablen auf, die der daemon beim Start eines Agent injiziert:
+Image-, Video-, Audio- und HyperFrames-Skills rufen die lokale `od-cli` CLI über Umgebungsvariablen auf, die der daemon beim Start eines Agent injiziert:
 
 - `OD_BIN` — absoluter Pfad zu `apps/daemon/dist/cli.js`.
 - `OD_DAEMON_URL` — die laufende daemon-URL.
@@ -291,7 +291,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — spawns local agents + serves APIs
 │   │   └── src/
-│   │       ├── cli.ts             # `od` bin entry
+│   │       ├── cli.ts             # `od-cli` bin entry
 │   │       ├── server.ts          # /api/* + static serving
 │   │       ├── agents.ts          # PATH scanner for claude/codex/gemini/opencode/cursor-agent/qwen/copilot
 │   │       ├── skills.ts          # SKILL.md loader (frontmatter parser)
@@ -338,7 +338,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # re-import from upstream getdesign tarball
 ├── docs/                      # product vision + spec
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # root quality scripts + `od` bin
+└── package.json               # root quality scripts + `od-cli` bin
 ```
 
 ## Fehlerbehebung

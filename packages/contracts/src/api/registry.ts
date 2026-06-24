@@ -9,7 +9,7 @@ export interface AgentModelOption {
  * concrete handler (open a URL, re-run detection, write an env override,
  * launch the OAuth terminal flow). Keeping the intent typed — rather than a
  * pre-baked button label + URL — means the Settings card, the unavailable
- * grid, and (PR-B) the `od agent healthcheck` CLI / health-check panel all
+ * grid, and (PR-B) the `od-cli agent healthcheck` CLI / health-check panel all
  * render the same fix affordances from one source of truth instead of each
  * re-deriving copy and wiring.
  */

@@ -4,10 +4,10 @@
 // InstalledPluginRecord into a single health/inventory report.
 // Used by:
 //
-//   - `od plugin stats` — operator at-a-glance inventory check,
+//   - `od-cli plugin stats` — operator at-a-glance inventory check,
 //   - the desktop / web 'Plugins' settings panel (via the JSON
 //     mode of the same CLI),
-//   - the `od doctor` summary (a future patch can fold this in
+//   - the `od-cli doctor` summary (a future patch can fold this in
 //     without reimplementing the aggregation).
 //
 // The function is intentionally pure; the daemon route wires the
@@ -112,7 +112,7 @@ export interface SnapshotStatsRow {
 
 // Plan §3.MM2 — `pluginSourceBuckets()` aggregates installed
 // plugins by (sourceKind, source) tuples. Used by the
-// `od plugin sources` CLI; lives next to the other stats
+// `od-cli plugin sources` CLI; lives next to the other stats
 // helpers so future audit panels can reuse it.
 
 export interface PluginSourceBucket {

@@ -110,27 +110,27 @@ Dentro del Studio de un proyecto, el mismo sistema de diseño produce múltiples
 
 ## Compatibilidad de plataformas
 
-> Open Design se distribuye como **skills, una CLI y un servidor MCP** que los agentes de codificación más populares consumen de forma nativa. Una vez instalado OD, un único `od mcp install <agent>` conecta el servidor MCP a la configuración de ese agente, y llamas a las mismas herramientas desde dentro de cualquier agente.
+> Open Design se distribuye como **skills, una CLI y un servidor MCP** que los agentes de codificación más populares consumen de forma nativa. Una vez instalado OD, un único `od-cli mcp install <agent>` conecta el servidor MCP a la configuración de ese agente, y llamas a las mismas herramientas desde dentro de cualquier agente.
 
 | Agente de codificación / plataforma &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Estado &nbsp;&nbsp; | Instalación del servidor MCP en una línea &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ Compatible | `od mcp install claude` |
-| [Codex CLI](https://github.com/openai/codex) | ✅ Compatible | `od mcp install codex` |
-| [Cursor](https://www.cursor.com/cli) | ✅ Compatible | `od mcp install cursor` |
-| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ Compatible | `od mcp install copilot` |
-| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ Compatible | `od mcp install copilot` |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ Compatible | `od mcp install gemini` |
-| [OpenCode](https://opencode.ai/) | ✅ Compatible | `od mcp install opencode` |
-| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ Compatible | `od mcp install openclaw` |
-| [Antigravity](https://antigravity.google) | ✅ Compatible | `od mcp install antigravity` |
-| [Cline](https://github.com/cline/cline) | ✅ Compatible | `od mcp install cline` |
-| [Trae](https://www.trae.ai/) | ✅ Compatible | `od mcp install trae` |
-| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ Compatible | `od mcp install kimi` |
-| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ Compatible | `od mcp install pi` |
-| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ Compatible | `od mcp install vibe` |
-| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ Compatible | `od mcp install hermes` |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ Compatible | `od-cli mcp install claude` |
+| [Codex CLI](https://github.com/openai/codex) | ✅ Compatible | `od-cli mcp install codex` |
+| [Cursor](https://www.cursor.com/cli) | ✅ Compatible | `od-cli mcp install cursor` |
+| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ Compatible | `od-cli mcp install copilot` |
+| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ Compatible | `od-cli mcp install copilot` |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ Compatible | `od-cli mcp install gemini` |
+| [OpenCode](https://opencode.ai/) | ✅ Compatible | `od-cli mcp install opencode` |
+| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ Compatible | `od-cli mcp install openclaw` |
+| [Antigravity](https://antigravity.google) | ✅ Compatible | `od-cli mcp install antigravity` |
+| [Cline](https://github.com/cline/cline) | ✅ Compatible | `od-cli mcp install cline` |
+| [Trae](https://www.trae.ai/) | ✅ Compatible | `od-cli mcp install trae` |
+| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ Compatible | `od-cli mcp install kimi` |
+| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ Compatible | `od-cli mcp install pi` |
+| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ Compatible | `od-cli mcp install vibe` |
+| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ Compatible | `od-cli mcp install hermes` |
 
-`od mcp install <agent> --print` para una vista previa en seco · `--uninstall` para eliminar · lista completa con `od mcp install --help`.
+`od-cli mcp install <agent> --print` para una vista previa en seco · `--uninstall` para eliminar · lista completa con `od-cli mcp install --help`.
 
 <p align="center">
   <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="Las 21 CLIs de agentes de codificación que admite Open Design — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
@@ -302,7 +302,7 @@ Puedes usar Open Design sin abrir nunca la GUI — llámalo como skill, plugin o
 
 ```bash
 # One-line install into the agent you're using:
-od mcp install <agent>
+od-cli mcp install <agent>
 # <agent> = claude | codex | cursor | copilot | openclaw | antigravity | gemini
 #         | pi | vibe | hermes | cline | kimi | trae | opencode
 ```
@@ -361,14 +361,14 @@ Open Design distribuye un **servidor MCP por stdio** y **scripts de instalación
 
 ```bash
 # One-line install (16+ CLIs supported):
-od mcp install <agent>
+od-cli mcp install <agent>
 
 # Then the agent can:
-od search-files "primary button"      # search files across projects
-od get-file design-systems/linear-app/DESIGN.md
-od get-artifact <slug>                # latest rendered artifact
-od plugin run web-prototype --brief "..."
-od skill list --scenario marketing
+od-cli search-files "primary button"      # search files across projects
+od-cli get-file design-systems/linear-app/DESIGN.md
+od-cli get-artifact <slug>                # latest rendered artifact
+od-cli plugin run web-prototype --brief "..."
+od-cli skill list --scenario marketing
 ```
 
 **¿Por qué MCP?** Exportar y volver a adjuntar un zip en cada iteración rompe el flujo. MCP expone la fuente de diseño directamente — el agente siempre ve el archivo en vivo.
@@ -469,20 +469,20 @@ También [`plugins/community/`](../../plugins/community/) para plugins de la com
 
 ### Usar plugins
 
-Los plugins tienen plena paridad entre la **UI web** y la **CLI `od`** — los mismos endpoints `/api/plugins`, elige el que prefieras.
+Los plugins tienen plena paridad entre la **UI web** y la **CLI `od-cli`** — los mismos endpoints `/api/plugins`, elige el que prefieras.
 
 **En la app de escritorio / web:** abre la página **Plugin** para explorar el marketplace y haz clic en **Install**; dentro del Studio de un proyecto, los plugins aparecen como chips del compositor en los que haces clic para aplicar (con las entradas que declaran).
 
 **En la línea de comandos** (se ejecuta sin UI — esta es la vía que usan los agentes externos):
 
 ```bash
-od plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
-od plugin search "landing page"      # search by keyword
-od plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
-od plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
-od plugin apply od-default --input brief="a one-page pitch for our seed round"
-od plugin upgrade od-default         # upgrade
-od plugin uninstall od-default       # uninstall
+od-cli plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
+od-cli plugin search "landing page"      # search by keyword
+od-cli plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
+od-cli plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
+od-cli plugin apply od-default --input brief="a one-page pitch for our seed round"
+od-cli plugin upgrade od-default         # upgrade
+od-cli plugin uninstall od-default       # uninstall
 ```
 
 Cada comando admite `--json`, así que puedes canalizarlo a través de `jq` / `xargs` hacia tu automatización.
@@ -505,8 +505,8 @@ Campos principales de `open-design.json`: `specVersion` (actualmente `1.0.0`), `
 Genera el esqueleto + valida localmente:
 
 ```bash
-od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
-od plugin validate ./my-plugin                          # check manifest / file layout
+od-cli plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
+od-cli plugin validate ./my-plugin                          # check manifest / file layout
 pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ```
 
@@ -515,7 +515,7 @@ Conjunto completo de campos y contrato de runtime → [`plugins/spec/SPEC.md`](.
 ### Contribuir un plugin
 
 1. Suelta la carpeta del plugin en [`plugins/community/`](../../plugins/community/) (plugins de terceros), o — para distribuirlo empaquetado con Open Design — en el nivel correspondiente de [`plugins/_official/`](../../plugins/_official/).
-2. Pasa la validación: `od plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
+2. Pasa la validación: `od-cli plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
 3. Completa el PR usando la plantilla en [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) (ID, versión, vía, modo, capacidades, ejemplos de disparadores; adjunta una captura / vista previa para plugins visuales).
 4. Para publicar en un registro externo (skills.sh / ClawHub / GitHub independiente) → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
 
@@ -581,8 +581,8 @@ Arquitectura completa → [`docs/architecture.md`](../../docs/architecture.md). 
 - [x] Compilaciones empaquetadas de Electron — macOS (Apple Silicon + Intel) + Windows (x64) + Linux AppImage (vía opcional)
 - [ ] Ediciones quirúrgicas en modo comentario — parcialmente lanzado; aplicación de parches dirigida y fiable en progreso
 - [ ] UX del panel de ajustes emitido por IA — aún no implementado
-- [ ] `npx od init` para generar un proyecto con `DESIGN.md`
-- [ ] SDK de plugins + CLI `od plugin {add,list,remove,test,publish}`
+- [ ] `npx od-cli init` para generar un proyecto con `DESIGN.md`
+- [ ] SDK de plugins + CLI `od-cli plugin {add,list,remove,test,publish}`
 - [ ] Plugins de migración Figma / Pencil → React / Next / Vue (alfa)
 - [ ] Plugin de renovación de base de código existente (apuntar a un repo git + `DESIGN.md`)
 

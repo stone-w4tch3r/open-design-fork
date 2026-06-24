@@ -1,4 +1,4 @@
-// `od mcp` - stdio MCP server that proxies project tool calls to the
+// `od-cli mcp` - stdio MCP server that proxies project tool calls to the
 // running daemon's HTTP API. Lets a coding agent in a *different* repo
 // (Claude Code, Cursor, Zed) pull files from a local Open Design
 // project and create project-scoped artifacts without the
@@ -787,7 +787,7 @@ async function writeFile(baseUrl: string, args: McpArgs) {
   const encoding = args.encoding === 'base64' ? 'base64' : 'utf8';
   // No `artifact: true` and no `overwrite: false`: the route then takes
   // the default writeProjectFile path, which overwrites the target. This
-  // is the exact shape `od files write` uses (see apps/daemon/src/cli.ts).
+  // is the exact shape `od-cli files write` uses (see apps/daemon/src/cli.ts).
   const url = `${baseUrl}/api/projects/${encodeURIComponent(id)}/files`;
   const resp = await fetch(url, {
     method: 'POST',
@@ -1390,7 +1390,7 @@ async function getFile(baseUrl: string, project: string, relPath: string, active
   const mime = ((resp.headers.get('content-type') || 'application/octet-stream').split(';')[0] ?? 'application/octet-stream').trim();
   if (!isTextualMime(mime)) {
     return errorResult(
-      `file at "${relPath}" has mime "${mime}"; binary content is not yet supported by od mcp. Use list_files to inspect its metadata.`,
+      `file at "${relPath}" has mime "${mime}"; binary content is not yet supported by od-cli mcp. Use list_files to inspect its metadata.`,
     );
   }
   const text = await resp.text();

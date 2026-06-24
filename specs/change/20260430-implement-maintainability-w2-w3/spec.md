@@ -144,7 +144,7 @@ flowchart LR
 - A dedicated shared package makes the web/daemon boundary explicit while preserving the existing product architecture: web handles UI/proxy behavior and daemon owns local runtime capabilities. Source: `specs/current/architecture-boundaries.md:13-40`
 - Type-only W2 contracts deliver immediate drift protection and give W4 a stable target for runtime schemas. Source: `specs/current/maintainability-roadmap.md:57-60`
 - Separating transport events from UI events keeps daemon protocol evolution independent from rendering concerns and preserves the current liberal parser behavior. Source: `apps/web/src/providers/daemon.ts:85-151`, `apps/web/src/providers/daemon.ts:178-228`
-- A compiled daemon TypeScript target is the safest full migration end state for the package bin and root `od` entrypoint. Source: `apps/daemon/package.json:6-13`, `package.json:9-10`
+- A compiled daemon TypeScript target is the safest full migration end state for the package bin and root `od-cli` entrypoint. Source: `apps/daemon/package.json:6-13`, `package.json:9-10`
 
 ### Implementation Steps
 
@@ -226,7 +226,7 @@ Flow:
 - Malformed or partial SSE frames should preserve current parser tolerance until W4 validation defines stricter behavior. Source: `apps/web/src/providers/daemon.ts:163-176`
 - `/api/chat` currently emits terminal SSE errors and HTTP 400 JSON errors through different shapes; W2 should type both and allow incremental adoption. Source: `apps/daemon/src/server.ts:868-884`, `apps/daemon/src/server.ts:1170-1180`
 - Playwright reporter loading currently points to a `.cjs` reporter path; migration needs a compiled JS reporter path or supported TS execution path. Source: `e2e/playwright.config.ts:22-37`
-- The root `od` bin and daemon package bin currently point at JavaScript entrypoints; conversion to `.ts` requires a compiled output target before script/bin paths change. Source: `package.json:9-10`, `apps/daemon/package.json:6-13`
+- The root `od-cli` bin and daemon package bin currently point at JavaScript entrypoints; conversion to `.ts` requires a compiled output target before script/bin paths change. Source: `package.json:9-10`, `apps/daemon/package.json:6-13`
 - Shared contracts should stay pure and free of Next, Express, Node filesystem/process APIs, browser APIs, SQLite, and daemon internals. Source: `specs/current/architecture-boundaries.md:41-56`
 
 ## Plan
@@ -294,7 +294,7 @@ Flow:
 - `apps/daemon/*.ts` - migrated remaining daemon-owned modules, helpers, server entrypoint, CLI entrypoint, and daemon tests from `.js`/`.mjs` to `.ts` while preserving runtime `.js` ESM import specifiers for compiled output.
 - `apps/daemon/tsconfig.json` - switched daemon compilation to NodeNext module resolution, disabled JavaScript source inclusion, and added `dist` declaration/source-map emit.
 - `apps/daemon/package.json` - added daemon `build`, routed daemon/dev/start through compiled `dist/cli.js`, and updated the package bin to compiled output.
-- `package.json` - updated the root `od` bin to the compiled daemon CLI path.
+- `package.json` - updated the root `od-cli` bin to the compiled daemon CLI path.
 - `scripts/*.ts` - migrated root development and design-system sync scripts from MJS to TypeScript, using Node 24 `--experimental-strip-types` for direct script execution.
 - `scripts/tsconfig.json` - added strict TypeScript coverage for root operational scripts.
 - `e2e/scripts/*.ts` - migrated e2e cleanup and live runtime-adapter smoke scripts to TypeScript; the live script now builds and imports the compiled daemon output.

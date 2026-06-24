@@ -3,7 +3,7 @@
 // Lists every persisted surface for a project (project / conversation
 // tier) so the user can see what authorizations and confirmations have
 // been remembered, and revoke any of them. Mirrors the
-// `od ui list --project <id>` CLI surface; clicking Revoke calls
+// `od-cli ui list --project <id>` CLI surface; clicking Revoke calls
 // POST /api/projects/:projectId/genui/:surfaceId/revoke.
 
 import { useCallback, useEffect, useState } from 'react';

@@ -6577,9 +6577,9 @@ function MediaProvidersSection({
 // Important: every snippet uses absolute paths to the daemon's current
 // Node-compatible runtime and built cli.js, fetched at runtime. macOS
 // and Linux ship a system /usr/bin/od (octal-dump) that shadows any
-// `od` we might add to PATH, and most Open Design users run from
-// source where `od` is not installed globally. The installer panel
-// must NOT reference bare `od`.
+// `od-cli` we might add to PATH, and most Open Design users run from
+// source where `od-cli` is not installed globally. The installer panel
+// must NOT reference bare `od-cli`.
 type McpClientId =
   | 'claude'
   | 'codex'
@@ -6924,7 +6924,7 @@ function IntegrationsSection() {
   }, [pickerOpen]);
 
   // Pull the absolute paths to node + cli.js from the running daemon
-  // so snippets work even when `od` isn't on PATH (the realistic
+  // so snippets work even when `od-cli` isn't on PATH (the realistic
   // case for source clones, plus macOS/Linux ship a /usr/bin/od that
   // shadows any global install). Fetched on mount; if the daemon is
   // unreachable we surface a clear error instead of a half-built

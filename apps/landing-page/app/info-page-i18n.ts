@@ -368,7 +368,7 @@ export interface InfoPageCopy {
 const QUICKSTART_CODE = {
   install: 'git clone https://github.com/nexu-io/open-design\ncd open-design\npnpm install',
   start: 'pnpm tools-dev',
-  first: 'od skill run open-design-landing --output ./artifact.html',
+  first: 'od-cli skill run open-design-landing --output ./artifact.html',
 };
 
 const INFO_PAGE_COPY: Partial<Record<LandingLocaleCode, InfoPageCopy>> = {

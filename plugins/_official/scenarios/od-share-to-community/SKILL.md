@@ -16,7 +16,7 @@ Produce a folder named `generated-plugin/` in the active project workspace. At m
 
 - `SKILL.md` with frontmatter and clear agent instructions.
 - `open-design.json` with valid plugin metadata: `specVersion`, `name`, `version`, `description`, mode, task kind, inputs, plus any pipeline / context references the workflow needs.
-- `plugin.repo` is optional during scaffolding, but do not silently omit it: check `gh --version` and `gh auth status`, then prefer the local account login printed by auth status. Only use `gh api user --jq .login` as a fallback when auth status does not expose a login. If `gh` is missing, not logged in, rate-limited, or cannot resolve a real owner, omit `plugin.repo` instead of inventing an owner and explicitly report the auth problem with `gh auth refresh -h github.com -s repo,workflow`, `gh auth login -h github.com -s repo,workflow`, or `od plugin publish-repo generated-plugin --owner <github-login-or-org>` as recovery commands. Never write placeholder owners such as `open-design-user`, `<vendor>`, `example-user`, `your-org`, or `your-username` into the final manifest.
+- `plugin.repo` is optional during scaffolding, but do not silently omit it: check `gh --version` and `gh auth status`, then prefer the local account login printed by auth status. Only use `gh api user --jq .login` as a fallback when auth status does not expose a login. If `gh` is missing, not logged in, rate-limited, or cannot resolve a real owner, omit `plugin.repo` instead of inventing an owner and explicitly report the auth problem with `gh auth refresh -h github.com -s repo,workflow`, `gh auth login -h github.com -s repo,workflow`, or `od-cli plugin publish-repo generated-plugin --owner <github-login-or-org>` as recovery commands. Never write placeholder owners such as `open-design-user`, `<vendor>`, `example-user`, `your-org`, or `your-username` into the final manifest.
 - Optional `examples/` and `assets/` only when they help review or reuse.
 
 ## Auto-derive from the project — do not ask the user fields the files already answer
@@ -36,17 +36,17 @@ If a field truly cannot be derived (e.g. no artifact.json exists, no brand-spec,
 
 ## Validate the plugin locally before reporting
 
-Run `od plugin validate` on the folder, then `od plugin pack` for a tarball, then `od plugin install --source <absolute-folder-path>` to confirm the install path works.
+Run `od-cli plugin validate` on the folder, then `od-cli plugin pack` for a tarball, then `od-cli plugin install --source <absolute-folder-path>` to confirm the install path works.
 
 ## When the work above is done
 
-Write a single summary turn covering: files created, `od plugin validate` status, local install / run status, and `od plugin pack` output. Then STOP.
+Write a single summary turn covering: files created, `od-cli plugin validate` status, local install / run status, and `od-cli plugin pack` output. Then STOP.
 
 ## Do NOT chain the publish-repo / Open-Design-PR flows yourself
 
-Do NOT suggest follow-up CLI commands such as `od plugin publish`, `od plugin publish --to open-design`, `gh repo create`, `git init` / `git remote add` / `git push`, or any other publish / repo wiring. The plugin-folder card under Design Files already exposes three buttons whose prompts drive those flows end-to-end with the right auth gates, fallbacks, and retry rules baked in:
+Do NOT suggest follow-up CLI commands such as `od-cli plugin publish`, `od-cli plugin publish --to open-design`, `gh repo create`, `git init` / `git remote add` / `git push`, or any other publish / repo wiring. The plugin-folder card under Design Files already exposes three buttons whose prompts drive those flows end-to-end with the right auth gates, fallbacks, and retry rules baked in:
 
-- **Add to My plugins** — already satisfied by this turn's `od plugin install --source` step.
+- **Add to My plugins** — already satisfied by this turn's `od-cli plugin install --source` step.
 - **Publish repo** — creates / updates the author's `plugin.repo` GitHub repo through a gh + git sequence the agent is told exactly how to run.
 - **Open Design PR** — opens a draft PR against `nexu-io/open-design` for the community catalog.
 

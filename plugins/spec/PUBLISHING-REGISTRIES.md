@@ -47,7 +47,7 @@ For Open Design plugin authors:
 
 ```bash
 npx skills add owner/repo --skill my-plugin
-od plugin install https://github.com/owner/repo
+od-cli plugin install https://github.com/owner/repo
 ```
 
 - Add a badge once the public source is stable:
@@ -123,7 +123,7 @@ Public skill registries are supply-chain surfaces. Before publishing:
 
 - `pnpm guard`:
 - `pnpm --filter @open-design/plugin-runtime typecheck`:
-- `od plugin validate ./path/to/plugin`:
+- `od-cli plugin validate ./path/to/plugin`:
 - `npx skills add ... --list`:
 - `clawhub skill publish ./path --dry-run` or equivalent:
 ```

@@ -45,7 +45,7 @@ interface DiagnosticsManifestFile {
 
 describe('diagnostics export handler — non-sidecar launch', () => {
   // Reviewer-requested regression spec: `runDaemonCliStartup()` calls
-  // `startDaemonRuntime()` without a runtime context, so plain `od` users
+  // `startDaemonRuntime()` without a runtime context, so plain `od-cli` users
   // hit the diagnostics handler with `options.runtime == null`. The bundle
   // must still produce a valid zip AND surface a manifest warning that
   // file-based logs were not captured, so the operator can tell the

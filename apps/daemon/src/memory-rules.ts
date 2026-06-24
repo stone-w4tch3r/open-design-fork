@@ -67,7 +67,7 @@ Output STRICT JSON in this exact shape — nothing else, no prose, no markdown f
 If nothing worth a rule, return: {"entries": []}`;
 
 // Parse a rule memory body (`Assertion:` / `Check:` / `Verified by:` /
-// `Rationale:` lines, as written by OdCard.keep and `od memory rule add`) back
+// `Rationale:` lines, as written by OdCard.keep and `od-cli memory rule add`) back
 // into the structured proposal fields. Tolerant: a body that is just prose
 // falls back to using the whole body as the assertion.
 export function parseRuleBody(body: string): {

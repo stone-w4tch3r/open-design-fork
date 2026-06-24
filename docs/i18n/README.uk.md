@@ -110,27 +110,27 @@ Open Design — це те, що ви отримуєте, коли **agent-native
 
 ## Сумісність платформ
 
-> Open Design постачається як **навички, CLI та сервер MCP**, які основні кодувальні агенти споживають нативно. Щойно OD встановлено, одна команда `od mcp install <agent>` під'єднує сервер MCP до конфігурації цього агента, і ви викликаєте ті самі інструменти зсередини будь-якого агента.
+> Open Design постачається як **навички, CLI та сервер MCP**, які основні кодувальні агенти споживають нативно. Щойно OD встановлено, одна команда `od-cli mcp install <agent>` під'єднує сервер MCP до конфігурації цього агента, і ви викликаєте ті самі інструменти зсередини будь-якого агента.
 
 | Кодувальний агент / платформа &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | Статус &nbsp;&nbsp; | Встановлення сервера MCP одним рядком &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ Підтримується | `od mcp install claude` |
-| [Codex CLI](https://github.com/openai/codex) | ✅ Підтримується | `od mcp install codex` |
-| [Cursor](https://www.cursor.com/cli) | ✅ Підтримується | `od mcp install cursor` |
-| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ Підтримується | `od mcp install copilot` |
-| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ Підтримується | `od mcp install copilot` |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ Підтримується | `od mcp install gemini` |
-| [OpenCode](https://opencode.ai/) | ✅ Підтримується | `od mcp install opencode` |
-| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ Підтримується | `od mcp install openclaw` |
-| [Antigravity](https://antigravity.google) | ✅ Підтримується | `od mcp install antigravity` |
-| [Cline](https://github.com/cline/cline) | ✅ Підтримується | `od mcp install cline` |
-| [Trae](https://www.trae.ai/) | ✅ Підтримується | `od mcp install trae` |
-| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ Підтримується | `od mcp install kimi` |
-| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ Підтримується | `od mcp install pi` |
-| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ Підтримується | `od mcp install vibe` |
-| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ Підтримується | `od mcp install hermes` |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ Підтримується | `od-cli mcp install claude` |
+| [Codex CLI](https://github.com/openai/codex) | ✅ Підтримується | `od-cli mcp install codex` |
+| [Cursor](https://www.cursor.com/cli) | ✅ Підтримується | `od-cli mcp install cursor` |
+| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ Підтримується | `od-cli mcp install copilot` |
+| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ Підтримується | `od-cli mcp install copilot` |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ Підтримується | `od-cli mcp install gemini` |
+| [OpenCode](https://opencode.ai/) | ✅ Підтримується | `od-cli mcp install opencode` |
+| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ Підтримується | `od-cli mcp install openclaw` |
+| [Antigravity](https://antigravity.google) | ✅ Підтримується | `od-cli mcp install antigravity` |
+| [Cline](https://github.com/cline/cline) | ✅ Підтримується | `od-cli mcp install cline` |
+| [Trae](https://www.trae.ai/) | ✅ Підтримується | `od-cli mcp install trae` |
+| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ Підтримується | `od-cli mcp install kimi` |
+| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ Підтримується | `od-cli mcp install pi` |
+| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ Підтримується | `od-cli mcp install vibe` |
+| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ Підтримується | `od-cli mcp install hermes` |
 
-`od mcp install <agent> --print` для попереднього перегляду без застосування · `--uninstall` для видалення · повний список через `od mcp install --help`.
+`od-cli mcp install <agent> --print` для попереднього перегляду без застосування · `--uninstall` для видалення · повний список через `od-cli mcp install --help`.
 
 <p align="center">
   <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 21 coding-agent CLIs Open Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
@@ -302,7 +302,7 @@ Open Design (OD) — це альтернатива з відкритим код�
 
 ```bash
 # One-line install into the agent you're using:
-od mcp install <agent>
+od-cli mcp install <agent>
 # <agent> = claude | codex | cursor | copilot | openclaw | antigravity | gemini
 #         | pi | vibe | hermes | cline | kimi | trae | opencode
 ```
@@ -361,14 +361,14 @@ Open Design постачає **сервер MCP через stdio** та **скр
 
 ```bash
 # One-line install (16+ CLIs supported):
-od mcp install <agent>
+od-cli mcp install <agent>
 
 # Then the agent can:
-od search-files "primary button"      # search files across projects
-od get-file design-systems/linear-app/DESIGN.md
-od get-artifact <slug>                # latest rendered artifact
-od plugin run web-prototype --brief "..."
-od skill list --scenario marketing
+od-cli search-files "primary button"      # search files across projects
+od-cli get-file design-systems/linear-app/DESIGN.md
+od-cli get-artifact <slug>                # latest rendered artifact
+od-cli plugin run web-prototype --brief "..."
+od-cli skill list --scenario marketing
 ```
 
 **Чому MCP?** Експорт і повторне приєднання zip-архіву на кожній ітерації порушує потік. MCP відкриває джерело дизайну безпосередньо — агент завжди бачить живий файл.
@@ -469,20 +469,20 @@ od skill list --scenario marketing
 
 ### Використання плагінів
 
-Плагіни мають повний паритет між **вебінтерфейсом** та **CLI `od`** — ті самі кінцеві точки `/api/plugins`, виберіть те, що підходить.
+Плагіни мають повний паритет між **вебінтерфейсом** та **CLI `od-cli`** — ті самі кінцеві точки `/api/plugins`, виберіть те, що підходить.
 
 **У десктопному / вебзастосунку:** відкрийте сторінку **Plugin**, щоб переглянути маркетплейс, і натисніть **Install**; усередині Studio проєкту плагіни з'являються як чипи композитора, на які ви натискаєте для застосування (з входами, які вони декларують).
 
 **У командному рядку** (працює без UI — це шлях, який використовують зовнішні агенти):
 
 ```bash
-od plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
-od plugin search "landing page"      # search by keyword
-od plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
-od plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
-od plugin apply od-default --input brief="a one-page pitch for our seed round"
-od plugin upgrade od-default         # upgrade
-od plugin uninstall od-default       # uninstall
+od-cli plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
+od-cli plugin search "landing page"      # search by keyword
+od-cli plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
+od-cli plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
+od-cli plugin apply od-default --input brief="a one-page pitch for our seed round"
+od-cli plugin upgrade od-default         # upgrade
+od-cli plugin uninstall od-default       # uninstall
 ```
 
 Кожна команда підтримує `--json`, тож ви можете пропустити її через `jq` / `xargs` в автоматизацію.
@@ -505,8 +505,8 @@ my-plugin/
 Каркасування + валідація локально:
 
 ```bash
-od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
-od plugin validate ./my-plugin                          # check manifest / file layout
+od-cli plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
+od-cli plugin validate ./my-plugin                          # check manifest / file layout
 pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ```
 
@@ -515,7 +515,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ### Внесок плагіна
 
 1. Покладіть теку плагіна в [`plugins/community/`](../../plugins/community/) (сторонні плагіни), або — щоб постачати його в комплекті з Open Design — у відповідний рівень [`plugins/_official/`](../../plugins/_official/).
-2. Пройдіть валідацію: `od plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
+2. Пройдіть валідацію: `od-cli plugin validate`, `pnpm guard`, `pnpm --filter @open-design/plugin-runtime typecheck`.
 3. Заповніть PR за шаблоном у [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) (ID, версія, лінія, режим, можливості, приклади тригерів; додайте скриншот / попередній перегляд для візуальних плагінів).
 4. Щоб опублікувати у зовнішньому реєстрі (skills.sh / ClawHub / окремий GitHub) → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md).
 
@@ -581,8 +581,8 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] Упаковані збірки Electron — macOS (Apple Silicon + Intel) + Windows (x64) + Linux AppImage (опціональна лінія)
 - [ ] Хірургічні правки в режимі коментарів — частково випущено; надійне цільове патчування в розробці
 - [ ] UX панелі налаштувань, виданої ШІ — ще не реалізовано
-- [ ] `npx od init` для каркасування проєкту з `DESIGN.md`
-- [ ] Plugin SDK + CLI `od plugin {add,list,remove,test,publish}`
+- [ ] `npx od-cli init` для каркасування проєкту з `DESIGN.md`
+- [ ] Plugin SDK + CLI `od-cli plugin {add,list,remove,test,publish}`
 - [ ] Плагіни міграції Figma / Pencil → React / Next / Vue (alpha)
 - [ ] Плагін оновлення наявної кодової бази (спрямувати на репозиторій git + `DESIGN.md`)
 

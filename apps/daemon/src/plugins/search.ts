@@ -5,9 +5,9 @@
 // structural filters (taskKind / mode / tag / trust).
 //
 // The function is consumed by:
-//   - `od plugin search <query>` (new in §3.Y1) — searches installed
+//   - `od-cli plugin search <query>` (new in §3.Y1) — searches installed
 //     plugins for discovery,
-//   - `od plugin list --filter ...` (new in §3.Y1) — same filter
+//   - `od-cli plugin list --filter ...` (new in §3.Y1) — same filter
 //     surface without requiring a query.
 //
 // The matcher is intentionally simple — case-insensitive substring

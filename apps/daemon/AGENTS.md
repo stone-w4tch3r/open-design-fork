@@ -7,7 +7,7 @@ Follow the root `AGENTS.md` and `apps/AGENTS.md` first. This file records daemon
 `apps/daemon` is the local Express + SQLite daemon and owns:
 
 - `/api/*` HTTP routes and SSE streams.
-- The `od` CLI entrypoint in `src/cli.ts`.
+- The `od-cli` CLI entrypoint in `src/cli.ts`.
 - Project persistence, generated files, artifacts, media, skills, design systems, plugins, MCP, connector credentials, automation state, agent spawning, and static serving.
 - The daemon sidecar entry under `sidecar/`.
 
@@ -101,7 +101,7 @@ Guidelines:
 User-facing capabilities must be reachable through both:
 
 - Web/API routes in the daemon.
-- `od` CLI subcommands in `src/cli.ts`.
+- `od-cli` CLI subcommands in `src/cli.ts`.
 
 When adding a user-facing capability, close the loop in one change: contract type, daemon route, web surface if applicable, and CLI command with `--json` plus `--prompt-file <path|->` for long prompts where relevant.
 

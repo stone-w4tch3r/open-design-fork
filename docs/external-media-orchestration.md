@@ -14,7 +14,7 @@ Run-scoped `mediaExecution` controls only Open Design-owned media generation.
 It applies to:
 
 - token-gated `/api/tools/media/generate`
-- in-run `od media generate` when `OD_TOOL_TOKEN` is present
+- in-run `od-cli media generate` when `OD_TOOL_TOKEN` is present
 - Open Design's Codex image generation prompt override
 - Open Design's media generation prompt contract
 
@@ -29,7 +29,7 @@ owner decision for that product surface.
 ## Recommended Composition
 
 Use HTTP/SSE between the external service and Open Design. Avoid shelling out to
-`od` from the external service unless the integration specifically needs the CLI
+`od-cli` from the external service unless the integration specifically needs the CLI
 contract.
 
 1. The external service authenticates the caller and decides provider policy.
@@ -141,7 +141,7 @@ not provider-account governance.
 `POST /api/projects/:id/media/generate` predates run-scoped media policy. It is
 still available for normal Open Design media generation outside the in-run tool
 path. The accepted v1 policy closes the cooperative in-run CLI path by routing
-`od media generate` through `/api/tools/media/generate` when `OD_TOOL_TOKEN` is
+`od-cli media generate` through `/api/tools/media/generate` when `OD_TOOL_TOKEN` is
 present.
 
 A raw local HTTP call from inside a run can still reach the legacy project route

@@ -68,7 +68,7 @@ function pluginShareActionToCli(action: PluginShareAction) {
     return {
       argv: ['plugin', 'publish-repo'],
       title: 'Publish repo',
-      command: 'od plugin publish-repo',
+      command: 'od-cli plugin publish-repo',
       successMessage: 'Published plugin to GitHub.',
       failureCode: 'publish-repo-failed',
     };
@@ -76,7 +76,7 @@ function pluginShareActionToCli(action: PluginShareAction) {
   return {
     argv: ['plugin', 'open-design-pr'],
     title: 'Open Design PR',
-    command: 'od plugin open-design-pr',
+    command: 'od-cli plugin open-design-pr',
     successMessage: 'Opened Open Design PR flow.',
     failureCode: 'open-design-pr-failed',
   };

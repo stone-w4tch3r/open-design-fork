@@ -39,7 +39,7 @@ describe('CLI startup boundaries', () => {
     expect(output).not.toContain('DIAGNOSTICS_STRING_FLAGS');
   });
 
-  it('keeps od daemon start alive until SIGTERM and reports the actual listening port', async () => {
+  it('keeps od-cli daemon start alive until SIGTERM and reports the actual listening port', async () => {
     const root = await mkdtemp(join(tmpdir(), 'od-cli-daemon-start-'));
     const dataDir = join(root, 'data');
     await mkdir(dataDir);

@@ -205,7 +205,7 @@ pnpm tools-dev status          # 관리 중인 런타임 확인
 pnpm tools-dev logs            # daemon/web/desktop 로그 보기
 pnpm tools-dev check           # 상태 + 최근 로그 + 일반 진단
 pnpm tools-dev stop            # 관리 중인 런타임 중지
-pnpm --filter @open-design/daemon build  # `od`용 apps/daemon/dist/cli.js 빌드
+pnpm --filter @open-design/daemon build  # `od-cli`용 apps/daemon/dist/cli.js 빌드
 pnpm --filter @open-design/web build     # 필요할 때 web 패키지 빌드
 pnpm typecheck                 # 워크스페이스 타입 체크
 ```
@@ -216,7 +216,7 @@ pnpm typecheck                 # 워크스페이스 타입 체크
 
 ## 미디어 생성 / 에이전트 dispatcher 점검
 
-이미지, 비디오, 오디오, HyperFrames skill은 daemon이 에이전트를 spawn할 때 주입하는 환경 변수를 통해 로컬 `od` CLI를 호출합니다.
+이미지, 비디오, 오디오, HyperFrames skill은 daemon이 에이전트를 spawn할 때 주입하는 환경 변수를 통해 로컬 `od-cli` CLI를 호출합니다.
 
 - `OD_BIN` — `apps/daemon/dist/cli.js`의 절대 경로.
 - `OD_DAEMON_URL` — 실행 중인 daemon URL.
@@ -295,7 +295,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express — 로컬 에이전트 spawn + API 서빙
 │   │   └── src/
-│   │       ├── cli.ts             # `od` bin 진입점
+│   │       ├── cli.ts             # `od-cli` bin 진입점
 │   │       ├── server.ts          # /api/* + 정적 서빙
 │   │       ├── agents.ts          # claude/codex/devin/gemini/opencode/cursor-agent/qwen/qoder/copilot용 PATH 스캐너
 │   │       ├── skills.ts          # SKILL.md 로더 (frontmatter 파서)
@@ -342,7 +342,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # 업스트림 getdesign tarball에서 다시 import
 ├── docs/                      # 제품 비전 + 스펙
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # 루트 품질 스크립트 + `od` bin
+└── package.json               # 루트 품질 스크립트 + `od-cli` bin
 ```
 
 ## 문제 해결

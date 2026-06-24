@@ -1,7 +1,7 @@
 // Plan §3.B4 — marketplaces add / list / refresh / remove / trust unit tests.
 //
 // Locks the storage half of the federated catalog story. The Phase 3
-// follow-up will layer on `od plugin install <name>` resolution +
+// follow-up will layer on `od-cli plugin install <name>` resolution +
 // trust UI, but the storage layout here is the contract that lookup
 // will read against.
 

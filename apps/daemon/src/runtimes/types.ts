@@ -180,7 +180,7 @@ export type RuntimeAgentDef = {
   // null or the synthetic 'default'. Used by adapters whose CLI rejects
   // 'default' (e.g. AMR / vela) so an operator can swap the hardcoded
   // fallback without a code change — set the env var on the daemon
-  // process when launching `tools-dev` / `od` daemon. The value must be
+  // process when launching `tools-dev` / `od-cli` daemon. The value must be
   // present in the daemon's `process.env`; Settings-UI per-agent env
   // values only reach the spawned child and are NOT consulted here.
   defaultModelEnvVar?: string;

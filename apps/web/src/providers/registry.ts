@@ -2032,7 +2032,7 @@ export async function dirExists(path: string): Promise<boolean> {
 // Global most-recently-used working directories (the local folders the user
 // grants the agent read-only awareness of). Persisted in the daemon's
 // app-config so they survive browser resets and are shared across projects
-// and the `od` CLI. Returns most-recent-first.
+// and the `od-cli` CLI. Returns most-recent-first.
 export async function fetchRecentLinkedDirs(): Promise<string[]> {
   try {
     // `/api/recent-dirs` returns the list pruned to folders that still exist

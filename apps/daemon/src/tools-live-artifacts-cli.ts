@@ -24,10 +24,10 @@ interface ParsedOptions {
 }
 
 const LIVE_ARTIFACTS_USAGE = `Usage:
-  od tools live-artifacts create --input artifact.json
-  od tools live-artifacts list [--format compact]
-  od tools live-artifacts refresh --artifact-id <id>
-  od tools live-artifacts update --artifact-id <id> --input artifact.json
+  od-cli tools live-artifacts create --input artifact.json
+  od-cli tools live-artifacts list [--format compact]
+  od-cli tools live-artifacts refresh --artifact-id <id>
+  od-cli tools live-artifacts update --artifact-id <id> --input artifact.json
 
 Environment:
   OD_NODE_BIN     Node-compatible runtime for agent wrapper invocations

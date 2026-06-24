@@ -1,10 +1,10 @@
-// Phase 4 / spec §14.1 — `od plugin scaffold` starter folder generator.
+// Phase 4 / spec §14.1 — `od-cli plugin scaffold` starter folder generator.
 //
 // Pure, file-system-side helper that materialises the §17.2 "enriched
 // plugin" shape on disk: SKILL.md (canonical anchor, with the od:
 // frontmatter the skills protocol expects) + open-design.json (sidecar
 // with the v1 schema reference). Authors can drop the result into a
-// new git repo and start iterating immediately; `od plugin install ./<id>`
+// new git repo and start iterating immediately; `od-cli plugin install ./<id>`
 // will pick it up via the local-folder backend.
 //
 // Kept module-pure (no daemon globals): tests pass a temp directory as
@@ -136,8 +136,8 @@ export async function scaffoldPlugin(input: ScaffoldInput): Promise<ScaffoldResu
     '## Try it',
     '',
     '```bash',
-    `od plugin install ./${input.id}`,
-    `od plugin apply ${input.id} --input audience=VC`,
+    `od-cli plugin install ./${input.id}`,
+    `od-cli plugin apply ${input.id} --input audience=VC`,
     '```',
     '',
     '## Files',

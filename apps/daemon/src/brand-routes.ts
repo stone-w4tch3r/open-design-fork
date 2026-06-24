@@ -120,7 +120,7 @@ export function registerBrandRoutes(app: Application, deps: BrandRoutesDeps): vo
   });
 
   // POST /api/brands/:id/preview — re-render brand.html from the project's
-  // current brand.json. The extraction agent calls this (`od brand preview`)
+  // current brand.json. The extraction agent calls this (`od-cli brand preview`)
   // after each measurement pass so the kit page fills in live.
   app.post('/api/brands/:id/preview', async (req: Request, res: Response) => {
     const id = String(req.params.id);
@@ -147,7 +147,7 @@ export function registerBrandRoutes(app: Application, deps: BrandRoutesDeps): vo
 
   // POST /api/brands/:id/finalize — register the agent's extracted brand kit
   // (brand.json + assets in the backing project) as a `user:<id>` design system
-  // and mark the brand ready. Called by the agent / `od brand finalize`.
+  // and mark the brand ready. Called by the agent / `od-cli brand finalize`.
   app.post('/api/brands/:id/finalize', async (req: Request, res: Response) => {
     const id = String(req.params.id);
     const projectId =

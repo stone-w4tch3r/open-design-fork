@@ -11,7 +11,7 @@
 // inside the repo so a daemon upgrade rotates them in lockstep with the
 // daemon code.
 //
-// `od plugin uninstall` of a bundled plugin is rejected by the
+// `od-cli plugin uninstall` of a bundled plugin is rejected by the
 // installer (a future patch); for now, removing the row leaves the
 // next boot to re-register, so it's safe.
 //

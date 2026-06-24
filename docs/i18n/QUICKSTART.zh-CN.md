@@ -68,7 +68,7 @@ pnpm tools-dev status          # 检查托管的 runtime 状态
 pnpm tools-dev logs            # 查看 daemon / web / desktop 日志
 pnpm tools-dev check           # 查看 status + 最近日志 + 常见诊断
 pnpm tools-dev stop            # 停止托管 runtime
-pnpm --filter @open-design/daemon build  # 构建 apps/daemon/dist/cli.js，供 `od` 使用
+pnpm --filter @open-design/daemon build  # 构建 apps/daemon/dist/cli.js，供 `od-cli` 使用
 pnpm --filter @open-design/web build     # 在需要时构建 web package
 pnpm typecheck                 # 对整个 workspace 执行 typecheck
 ```
@@ -212,7 +212,7 @@ OD_API_TOKEN=
 
 ## 媒体生成 / agent dispatcher 排查
 
-Image、video、audio、HyperFrames 等 skill 在通过 daemon 启动 agent 时，会注入环境变量以调用本地 `od` CLI：
+Image、video、audio、HyperFrames 等 skill 在通过 daemon 启动 agent 时，会注入环境变量以调用本地 `od-cli` CLI：
 
 - `OD_BIN` —— `apps/daemon/dist/cli.js` 的绝对路径。
 - `OD_DAEMON_URL` —— 当前运行的 daemon URL。
@@ -291,7 +291,7 @@ open-design/
 ├── apps/
 │   ├── daemon/                # Node/Express —— 启动本地 agent + 提供 API
 │   │   └── src/
-│   │       ├── cli.ts             # `od` bin 入口
+│   │       ├── cli.ts             # `od-cli` bin 入口
 │   │       ├── server.ts          # /api/* + 静态资源
 │   │       ├── agents.ts          # 扫描 PATH 中的 claude/codex/devin/gemini/opencode/cursor-agent/qwen/qoder/copilot
 │   │       ├── skills.ts          # SKILL.md loader（frontmatter 解析器）
@@ -338,7 +338,7 @@ open-design/
 ├── scripts/sync-design-systems.ts    # 从上游 getdesign tarball 重新导入
 ├── docs/                      # 产品愿景 + spec
 ├── pnpm-workspace.yaml        # apps/* + packages/* + tools/* + e2e
-└── package.json               # 根级质量脚本 + `od` bin
+└── package.json               # 根级质量脚本 + `od-cli` bin
 ```
 
 ## 排障

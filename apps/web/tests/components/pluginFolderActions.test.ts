@@ -17,7 +17,7 @@ describe('buildPluginFolderAgentActionPrompt', () => {
     it('mentions the folder path and the supported install CLI', () => {
       const prompt = buildPluginFolderAgentActionPrompt(FOLDER, 'install');
       expect(prompt).toContain(`Plugin folder: \`${FOLDER}\``);
-      expect(prompt).toContain('od plugin install --source');
+      expect(prompt).toContain('od-cli plugin install --source');
     });
   });
 
@@ -46,7 +46,7 @@ describe('buildPluginFolderAgentActionPrompt', () => {
       // the agent had been routing back to it. The mention must be in a
       // negative imperative ("Do NOT call …"), not a recommendation.
       expect(prompt).toMatch(
-        /Do NOT (call|route through) `?od plugin publish --to open-design`?/i,
+        /Do NOT (call|route through) `?od-cli plugin publish --to open-design`?/i,
       );
       expect(prompt).toMatch(
         /registry[- ]submission|registry-submission flow|Open Design PR/i,
@@ -88,9 +88,9 @@ describe('buildPluginFolderAgentActionPrompt', () => {
       expect(prompt).toMatch(/fork\/clone\/copy\/branch\/push/i);
       expect(prompt).toContain('gh pr create --web');
       // The legacy CLI is named in the prompt only as part of an explicit
-      // ban ("Do NOT call the legacy `od plugin publish --to open-design`")
+      // ban ("Do NOT call the legacy `od-cli plugin publish --to open-design`")
       // — verify the ban is in place, not the bare command.
-      expect(prompt).toMatch(/do not call the legacy `od plugin publish --to open-design`/i);
+      expect(prompt).toMatch(/do not call the legacy `od-cli plugin publish --to open-design`/i);
     });
 
     it('uses --web so the author confirms the PR in browser', () => {

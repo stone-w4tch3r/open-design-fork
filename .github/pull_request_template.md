@@ -21,7 +21,7 @@ Fixes #
        - "Settings → AI Providers has a new 'Custom endpoint' field, off by default"
        - "Right-clicking a design file shows a new 'Duplicate' option"
        - "Default model changed from X to Y — existing users will notice on first launch"
-       - "New `od skills install <name>` subcommand"
+       - "New `od-cli skills install <name>` subcommand"
      Skip this section only if you check "None" below. -->
 
 
@@ -31,7 +31,7 @@ Fixes #
 
 - [ ] **UI** — new page / dialog / panel / menu item / setting / empty state in `apps/web` or `apps/desktop` (including Electron menu bar)
 - [ ] **Keyboard shortcut** — new or changed
-- [ ] **CLI / env var** — new `od` subcommand or flag, new `tools-dev` / `tools-pack` / `tools-pr` flag, or new `OD_*` env var
+- [ ] **CLI / env var** — new `od-cli` subcommand or flag, new `tools-dev` / `tools-pack` / `tools-pr` flag, or new `OD_*` env var
 - [ ] **API / contract** — new `/api/*` endpoint, new SSE event, or changed shape in `packages/contracts`
 - [ ] **Extension point** — new entry under `skills/`, `design-systems/`, `design-templates/`, or `craft/`, or change to the skills protocol
 - [ ] **i18n keys** — added new translation keys (see `TRANSLATIONS.md` for the locale workflow)

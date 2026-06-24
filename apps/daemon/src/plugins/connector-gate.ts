@@ -134,7 +134,7 @@ export function mergeAutoOAuthPrompts(
 }
 
 // Validate `od.connectors.required[].tools[]` against the catalog.
-// Returns issues grouped by connector. Used by `od plugin doctor` (F7).
+// Returns issues grouped by connector. Used by `od-cli plugin doctor` (F7).
 export function validateConnectorRefs(
   manifest: PluginManifest,
   probe: ConnectorProbe,

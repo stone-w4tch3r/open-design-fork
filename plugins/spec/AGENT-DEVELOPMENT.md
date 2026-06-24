@@ -65,9 +65,9 @@ pnpm --filter @open-design/plugin-runtime typecheck
 If the daemon CLI is built:
 
 ```bash
-od plugin validate ./<plugin-id>
-od plugin install ./<plugin-id>
-od plugin apply <plugin-id> --input key=value
+od-cli plugin validate ./<plugin-id>
+od-cli plugin install ./<plugin-id>
+od-cli plugin apply <plugin-id> --input key=value
 ```
 
 ## PR Output

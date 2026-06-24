@@ -211,7 +211,7 @@ preview 应展示真实输出形态，而不是装饰性的 splash screen。
 2. 确认 `open-design.json` 包含 `specVersion`，并在行为变化时 bump 插件 `version`。
 3. 运行 `pnpm guard`。
 4. 运行 `pnpm --filter @open-design/plugin-runtime typecheck`。
-5. 如果可用，运行 `od plugin validate ./path/to/plugin`。
+5. 如果可用，运行 `od-cli plugin validate ./path/to/plugin`。
 6. 视觉类插件包含一张截图、渲染 preview 或示例输出。
 7. 在 PR body 里说明 trust 和 capabilities。
 

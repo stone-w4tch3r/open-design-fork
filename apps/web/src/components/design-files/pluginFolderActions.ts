@@ -2,7 +2,7 @@ export type PluginFolderAgentAction = 'install' | 'publish' | 'contribute';
 
 const INSTALL_TITLE = 'Install this generated plugin into My plugins.';
 const INSTALL_NOTE =
-  'Prefer the supported `od plugin install --source` flow after confirming the manifest.';
+  'Prefer the supported `od-cli plugin install --source` flow after confirming the manifest.';
 
 export function buildPluginFolderAgentActionPrompt(
   relativePath: string,
@@ -17,7 +17,7 @@ export function buildPluginFolderAgentActionPrompt(
     `Plugin folder: \`${folderPath}\``,
     `Manifest: \`${folderPath}/open-design.json\``,
     '',
-    'Please do this through the `od` CLI from the current project workspace, not through hidden UI APIs.',
+    'Please do this through the `od-cli` CLI from the current project workspace, not through hidden UI APIs.',
     INSTALL_NOTE,
     'Read the manifest first to confirm the plugin name/version, run validation or doctor commands when relevant, then run the exact CLI command needed for this action.',
     'Report the commands you ran, the resulting URL/path if any, and any CLI, auth, or `gh` errors so I can ask follow-up questions in chat.',
@@ -55,15 +55,15 @@ function buildContributePrompt(folderPath: string): string {
     '- Do NOT try to install `gh`, `git`, or any other binary. Detect-and-instruct only.',
     '- Do NOT auto-submit the PR. The final Create click is the author\'s.',
     '- Do NOT retry a failed step. Report the error and stop.',
-    '- Do NOT call the legacy `od plugin publish --to open-design` CLI — that flow produces an issue URL, which is the old path we are replacing.',
+    '- Do NOT call the legacy `od-cli plugin publish --to open-design` CLI — that flow produces an issue URL, which is the old path we are replacing.',
   ].join('\n');
 }
 
 // `publish` pushes the generated plugin to the author's own public GitHub
 // repository named by manifest `plugin.repo`. It is NOT the registry
-// submission path — `od plugin publish --to open-design` produces an
+// submission path — `od-cli plugin publish --to open-design` produces an
 // Open Design issue URL and belongs to the "Open Design PR" button. Before
-// this rewrite the prompt said "Use the supported `od plugin publish` or
+// this rewrite the prompt said "Use the supported `od-cli plugin publish` or
 // repository-publish flow", which let the agent route through the legacy
 // registry-link builder and never actually create the author's repo (see
 // issue #2332). The new prompt enumerates the exact gh + git sequence and
@@ -76,7 +76,7 @@ function buildPublishPrompt(folderPath: string): string {
     `Plugin folder: \`${folderPath}\``,
     `Manifest: \`${folderPath}/open-design.json\``,
     '',
-    'This is the **repository publish** action, NOT the registry-submission action — do NOT route through `od plugin publish --to open-design`. That command emits an Open Design issue URL and belongs to the "Open Design PR" button.',
+    'This is the **repository publish** action, NOT the registry-submission action — do NOT route through `od-cli plugin publish --to open-design`. That command emits an Open Design issue URL and belongs to the "Open Design PR" button.',
     '',
     'Run this deterministic Open Design CLI workflow from the current project workspace:',
     '',
@@ -86,7 +86,7 @@ function buildPublishPrompt(folderPath: string): string {
     'Report the exact command, any structured CLI error, and the final repo URL printed by the CLI. Stop on failure; do not recreate the git/gh workflow manually.',
     '',
     '**Hard constraints.** Treat these as inviolable:',
-    '- Do NOT call `od plugin publish --to open-design` (or any `--to <catalog>` variant). That is the registry-submission flow, not the repository-publish flow.',
+    '- Do NOT call `od-cli plugin publish --to open-design` (or any `--to <catalog>` variant). That is the registry-submission flow, not the repository-publish flow.',
     '- Do NOT emit a `<question-form>` or any clarification UI that waits for the user. Fire-and-forget.',
     '- Do NOT try to install `gh`, `git`, or any other binary. Detect-and-instruct only.',
     '- Do NOT force-push (`--force` / `--force-with-lease`) and do NOT overwrite an existing tag. Fail and report instead.',

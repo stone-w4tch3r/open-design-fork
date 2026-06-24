@@ -10,7 +10,7 @@
 //     changed under their feet.
 //
 // Phase 1 returns a flat list of issues rather than a JSON-structured report;
-// the CLI renders them as `od plugin doctor <id>` output. Spec §11.5 promises
+// the CLI renders them as `od-cli plugin doctor <id>` output. Spec §11.5 promises
 // a richer report (severity / kind enum) which we'll layer in once Phase 4
 // adds the diagnostics endpoint.
 
@@ -169,7 +169,7 @@ export function doctorPlugin(
 }
 
 // Walk every snapshot for a project and flip those whose digest no longer
-// matches the live plugin's freshly computed digest. Called by `od plugin
+// matches the live plugin's freshly computed digest. Called by `od-cli plugin
 // doctor --project <id>` and the apply path when a plugin upgrade is
 // detected. Returns the list of snapshot ids that were re-tagged.
 export function markStaleSnapshotsForProject(

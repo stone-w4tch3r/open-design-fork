@@ -1,6 +1,6 @@
 # npm CLI Distribution Plan
 
-> Design doc for PR: publish `@open-design/daemon` as a public npm package with `od` CLI.
+> Design doc for PR: publish `@open-design/daemon` as a public npm package with `od-cli` CLI.
 > Mimics desktop packaged app resource bundling. Does not alter existing release pipeline.
 
 ## Design decisions
@@ -105,11 +105,11 @@ Container (node:24-bookworm-slim with build-essential + python3):
   2. Copy .tgz into container
   3. npm i -g ./open-design-daemon-*.tgz
   4. Verify od binary on PATH
-  5. Run: od --version
-  6. Run: od --help
-  7. Run: od daemon start --no-open --port <random>  (verify daemon boots)
-  8. Run: od daemon status --json --daemon-url <url>  (verify API responds)
-  9. Run: od mcp install --print codex               (verify MCP install logic)
+  5. Run: od-cli --version
+  6. Run: od-cli --help
+  7. Run: od-cli daemon start --no-open --port <random>  (verify daemon boots)
+  8. Run: od-cli daemon status --json --daemon-url <url>  (verify API responds)
+  9. Run: od-cli mcp install --print codex               (verify MCP install logic)
   10. Run: od doctor --json                           (verify health check)
   11. Kill daemon, remove container
 ```
@@ -140,12 +140,12 @@ WORKDIR /test
 2. npm pack (produce .tgz in apps/daemon/)
 3. docker run --rm -v <tgz>:/test/pkg.tgz <image> bash -c '
      npm i -g /test/pkg.tgz &&
-     od --version &&
-     od --help &&
-     od daemon start --no-open --port 17456 &
-     sleep 5 &&
-     od daemon status --json --daemon-url http://127.0.0.1:17456 &&
-     od mcp install --print codex &&
+     od-cli --version &&
+     od-cli --help &&
+     od-cli daemon start --no-open --port 17456 &
+
+     od-cli daemon status --json --daemon-url http://127.0.0.1:17456 &&
+     od-cli mcp install --print codex &&
      od doctor --json &&
      kill %1
    '
@@ -265,8 +265,8 @@ Package-level README documenting:
 - What this package is (Open Design daemon + CLI)
 - Install: `npm i -g @open-design/daemon`
 - Prerequisites: Node ~24, C++ build toolchain
-- Quick start: `od` (starts daemon + opens web UI)
-- Key commands: `od --help`, `od daemon start`, `od mcp install <agent>`
+- Quick start: `od-cli` (starts daemon + opens web UI)
+- Key commands: `od-cli --help`, `od-cli daemon start`, `od-cli mcp install <agent>`
 - Platform notes: Windows needs VS Build Tools, Linux needs build-essential, macOS needs Xcode CLT
 - Troubleshooting: native build failures, daemon port conflicts
 
@@ -289,7 +289,7 @@ pnpm typecheck
 Add a job to `ci.yml` (or a focused workflow) that:
 1. Runs `build:publish` (host: build daemon, web, resources, produce .tgz)
 2. Runs `validate:publish` (host: check package contents)
-3. Runs `test:install` (Docker: install .tgz in clean `node:24-bookworm-slim` with build toolchain, smoke `od` commands)
+3. Runs `test:install` (Docker: install .tgz in clean `node:24-bookworm-slim` with build toolchain, smoke `od-cli` commands)
 4. Uploads the `.tgz` as a CI artifact for manual inspection
 
 ### Cross-platform smoke

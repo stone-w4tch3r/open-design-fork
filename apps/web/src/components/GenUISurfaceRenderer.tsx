@@ -167,7 +167,7 @@ export function GenUISurfaceRenderer(props: Props) {
   //     { kind: 'genui:respond', value } envelope. Other messages are
   //     ignored.
   //   - The capability gate (`genui:custom-component`) was enforced at
-  //     install time by `od plugin doctor`; the renderer trusts the
+  //     install time by `od-cli plugin doctor`; the renderer trusts the
   //     manifest's `component` field and falls back to the default
   //     when missing.
   //

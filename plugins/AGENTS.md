@@ -31,5 +31,5 @@ pnpm --filter @open-design/plugin-runtime typecheck
 When the daemon CLI is built and available, also validate runnable plugin folders with:
 
 ```bash
-od plugin validate ./plugins/spec/examples/<plugin-id>
+od-cli plugin validate ./plugins/spec/examples/<plugin-id>
 ```

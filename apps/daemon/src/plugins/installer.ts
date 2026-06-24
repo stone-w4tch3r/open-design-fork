@@ -747,7 +747,7 @@ export async function* installFromLocalFolder(
 
   // Plan §3.II1 / §3.JJ1 — emit 'plugin.installed' OR
   // 'plugin.upgraded' (per opts.eventKind) so ops dashboards +
-  // `od plugin events tail` see the operation land in the in-
+  // `od-cli plugin events tail` see the operation land in the in-
   // memory ring buffer. Best-effort; recordPluginEvent never
   // throws.
   recordPluginEvent({

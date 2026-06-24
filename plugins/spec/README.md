@@ -52,9 +52,9 @@ pnpm --filter @open-design/plugin-runtime typecheck
 When the daemon CLI is built:
 
 ```bash
-od plugin validate ./path/to/plugin
-od plugin install ./path/to/plugin
-od plugin apply <plugin-id> --input key=value
+od-cli plugin validate ./path/to/plugin
+od-cli plugin install ./path/to/plugin
+od-cli plugin apply <plugin-id> --input key=value
 ```
 
 ## Compatibility Promise

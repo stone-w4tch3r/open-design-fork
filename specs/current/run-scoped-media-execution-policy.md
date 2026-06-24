@@ -40,7 +40,7 @@ Open Design already has a media dispatcher. It is local-first and daemon-owned:
 - `apps/daemon/src/media-config.ts` owns local provider credentials and config.
 - `apps/daemon/src/media-tasks.ts` owns task snapshots, progress, waits, and
   persistence.
-- `apps/daemon/src/cli.ts` exposes `od media generate` and `od media wait` as
+- `apps/daemon/src/cli.ts` exposes `od-cli media generate` and `od-cli media wait` as
   the shell-callable surface used by agents.
 - `apps/daemon/src/prompts/media-contract.ts` instructs media-surface agents to
   call `"$OD_NODE_BIN" "$OD_BIN" media generate ...`.
@@ -60,7 +60,7 @@ The run layer already has a scoped tool-token primitive:
 
 The current media path is correct for normal OD use. It is too permissive for
 an externally orchestrated creative execution path because an agent inside a
-run can shell out to `od media generate`, causing OD to spend provider budget
+run can shell out to `od-cli media generate`, causing OD to spend provider budget
 and use OD-held credentials. For this integration shape, OD should contribute
 creative context, skills, design systems, previews, artifacts, and
 design-aware workflow, while the external orchestrator owns caller auth,
@@ -153,7 +153,7 @@ and task execution work as they do today.
 
 `disabled` means this run must not generate media bytes or create media
 requests. Attempts fail with a structured policy error. The prompt should not
-tell the agent to call `od media generate`.
+tell the agent to call `od-cli media generate`.
 
 `request-only` means the agent may create structured media requests. OD stores
 the request and emits events, but does not call providers or write media bytes.
@@ -229,7 +229,7 @@ Behavior by mode:
 | `request-only` | Create a `MediaRequest`, emit an event, return request metadata. |
 | `external` | Create a `MediaRequest`, submit it to the external executor, and update status from executor response. |
 
-`od media generate` should prefer this endpoint when `OD_TOOL_TOKEN` is present.
+`od-cli media generate` should prefer this endpoint when `OD_TOOL_TOKEN` is present.
 Outside a run, it can continue using the existing project endpoint so normal OD
 and current UI flows remain compatible.
 
@@ -252,12 +252,12 @@ layer.
 
 ### CLI
 
-The CLI already has `od media generate` and `od media wait`. The first patch
+The CLI already has `od-cli media generate` and `od-cli media wait`. The first patch
 should add:
 
 ```text
-od media requests list --run <runId> --json
-od media requests fulfill <requestId> --file <project-relative-path> --json
+od-cli media requests list --run <runId> --json
+od-cli media requests fulfill <requestId> --file <project-relative-path> --json
 ```
 
 If maintainers prefer a smaller first patch, list/fulfill can be hidden behind
@@ -406,9 +406,9 @@ provider work.
 Keep `/api/projects/:id/media/generate` for existing UI and outside-run CLI
 use. Add a stricter path for in-run calls:
 
-- If `OD_TOOL_TOKEN` is present, `od media generate` posts to
+- If `OD_TOOL_TOKEN` is present, `od-cli media generate` posts to
   `/api/tools/media/generate`.
-- If no token is present, `od media generate` keeps posting to the legacy
+- If no token is present, `od-cli media generate` keeps posting to the legacy
   project endpoint.
 - If a token is present but invalid or disallowed, fail closed instead of
   falling back to the legacy endpoint.
@@ -425,7 +425,7 @@ mode:
 | Mode | Prompt guidance |
 |---|---|
 | `enabled` | Current media generation contract. |
-| `disabled` | State that media generation is disabled for this run and the agent must not call `od media generate` or external media tools. |
+| `disabled` | State that media generation is disabled for this run and the agent must not call `od-cli media generate` or external media tools. |
 | `request-only` | Instruct the agent to create media requests through the OD wrapper. State that OD will not execute provider calls. |
 | `external` | Instruct the agent to create/delegate media requests through OD wrapper only. Do not name provider credentials or direct provider APIs. |
 
@@ -527,8 +527,8 @@ bytes are safer because OD previews remain stable.
 - Existing media config and provider credentials continue to work for normal
   OD media projects.
 - Existing UI calls to `/api/projects/:id/media/generate` keep working.
-- `od media generate` outside a run keeps working.
-- In-run `od media generate` becomes stricter only when `OD_TOOL_TOKEN` exists.
+- `od-cli media generate` outside a run keeps working.
+- In-run `od-cli media generate` becomes stricter only when `OD_TOOL_TOKEN` exists.
   This is intentional because the run has an explicit policy.
 - `request-only` and `disabled` are opt-in. An external orchestrator must ask
   for them.
@@ -560,11 +560,11 @@ bytes are safer because OD previews remain stable.
 
 ### CLI tests
 
-- `od media generate` uses `/api/tools/media/generate` when `OD_TOOL_TOKEN` is
+- `od-cli media generate` uses `/api/tools/media/generate` when `OD_TOOL_TOKEN` is
   set.
-- `od media generate` fails closed on a bad token rather than falling back.
-- `od media requests list --run ... --json` returns machine-readable output.
-- `od media requests fulfill ... --json` writes or records the fulfilled file
+- `od-cli media generate` fails closed on a bad token rather than falling back.
+- `od-cli media requests list --run ... --json` returns machine-readable output.
+- `od-cli media requests fulfill ... --json` writes or records the fulfilled file
   through the API, not by directly mutating daemon state.
 
 ### E2E tests
@@ -595,7 +595,7 @@ Use the existing fake-agent harness:
    `shouldRenderMediaContract`, and `shouldRenderCodexImagegenOverrideForPolicy`.
 5. Extend `apps/daemon/src/tool-tokens.ts` with media endpoint/operation grants.
 6. Add `/api/tools/media/generate` and media request CRUD/fulfill routes.
-7. Update `apps/daemon/src/cli.ts` so in-run `od media generate` uses the
+7. Update `apps/daemon/src/cli.ts` so in-run `od-cli media generate` uses the
    token-gated endpoint and fails closed on token errors.
 8. Update prompt rendering to distinguish enabled, disabled, request-only, and
    external modes.
@@ -657,7 +657,7 @@ Docs:
 
 ### Risk: policy bypass through legacy endpoint
 
-If in-run `od media generate` falls back to `/api/projects/:id/media/generate`
+If in-run `od-cli media generate` falls back to `/api/projects/:id/media/generate`
 after token failure, the policy is ineffective. The CLI must fail closed when a
 token is present.
 

@@ -175,8 +175,8 @@ describe('GET /api/mcp/install-info', () => {
     expect(res.status).toBe(200);
     const body = await readInstallInfo(res);
     expect(body.command).toBe(process.execPath);
-    // Direct `od` launches have no IPC socket; the snippet bakes the
-    // URL so the spawned `od mcp` reaches the right port without any
+    // Direct `od-cli` launches have no IPC socket; the snippet bakes the
+    // URL so the spawned `od-cli mcp` reaches the right port without any
     // discovery.
     expect(body.args).toEqual([cliPath, 'mcp', '--daemon-url', `http://127.0.0.1:${port}`]);
     // env always carries OD_DATA_DIR (issue #848); no sidecar keys in

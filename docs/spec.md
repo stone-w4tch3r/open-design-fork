@@ -75,7 +75,7 @@ The fifth is the cross-product loop described in [`automation-self-evolution.md`
 └────────────┬─────────────────────────────────┬───────────────────┘
              │ HTTP + SSE (/api/chat)          │ HTTPS (BYOK direct)
 ┌────────────▼──────────────────┐     ┌────────▼─────────────────┐
-│   Local Daemon (od daemon)   │     │   Anthropic Messages API │
+│   Local Daemon (od-cli daemon)   │     │   Anthropic Messages API │
 │   · agent detection           │     │   (fallback when no CLI) │
 │   · skill registry            │     └──────────────────────────┘
 │   · artifact store            │
@@ -96,8 +96,8 @@ Module responsibilities:
 - **Skill registry** — scans `~/.claude/skills/`, `./skills/`, and `./.claude/skills/`; merges and exposes a typed catalog.
 - **Artifact store** — daemon-managed storage for generated files, version snapshots, and per-artifact metadata. Current data-path rules are not specified in this draft; contributors must read root `AGENTS.md` → **Daemon data directory contract** before documenting or changing storage paths.
 - **Design-system resolver** — loads the active `DESIGN.md`, injects it as skill context.
-- **Automations** — templates that orchestrate schedules, connectors, ingestion, memory updates, skill crystallization, design-system extraction, token compression, and review gates; source packets enter through the Automations page, `/api/automation-ingestions`, and `od automation source`, while evolution proposals are reviewable through `/api/automation-proposals` and `od automation proposal`.
-- **Memory / evolution store** — editable Markdown-backed memory tree exposed through Settings, `/api/memory/tree`, and `od memory tree`; accepted tree nodes feed future daemon and BYOK/API-mode agent prompts, and accepted proposals can write reviewed memory, skill, and design-system drafts into user-owned runtime roots.
+- **Automations** — templates that orchestrate schedules, connectors, ingestion, memory updates, skill crystallization, design-system extraction, token compression, and review gates; source packets enter through the Automations page, `/api/automation-ingestions`, and `od-cli automation source`, while evolution proposals are reviewable through `/api/automation-proposals` and `od-cli automation proposal`.
+- **Memory / evolution store** — editable Markdown-backed memory tree exposed through Settings, `/api/memory/tree`, and `od-cli memory tree`; accepted tree nodes feed future daemon and BYOK/API-mode agent prompts, and accepted proposals can write reviewed memory, skill, and design-system drafts into user-owned runtime roots.
 - **Preview renderer** — sandboxed iframe with vendored React + Babel for JSX artifacts; plain iframe for HTML; PDF via the daemon's headless Chrome.
 - **Export pipeline** — HTML (inlined), PDF, PPTX, ZIP, Markdown.
 
@@ -135,7 +135,7 @@ In short: Claude Design is a product; OD is a **substrate**.
 ## 9. Success criteria for v1
 
 - One developer can `git clone && corepack enable && pnpm install && pnpm tools-dev run web`, point at their Claude Code install, and produce a prototype in under 5 minutes.
-- A third party can author a skill in a separate git repo, publish it, and have a user install it by running `od skill add <git-url>` without touching OD's source.
+- A third party can author a skill in a separate git repo, publish it, and have a user install it by running `od-cli skill add <git-url>` without touching OD's source.
 - A design system author can write a `DESIGN.md`, point OD at it, and have the style propagate across prototype / deck / template outputs.
 - Deploying to Vercel with a local daemon works end-to-end (the daemon is reachable via localhost tunnel or a user-provided URL).
 - Swapping the underlying agent from Claude Code to Codex requires zero skill changes.

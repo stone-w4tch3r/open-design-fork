@@ -54,7 +54,7 @@ Out of scope for P1:
   a separate Astro runtime and must not be reported as verified by the
   `apps/web` sandbox. A follow-up should add a separate landing-page
   boot path or a two-pass surface router.
-- `apps/daemon/src/**`, `packages/contracts/**`, and `od` CLI
+- `apps/daemon/src/**`, `packages/contracts/**`, and `od-cli` CLI
   verification. The browser explorer cannot prove CLI/API contract
   behavior.
 - The older `gh-aw` workflow path and STEP marker extractor. This PR

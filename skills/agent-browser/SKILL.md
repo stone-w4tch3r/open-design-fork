@@ -116,7 +116,7 @@ screenshots.
 auto-launch Chrome and re-enter the crash path.
 
 Do not run Open Design's own daemon CLI as a browser automation tool. Commands
-such as `od browser snapshot`, `daemon-cli.mjs browser snapshot`, or
+such as `od-cli browser snapshot`, `daemon-cli.mjs browser snapshot`, or
 `$OD_NODE_BIN $OD_BIN browser snapshot` are not valid browser tools; they can be
 misinterpreted as daemon startup and open an internal `127.0.0.1:<port>` service
 in the system browser. Use the external `agent-browser` CLI attached to CDP

@@ -129,7 +129,7 @@ Every external project this spec leans on. Three questions per entry: what is it
 - **What it is:** A Claude Code skill producing magazine-style, horizontal-swipe web decks. Structure: `SKILL.md` + `assets/template.html` + `references/{components,layouts,themes,checklist}.md`. 6-step workflow. Single-file HTML output with embedded CSS/WebGL. Keyboard/scroll/touch navigation.
 - **Why it matters:** Reference implementation of a high-quality Claude skill, and our default deck skill.
 - **What we borrow:**
-  - **The whole skill, unmodified.** It's our default v1 `deck-skill`. A user runs `od skill add https://github.com/op7418/guizang-ppt-skill` and it works.
+  - **The whole skill, unmodified.** It's our default v1 `deck-skill`. A user runs `od-cli skill add https://github.com/op7418/guizang-ppt-skill` and it works.
   - Skill directory convention (`assets/` + `references/` + `SKILL.md`) as the pattern we document for skill authors.
   - The "6-step workflow + quality-checklist rubric" pattern for authoring new skills.
 - **What we don't:** Nothing — this is pure reuse. We add an `od:` block to its front-matter only if we want to expose theme sliders; the skill works without it.

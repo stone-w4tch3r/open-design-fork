@@ -21,7 +21,7 @@ export interface BuildMcpInstallPayloadInputs {
   dataDir: string;
   electronAsNode: boolean;
   /** True when the daemon was bootstrapped as a sidecar and the
-   *  spawned `od mcp` should discover the live URL via the IPC
+   *  spawned `od-cli mcp` should discover the live URL via the IPC
    *  status socket instead of a baked --daemon-url. */
   isSidecarMode: boolean;
   /** Already-filtered sidecar transport env entries the
@@ -70,7 +70,7 @@ export function buildMcpInstallPayload(
   // MCP process writes to the same directory the daemon already uses
   // even when the IDE that launched it (Antigravity, VS Code, etc.)
   // does not inherit the packaged app's environment. Without this,
-  // `od mcp` falls back to `<cwd>/.od/...` which is the read-only
+  // `od-cli mcp` falls back to `<cwd>/.od/...` which is the read-only
   // macOS app bundle for packaged installs and trips EPERM. Issue #848.
   const env: Record<string, string> = {
     OD_DATA_DIR: inputs.dataDir,
@@ -79,9 +79,9 @@ export function buildMcpInstallPayload(
   if (inputs.electronAsNode) {
     env.ELECTRON_RUN_AS_NODE = '1';
   }
-  // Sidecar mode: omit --daemon-url so the spawned `od mcp` discovers
+  // Sidecar mode: omit --daemon-url so the spawned `od-cli mcp` discovers
   // the live URL via the IPC status socket on every spawn, surviving
-  // ephemeral-port restarts. Direct `od --port X` launches have no
+  // ephemeral-port restarts. Direct `od-cli --port X` launches have no
   // socket and need the URL baked.
   const args = inputs.isSidecarMode
     ? [inputs.cliPath, 'mcp']

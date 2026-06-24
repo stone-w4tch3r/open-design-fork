@@ -3,7 +3,7 @@
 > The atomic capabilities Open Design exposes to plugins.
 > Spec: [`docs/plugins-spec.md`](plugins-spec.md) §10.
 > Source of truth: [`apps/daemon/src/plugins/atoms.ts`](../apps/daemon/src/plugins/atoms.ts).
-> Live discovery: `GET /api/atoms` (also reachable via `od atoms list --json` in a future PR).
+> Live discovery: `GET /api/atoms` (also reachable via `od-cli atoms list --json` in a future PR).
 
 A **plugin** assembles atoms into ordered stages (`od.pipeline.stages[].atoms[]`).
 The Open Design daemon is responsible for resolving each atom into a system-prompt
@@ -93,4 +93,4 @@ contract.
 4. The atom is now reachable via:
    - `od.pipeline.stages[*].atoms[]` references in any plugin,
    - `GET /api/atoms` discovery,
-   - `od plugin doctor` validation.
+   - `od-cli plugin doctor` validation.

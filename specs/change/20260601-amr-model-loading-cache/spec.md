@@ -127,7 +127,7 @@ on `/api/agents` for the AMR model list.
 
 - Project command boundaries require new user-facing capabilities to have both
   HTTP and CLI surfaces unless genuinely not applicable; this change is an AMR
-  UI/daemon support endpoint rather than a new `od` user command. Source:
+  UI/daemon support endpoint rather than a new `od-cli` user command. Source:
   `AGENTS.md` "Capability exposure (UI/CLI dual-track)".
 - Root validation for regular work is at least `pnpm guard` and
   `pnpm typecheck`, plus package-scoped tests/builds matching touched files.

@@ -25,12 +25,12 @@ Latest stable release `open-design-v0.11.0` (2026-06-17) ships:
 - `od.mjs` requires built `apps/daemon/dist/cli.js` to exist.
 - CLI is fully functional: `SUBCOMMAND_MAP` in `apps/daemon/src/cli.ts` covers
   MCP, plugin, automation, diagnostics, media, project, research, etc.
-- `od mcp install <agent>` is the shipped agent-install command (PR #4649 merged).
+- `od-cli mcp install <agent>` is the shipped agent-install command (PR #4649 merged).
 
 ### What does NOT exist
 
-- No public npm package for `od` or `@open-design/cli`.
-- PR #4649 body explicitly states: standalone `od` CLI / `npx od` is roadmap,
+- No public npm package for `od-cli` or `@open-design/cli`.
+- PR #4649 body explicitly states: standalone `od-cli` CLI / `npx od-cli` is roadmap,
   daemon package is private.
 - `docs/plugins-spec.md` references `npm install -g @open-design/cli` but that
   package does not exist locally or on npm.
@@ -126,10 +126,10 @@ daemon/web/native assets.
 
 | Ref | Signal |
 | --- | ------ |
-| #4649 | Merged docs fix. Explicitly: hosted `install.sh` was never published; standalone `od` CLI / `npx od` is roadmap; daemon package is private. |
+| #4649 | Merged docs fix. Explicitly: hosted `install.sh` was never published; standalone `od-cli` CLI / `npx od-cli` is roadmap; daemon package is private. |
 | #4662 | Onboarding CLI empty state lacks install guidance. Maintainer invites community pickup. |
 | #4489 | `install.sh` serves HTML (real bug). Source `tools-dev run web` CORS/403 open. |
-| #4648 | `od` binary ambiguity on Windows/WSL MCP setup. |
+| #4648 | `od-cli` binary ambiguity on Windows/WSL MCP setup. |
 
 ### Headless / WebUI
 
@@ -197,7 +197,7 @@ daemon/web/native assets.
 
 - `npm pack --dry-run` from daemon package to verify included files
 - Install from local tarball: `npm i -g ./open-design-daemon-*.tgz`
-- Verify `od --version`, `od mcp install --print`, `od --help`
+- Verify `od-cli --version`, `od-cli mcp install --print`, `od-cli --help`
 - Verify resource resolution (skills, design systems, templates)
 - Verify native deps work on target Node 24
 - Cross-platform: macOS, Linux, Windows (WSL)

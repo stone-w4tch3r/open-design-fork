@@ -5,7 +5,7 @@
 // and the audit log. The worker is started from `server.ts` boot and
 // disabled when `OD_SNAPSHOT_GC_INTERVAL_MS` is set to `0`.
 //
-// Operator escape hatch: `od plugin snapshots prune --before <ts>` calls
+// Operator escape hatch: `od-cli plugin snapshots prune --before <ts>` calls
 // `pruneExpiredSnapshots(db, { before: cutoff })` synchronously without
 // touching the periodic timer.
 

@@ -14,7 +14,7 @@
 | Daemon install / apply / snapshot | 完成 | `apps/daemon/src/plugins/{installer,apply,snapshots,resolve-snapshot}.ts`、`apps/daemon/tests/plugins-dod-e2e.test.ts` | v1 主路径可验收 |
 | Pipeline / GenUI / devloop | 完成主路径 | `apps/daemon/src/plugins/{pipeline,pipeline-runner,until}.ts`、`apps/daemon/src/genui/*` | 需要继续跑事件流回归 |
 | First-party atoms and scenarios | Phase 6/7/8 已落地 | `apps/daemon/src/plugins/atoms/*`、`plugins/_official/scenarios/*`、对应 `plugins-*-e2e.test.ts` | 需要按场景抽样验收 |
-| Headless CLI loop | 主路径完成 | `od plugin install/run`、`od project create`、`od run start/watch`、`apps/daemon/tests/plugins-headless-run.test.ts` | v1 必测 |
+| Headless CLI loop | 主路径完成 | `od-cli plugin install/run`、`od-cli project create`、`od-cli run start/watch`、`apps/daemon/tests/plugins-headless-run.test.ts` | v1 必测 |
 | Federated registry | P0/P1/P3/P4 大多完成 | `packages/registry-protocol`、`apps/daemon/src/registry/*`、`apps/daemon/tests/registry-backends.test.ts` | DoD 仍有开放项 |
 | Web Plugins UI | Installed / Available / Sources 可用，Team 未完成 | `apps/web/src/components/PluginsView.tsx`、`apps/web/tests/components/PluginsView.test.tsx` | 需要 UI 手工验收 |
 | Plugin detail surface | 已有详情 modal、provenance、capabilities、share menu | `PluginDetailsModal.tsx`、`plugin-details/*` | P2.5 的 version dropdown 仍需补 |
@@ -178,9 +178,9 @@ pnpm tools-dev run web --daemon-port 17456 --web-port 17573
 | ID | 场景 | 核心断言 | 覆盖 |
 | --- | --- | --- | --- |
 | PS-D01 | Headless install -> project -> run | HTTP/CLI 路径都 pin `appliedPluginSnapshotId` | `apps/daemon/tests/plugins-headless-run.test.ts` |
-| PS-D02 | CLI prompt injection | `od plugin run` 把 query、inputs、local SKILL.md 注入 agent prompt | `apps/daemon/tests/plugins-headless-run.test.ts` |
-| PS-D03 | Project/run/files basics | `od project create`、`od run start/watch/cancel/list/info`、`od files read` 可用 | `apps/daemon/tests/plugins-headless-run.test.ts` + CLI tests |
-| PS-D04 | Marketplace CLI | `od marketplace plugins/search/doctor/login` 输出稳定，login 只调用 `gh` | `apps/daemon/tests/plugins-headless-run.test.ts`、`plugins-marketplace-doctor.test.ts` |
+| PS-D02 | CLI prompt injection | `od-cli plugin run` 把 query、inputs、local SKILL.md 注入 agent prompt | `apps/daemon/tests/plugins-headless-run.test.ts` |
+| PS-D03 | Project/run/files basics | `od-cli project create`、`od-cli run start/watch/cancel/list/info`、`od-cli files read` 可用 | `apps/daemon/tests/plugins-headless-run.test.ts` + CLI tests |
+| PS-D04 | Marketplace CLI | `od-cli marketplace plugins/search/doctor/login` 输出稳定，login 只调用 `gh` | `apps/daemon/tests/plugins-headless-run.test.ts`、`plugins-marketplace-doctor.test.ts` |
 | PS-D05 | Plugin publish/share | user plugin 进入 publish/contribute workflow，GitHub PR payload 稳定 | `apps/daemon/tests/plugins-headless-run.test.ts`、`plugins-publish.test.ts` |
 | PS-D06 | Plugin upgrade/yank | upgrade 遵守 policy/lockfile，yank 不硬删版本 | `apps/daemon/tests/plugins-upgrade.test.ts`、`plugins-publish.test.ts` |
 
@@ -243,7 +243,7 @@ pnpm tools-dev run web --daemon-port 17456 --web-port 17573
 | --- | --- | --- |
 | MAN-001 | 打开一个 official scenario plugin 详情 | 标题、版本、trust、source、workflow、capabilities 都可读 |
 | MAN-002 | 打开一个 marketplace-installed plugin 详情 | provenance 显示 sourceMarketplaceId / entry name / source kind |
-| MAN-003 | 打开 Share 菜单，复制 install command | 剪贴板内容为 `od plugin install <plugin-or-source>`，不是 marketplace id 误当 plugin id |
+| MAN-003 | 打开 Share 菜单，复制 install command | 剪贴板内容为 `od-cli plugin install <plugin-or-source>`，不是 marketplace id 误当 plugin id |
 | MAN-004 | 打开带 inputs 的 plugin | inputs 类型、required、default、options 都显示 |
 | MAN-005 | 尝试查找 version dropdown | 当前预期：缺失，记录为 P2.5 未完成 |
 
@@ -261,11 +261,11 @@ pnpm tools-dev run web --daemon-port 17456 --web-port 17573
 
 | ID | 命令 | 期望 |
 | --- | --- | --- |
-| MAN-011 | `od plugin install <local-plugin>` | 输出 ok，`od plugin list --json` 能看到新 plugin |
-| MAN-012 | `od plugin doctor <id> --json` | valid plugin 无 error，metadata-only plugin 有明确 non-runnable 诊断 |
-| MAN-013 | `od project create --plugin <id> --inputs '{"topic":"qa"}' --json` | 返回 project id 和 `appliedPluginSnapshotId` |
-| MAN-014 | `od plugin run <id> --project <projectId> --follow` | 事件流包含 pipeline stage、agent events、end status |
-| MAN-015 | `od marketplace search "<query>" --json` | 搜索 configured catalog，不依赖 web UI |
+| MAN-011 | `od-cli plugin install <local-plugin>` | 输出 ok，`od-cli plugin list --json` 能看到新 plugin |
+| MAN-012 | `od-cli plugin doctor <id> --json` | valid plugin 无 error，metadata-only plugin 有明确 non-runnable 诊断 |
+| MAN-013 | `od-cli project create --plugin <id> --inputs '{"topic":"qa"}' --json` | 返回 project id 和 `appliedPluginSnapshotId` |
+| MAN-014 | `od-cli plugin run <id> --project <projectId> --follow` | 事件流包含 pipeline stage、agent events、end status |
+| MAN-015 | `od-cli marketplace search "<query>" --json` | 搜索 configured catalog，不依赖 web UI |
 
 ### 4.4 Public registry / self-host
 
@@ -274,7 +274,7 @@ pnpm tools-dev run web --daemon-port 17456 --web-port 17573
 | MAN-016 | `pnpm --filter @open-design/landing-page build` | 静态 `/plugins` 和 `search.json` 生成成功 |
 | MAN-017 | 复制 `plugins/registry/community/open-design-marketplace.json` 到临时 URL 或本地 fixture server | daemon 能 add/search/install |
 | MAN-018 | 按 `docs/self-hosting-a-registry.md` 新建第三方 catalog | 只需替换 catalog name/url/source 两类配置，不改 daemon/web 代码 |
-| MAN-019 | 用 `od plugin publish --to marketplace-json --catalog <path>` | catalog 稳定 upsert，source 可复现 |
+| MAN-019 | 用 `od-cli plugin publish --to marketplace-json --catalog <path>` | catalog 稳定 upsert，source 可复现 |
 
 ## 5. 发布通过标准
 
@@ -291,7 +291,7 @@ Registry v1 只有在以下额外条件满足后才能标为“fully done”：
 1. `plugin-registry.md` §4 DoD 全部勾选。
 2. 有一个 e2e fixture catalog 验证第三方 fork/self-host source。
 3. UI Sources/Available 的每个动作都有等价 CLI 命令，并有 parity 测试或脚本证明。
-4. 至少一次真实第三方 publisher 通过 `od plugin publish` 发起发布流程，没有手写 JSON。
+4. 至少一次真实第三方 publisher 通过 `od-cli plugin publish` 发起发布流程，没有手写 JSON。
 
 ## 6. 失败排查顺序
 

@@ -24,7 +24,7 @@ OD is a web app plus a local daemon. The split means the same UI can run in thre
 │                       │                            │
 │                       │ http://localhost:7456      │
 │                       ▼                            │
-│            od daemon (Node, long-running)         │
+│            od-cli daemon (Node, long-running)         │
 │                       │                            │
 │                       ▼                            │
 │            spawns: claude / codex / cursor / …     │
@@ -40,13 +40,13 @@ browser ──► od.yourdomain.com (Vercel)
               │
               │ ws(s):// user-provided URL (e.g. cloudflared tunnel)
               ▼
-        od daemon on user's laptop
+        od-cli daemon on user's laptop
               │
               ▼
         spawns: claude / codex / …
 ```
 
-The user runs `od daemon --expose` which prints a tunnel URL; they paste the URL into the deployed web app's "Connect daemon" screen. Daemon holds secrets; Vercel holds nothing sensitive.
+The user runs `od-cli daemon --expose` which prints a tunnel URL; they paste the URL into the deployed web app's "Connect daemon" screen. Daemon holds secrets; Vercel holds nothing sensitive.
 
 ### Topology C — Web on Vercel + direct API (no daemon)
 
@@ -110,7 +110,7 @@ The three topologies share the same web bundle; the difference is which transpor
 - **Comment mode:** Click captures `[data-od-id]` on preview DOM, opens a popover, sends `{artifact_id, element_id, note}` to daemon → agent gets a surgical edit instruction.
 - **Slider UI:** When an agent emits a "tweak parameter" tool call (see [`skills-protocol.md`](skills-protocol.md) §4.2), the web app renders a live-update control that re-sends parameterized prompts without round-tripping the chat.
 
-### 3.2 Local daemon (`od daemon`)
+### 3.2 Local daemon (`od-cli daemon`)
 
 Single binary via `pkg` or a thin Node script distributed over npm. Responsibilities:
 
@@ -407,7 +407,7 @@ services:
 ### Vercel + local daemon (Topology B)
 ```sh
 vercel deploy                     # web only
-od daemon --expose               # user runs locally; prints tunnel URL
+od-cli daemon --expose               # user runs locally; prints tunnel URL
 # user pastes URL into /connect UI
 ```
 

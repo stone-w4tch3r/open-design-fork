@@ -2,7 +2,7 @@
 
 This flake exposes Open Design as a reproducible package, a `nix run` entry
 point, a dev shell, and Home Manager / NixOS modules. The architecture
-mirrors the runtime: the **daemon** (`od` CLI, Express API on `/api/*`)
+mirrors the runtime: the **daemon** (`od-cli` CLI, Express API on `/api/*`)
 and the **web frontend** (Next.js static SPA at `apps/web/out/`) are
 **separate packages** and **separate services** — you can run either or
 both.

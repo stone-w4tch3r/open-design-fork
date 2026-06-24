@@ -1,4 +1,4 @@
-// Phase 4 / spec §14 — `od plugin export <projectId> --as <target>`.
+// Phase 4 / spec §14 — `od-cli plugin export <projectId> --as <target>`.
 //
 // Materialises a publish-ready folder from the AppliedPluginSnapshot
 // the project was created against. The exporter does NOT modify the
@@ -7,7 +7,7 @@
 // can re-publish to anthropics/skills, awesome-agent-skills, clawhub,
 // or skills.sh. Three targets:
 //
-//   - `od`            → SKILL.md + open-design.json (canonical OD shape).
+//   - `od-cli`            → SKILL.md + open-design.json (canonical OD shape).
 //   - `claude-plugin` → SKILL.md + .claude-plugin/plugin.json (Claude
 //                       Code listing format).
 //   - `agent-skill`   → SKILL.md only (every catalog accepts this).
@@ -15,7 +15,7 @@
 // The export is best-effort: it pulls SKILL.md straight off the
 // installed plugin's fs_path, and reconstructs open-design.json from
 // the cached `manifest_json` so a publishable snapshot is reproducible
-// even after an `od plugin update` rotates the live source.
+// even after an `od-cli plugin update` rotates the live source.
 
 import path from 'node:path';
 import { promises as fsp } from 'node:fs';
@@ -121,7 +121,7 @@ export async function exportPlugin(input: ExportInput): Promise<ExportResult> {
     `- Manifest digest: \`${snapshot.manifestSourceDigest}\``,
     `- Task kind: \`${snapshot.taskKind}\``,
     '',
-    'This folder was produced by `od plugin export`.',
+    'This folder was produced by `od-cli plugin export`.',
     '',
   ].join('\n');
   const readmePath = path.join(folder, 'README.md');

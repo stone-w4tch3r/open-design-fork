@@ -736,7 +736,7 @@ function shouldFetchElevenLabsVoiceOptions(project: Project): boolean {
 // The media model the user picked in the New Project → Media dialog, keyed by
 // surface. For BYOK providers (AIHubMix) media is produced by the generate_*
 // chat tools whose default model comes from the per-request byok*Model field —
-// NOT the `od media generate` dispatcher — so without this seed the dialog pick
+// NOT the `od-cli media generate` dispatcher — so without this seed the dialog pick
 // is dropped and the conversation falls back to the Settings default. Returns
 // undefined for non-media projects (and when the field is empty) so callers fall
 // back to the Settings default exactly as before. The daemon re-validates the id
@@ -6773,8 +6773,8 @@ function pluginWorkflowTitle(action: PluginFolderAgentAction): string {
 
 function pluginWorkflowCliCommand(action: PluginFolderAgentAction, relativePath: string): string {
   return action === 'publish'
-    ? `od plugin publish-repo ${relativePath}`
-    : `od plugin open-design-pr ${relativePath}`;
+    ? `od-cli plugin publish-repo ${relativePath}`
+    : `od-cli plugin open-design-pr ${relativePath}`;
 }
 
 function pluginWorkflowPlannedSteps(action: PluginFolderAgentAction): string[] {

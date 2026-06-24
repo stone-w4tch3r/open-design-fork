@@ -8,7 +8,7 @@ import { resolveDaemonUrl, DEFAULT_DAEMON_URL } from "../src/daemon-url.js";
 
 // Verifies the resolution chain: --daemon-url > OD_DAEMON_URL > sidecar
 // IPC status discovery > legacy default. Each layer must short-circuit the next
-// so `od` clients follow the live daemon across ephemeral-port restarts.
+// so `od-cli` clients follow the live daemon across ephemeral-port restarts.
 
 describe("resolveDaemonUrl", () => {
   let ipcBaseDir: string;

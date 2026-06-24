@@ -1,6 +1,6 @@
 // Per-agent MCP registration planner.
 //
-// `od mcp install <agent>` (and the hosted `install.sh | sh -s <agent>`
+// `od-cli mcp install <agent>` (and the hosted `install.sh | sh -s <agent>`
 // bootstrap that calls it) wires Open Design's stdio MCP server into a
 // coding agent's own configuration. Each agent stores MCP servers
 // differently, so this module maps a single resolved launch spec

@@ -212,15 +212,15 @@ The skill should instruct the agent to:
 
 ### 5.3 Agent-callable command surface
 
-Prefer a small `od` wrapper command over raw `curl` in the skill body:
+Prefer a small `od-cli` wrapper command over raw `curl` in the skill body:
 
 ```bash
-od tools live-artifacts create --input artifact.json
-od tools live-artifacts list --format compact
-od tools live-artifacts update --artifact-id "$ID" --input artifact.json
-od tools live-artifacts refresh --artifact-id "$ID"
-od tools connectors list --format compact
-od tools connectors execute --connector github --tool list_releases --input input.json
+od-cli tools live-artifacts create --input artifact.json
+od-cli tools live-artifacts list --format compact
+od-cli tools live-artifacts update --artifact-id "$ID" --input artifact.json
+od-cli tools live-artifacts refresh --artifact-id "$ID"
+od-cli tools connectors list --format compact
+od-cli tools connectors execute --connector github --tool list_releases --input input.json
 ```
 
 The wrapper should be implemented as TypeScript source under `apps/daemon/src` and call daemon endpoints using injected runtime values:
@@ -780,7 +780,7 @@ Exit criteria:
 ### Phase 1C — Built-in skill and wrapper command
 
 - Add built-in `skills/live-artifact/SKILL.md`.
-- Add `od tools live-artifacts ...` and connector command handlers from TypeScript source under `apps/daemon/src`.
+- Add `od-cli tools live-artifacts ...` and connector command handlers from TypeScript source under `apps/daemon/src`.
 - Inject daemon URL and short-lived tool token into skill preamble.
 
 Exit criteria:
@@ -819,7 +819,7 @@ Exit criteria:
 
 ### Phase 4 — Optional MCP wrapper
 
-- Confirmation after the skill + wrapper path: MCP is not needed for MVP correctness because all supported agents can use `SKILL.md` plus `od tools ...` wrappers, and Phase 1C/Phase 3 command surfaces cover live artifact creation, listing, update, refresh, connector listing, and read-only connector execution. MCP is only worth adding as an additive compatibility layer for agents with mature MCP support and must not replace, weaken, or fork the daemon-owned service/policy path.
+- Confirmation after the skill + wrapper path: MCP is not needed for MVP correctness because all supported agents can use `SKILL.md` plus `od-cli tools ...` wrappers, and Phase 1C/Phase 3 command surfaces cover live artifact creation, listing, update, refresh, connector listing, and read-only connector execution. MCP is only worth adding as an additive compatibility layer for agents with mature MCP support and must not replace, weaken, or fork the daemon-owned service/policy path.
 - Wrap the daemon's existing live artifact and connector services as an MCP server for agents that support MCP well.
 - Do not make MCP required.
 - Do not mutate global user MCP config automatically.
@@ -831,7 +831,7 @@ The MCP integration, if added, should be a **thin stdio adapter over the existin
 ```text
 MCP-capable agent
   ⇄ stdio MCP protocol
-od mcp live-artifacts          # TypeScript source under apps/daemon/src, built into the od bin
+od-cli mcp live-artifacts          # TypeScript source under apps/daemon/src, built into the od bin
   ⇄ local HTTP with Authorization: Bearer $OD_TOOL_TOKEN
 /api/tools/live-artifacts/* and /api/tools/connectors/*
   ⇄ daemon live artifact, refresh, connector, auth, validation, and policy services
@@ -850,7 +850,7 @@ Design constraints:
   - `od_connectors_execute` → `POST /api/tools/connectors/execute`
 - **No project overrides:** tool input schemas must not accept `projectId`; project/run scope is always derived from `OD_TOOL_TOKEN` by daemon routes.
 - **No global config mutation:** OD may display or generate an ephemeral MCP launch descriptor for compatible agents, but must not edit user-level MCP config files automatically.
-- **No primary-path dependency:** `SKILL.md`, `od tools ...`, and raw-token debugging remain unchanged and continue to work when MCP is disabled or unsupported.
+- **No primary-path dependency:** `SKILL.md`, `od-cli tools ...`, and raw-token debugging remain unchanged and continue to work when MCP is disabled or unsupported.
 - **Typed implementation:** project-owned MCP code should be TypeScript source under `apps/daemon/src` (for example `apps/daemon/src/mcp/live-artifacts-server.ts` plus small CLI dispatch in `apps/daemon/src/cli.ts`). Any JavaScript entrypoint must be generated build output or an explicitly documented compatibility artifact.
 
 MCP tool errors should translate daemon `ApiErrorResponse` values into MCP tool errors without expanding secret-bearing details. Validation field details may be included only when they are already safe to return from the corresponding `/api/tools/*` route.
@@ -954,7 +954,7 @@ Keep the first implementation small: current daemon route handlers live in `apps
 
 ## 15. Open questions
 
-1. Should `od tools ...` be the only wrapper surface, or should generated per-project wrappers also be provided for easier agent access?
+1. Should `od-cli tools ...` be the only wrapper surface, or should generated per-project wrappers also be provided for easier agent access?
 2. How should agent adapters advertise `shell` availability for skill gating?
 3. How much refresh history should be retained before compaction?
 4. Should failed refresh attempt payloads be retained in a hidden failed snapshot directory, or only summarized in `refreshes.jsonl`?

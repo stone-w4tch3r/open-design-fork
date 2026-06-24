@@ -373,7 +373,7 @@ runtime nouns that are clearer in English:
 | token | token |
 | iframe | iframe |
 | monorepo, workspace | monorepo, workspace |
-| `od`, `pnpm`, `pnpm tools-dev` | `od`, `pnpm`, `pnpm tools-dev` |
+| `od-cli`, `pnpm`, `pnpm tools-dev` | `od-cli`, `pnpm`, `pnpm tools-dev` |
 | `OD_DATA_DIR`, `OD_WEB_PORT`, `{provider}` | `OD_DATA_DIR`, `OD_WEB_PORT`, `{provider}` |
 | `.zip`, `.html`, `.md`, `.json` | `.zip`, `.html`, `.md`, `.json` |
 

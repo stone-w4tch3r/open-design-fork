@@ -110,27 +110,27 @@ Open Design 是这样一种产物：Anthropic 随 Claude Design 推出的 **Agen
 
 ## 平台兼容性
 
-> Open Design 以 **技能、CLI 和 MCP 服务器**的形式交付，主流编码 Agent 可原生消费。装好 OD 后，一行 `od mcp install <agent>` 把 MCP 服务器 wire 进对应 Agent 的配置，任何 Agent 内调用相同工具。
+> Open Design 以 **技能、CLI 和 MCP 服务器**的形式交付，主流编码 Agent 可原生消费。装好 OD 后，一行 `od-cli mcp install <agent>` 把 MCP 服务器 wire 进对应 Agent 的配置，任何 Agent 内调用相同工具。
 
 | 编码 Agent / 平台 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | 状态 &nbsp;&nbsp; | 一行命令安装 MCP 服务器 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ 支持 | `od mcp install claude` |
-| [Codex CLI](https://github.com/openai/codex) | ✅ 支持 | `od mcp install codex` |
-| [Cursor](https://www.cursor.com/cli) | ✅ 支持 | `od mcp install cursor` |
-| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ 支持 | `od mcp install copilot` |
-| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ 支持 | `od mcp install copilot` |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ 支持 | `od mcp install gemini` |
-| [OpenCode](https://opencode.ai/) | ✅ 支持 | `od mcp install opencode` |
-| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ 支持 | `od mcp install openclaw` |
-| [Antigravity](https://antigravity.google) | ✅ 支持 | `od mcp install antigravity` |
-| [Cline](https://github.com/cline/cline) | ✅ 支持 | `od mcp install cline` |
-| [Trae](https://www.trae.ai/) | ✅ 支持 | `od mcp install trae` |
-| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ 支持 | `od mcp install kimi` |
-| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ 支持 | `od mcp install pi` |
-| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ 支持 | `od mcp install vibe` |
-| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ 支持 | `od mcp install hermes` |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ 支持 | `od-cli mcp install claude` |
+| [Codex CLI](https://github.com/openai/codex) | ✅ 支持 | `od-cli mcp install codex` |
+| [Cursor](https://www.cursor.com/cli) | ✅ 支持 | `od-cli mcp install cursor` |
+| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ 支持 | `od-cli mcp install copilot` |
+| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ 支持 | `od-cli mcp install copilot` |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ 支持 | `od-cli mcp install gemini` |
+| [OpenCode](https://opencode.ai/) | ✅ 支持 | `od-cli mcp install opencode` |
+| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ 支持 | `od-cli mcp install openclaw` |
+| [Antigravity](https://antigravity.google) | ✅ 支持 | `od-cli mcp install antigravity` |
+| [Cline](https://github.com/cline/cline) | ✅ 支持 | `od-cli mcp install cline` |
+| [Trae](https://www.trae.ai/) | ✅ 支持 | `od-cli mcp install trae` |
+| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ 支持 | `od-cli mcp install kimi` |
+| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ 支持 | `od-cli mcp install pi` |
+| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ 支持 | `od-cli mcp install vibe` |
+| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ 支持 | `od-cli mcp install hermes` |
 
-`od mcp install <agent> --print` 干跑预览 · `--uninstall` 卸载 · 完整清单 `od mcp install --help`。
+`od-cli mcp install <agent> --print` 干跑预览 · `--uninstall` 卸载 · 完整清单 `od-cli mcp install --help`。
 
 <p align="center">
   <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="Open Design 支持的 21 个编码 Agent CLI — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
@@ -302,7 +302,7 @@ Open Design (OD) 是开源替代品。同样的循环，同样的工件优先心
 
 ```bash
 # 一行命令安装到你正在使用的 Agent：
-od mcp install <agent>
+od-cli mcp install <agent>
 # <agent> = claude | codex | cursor | copilot | openclaw | antigravity | gemini
 #         | pi | vibe | hermes | cline | kimi | trae | opencode
 ```
@@ -361,14 +361,14 @@ Open Design 提供 **stdio MCP 服务器**和逐 Agent 的**安装脚本**。任
 
 ```bash
 # 一行命令安装（支持 16+ CLI）：
-od mcp install <agent>
+od-cli mcp install <agent>
 
 # 然后，Agent 可以：
-od search-files "primary button"      # 跨项目文件搜索
-od get-file design-systems/linear-app/DESIGN.md
-od get-artifact <slug>                # 最新渲染的工件
-od plugin run web-prototype --brief "..."
-od skill list --scenario marketing
+od-cli search-files "primary button"      # 跨项目文件搜索
+od-cli get-file design-systems/linear-app/DESIGN.md
+od-cli get-artifact <slug>                # 最新渲染的工件
+od-cli plugin run web-prototype --brief "..."
+od-cli skill list --scenario marketing
 ```
 
 **为什么选择 MCP？** 每次迭代都导出并重新附加 zip 会打断流程。MCP 直接暴露设计源文件——Agent 始终看到实时文件。
@@ -469,20 +469,20 @@ od skill list --scenario marketing
 
 ### 使用插件
 
-插件在 **Web UI** 和 **`od` CLI** 两条路上完全对等——同一套 `/api/plugins` 端点，挑顺手的用。
+插件在 **Web UI** 和 **`od-cli` CLI** 两条路上完全对等——同一套 `/api/plugins` 端点，挑顺手的用。
 
 **在桌面 / Web 应用里**：打开 **Plugin** 页浏览 marketplace，点 **Install**；进入项目 Studio 后，插件以 composer chip 的形式出现，点击即应用（带上它声明的输入参数）。
 
 **在命令行里**（不打开 UI 也能跑，外部 Agent 走的就是这条）：
 
 ```bash
-od plugin list                       # 列出已安装插件（--task-kind / --mode / --tag 过滤）
-od plugin search "landing page"      # 按关键词搜
-od plugin info od-default            # 看某个插件的元数据、输入、权限
-od plugin install od-figma-migration # 从注册中心装；也支持 ./本地文件夹 或 https://… 直链
-od plugin apply od-default --input brief="给我们的种子轮做一页 pitch"
-od plugin upgrade od-default         # 升级
-od plugin uninstall od-default       # 卸载
+od-cli plugin list                       # 列出已安装插件（--task-kind / --mode / --tag 过滤）
+od-cli plugin search "landing page"      # 按关键词搜
+od-cli plugin info od-default            # 看某个插件的元数据、输入、权限
+od-cli plugin install od-figma-migration # 从注册中心装；也支持 ./本地文件夹 或 https://… 直链
+od-cli plugin apply od-default --input brief="给我们的种子轮做一页 pitch"
+od-cli plugin upgrade od-default         # 升级
+od-cli plugin uninstall od-default       # 卸载
 ```
 
 所有命令都支持 `--json`，方便用 `jq` / `xargs` 串进自动化脚本。
@@ -505,8 +505,8 @@ my-plugin/
 脚手架 + 本地验证：
 
 ```bash
-od plugin scaffold --id my-plugin --title "My Plugin"   # 生成骨架
-od plugin validate ./my-plugin                          # 校验 manifest / 文件布局
+od-cli plugin scaffold --id my-plugin --title "My Plugin"   # 生成骨架
+od-cli plugin validate ./my-plugin                          # 校验 manifest / 文件布局
 pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ```
 
@@ -515,7 +515,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ### 贡献插件
 
 1. 把插件文件夹放到 [`plugins/community/`](../../plugins/community/)（第三方插件），或——若想随 Open Design 一起内置——放到对应 tier 的 [`plugins/_official/`](../../plugins/_official/)。
-2. 跑通校验：`od plugin validate`、`pnpm guard`、`pnpm --filter @open-design/plugin-runtime typecheck`。
+2. 跑通校验：`od-cli plugin validate`、`pnpm guard`、`pnpm --filter @open-design/plugin-runtime typecheck`。
 3. 按 [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) 的模板填 PR（ID、版本、lane、mode、权限、触发示例，视觉类附截图 / 预览）。
 4. 想发布到外部注册中心（skills.sh / ClawHub / 独立 GitHub）→ [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md)。
 
@@ -580,8 +580,8 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] 打包 Electron 构建——macOS（Apple Silicon + Intel）+ Windows（x64）+ Linux AppImage（可选通道）
 - [ ] 评论模式精确编辑——部分已发布，可靠的定向补丁进行中
 - [ ] AI 输出的调参面板 UX——尚未实现
-- [ ] `npx od init` 脚手架创建带 `DESIGN.md` 的项目
-- [ ] 插件 SDK + `od plugin {add,list,remove,test,publish}` CLI
+- [ ] `npx od-cli init` 脚手架创建带 `DESIGN.md` 的项目
+- [ ] 插件 SDK + `od-cli plugin {add,list,remove,test,publish}` CLI
 - [ ] Figma / Pencil → React / Next / Vue 迁移插件（alpha）
 - [ ] 刷新现有代码库插件（指向 git 仓库 + `DESIGN.md`）
 

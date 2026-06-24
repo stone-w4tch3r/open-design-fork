@@ -8,7 +8,7 @@
 //   - getSnapshot()     — read by id.
 //   - linkSnapshotToRun() — once a run starts off the snapshot, pin
 //     expires_at = NULL and update run_id (the snapshot is now referenced).
-//   - markSnapshotStale() — `od plugin doctor` flips status='stale' after a
+//   - markSnapshotStale() — `od-cli plugin doctor` flips status='stale' after a
 //     plugin upgrade. We never rewrite the resolved_context_json, so historic
 //     reproducibility wins over freshness.
 
@@ -270,7 +270,7 @@ export interface PruneExpiredOptions {
   // in-memory in v1 so we cannot distinguish "active" vs "completed"
   // from SQLite alone; `conversations.archived_at` does not exist.
   // The conservative rule keeps reproducibility wins for live
-  // projects while letting operators clean up after `od project
+  // projects while letting operators clean up after `od-cli project
   // delete <id>` so dangling snapshot rows don't accumulate.
   retentionDays?: number;
 }

@@ -1,4 +1,4 @@
-// Contract test for the `od templates` CLI surface. Keeps the
+// Contract test for the `od-cli templates` CLI surface. Keeps the
 // UI / API / CLI triple wired together (AGENTS.md "Capability exposure"):
 // the CLI must drive the same /api/templates endpoints the web UI uses
 // (NewProjectPanel / ExamplesTab), with --json support for headless
@@ -140,7 +140,7 @@ async function reserveAndReleasePort(): Promise<{ host: string; port: number }> 
   });
 }
 
-describe('od templates CLI', () => {
+describe('od-cli templates CLI', () => {
   let stub: StubServer;
   let unreachableDaemonUrl: string;
 
@@ -163,10 +163,10 @@ describe('od templates CLI', () => {
     stub.setResponder(() => ({ status: 200, body: { ok: true } }));
   });
 
-  it('prints usage on `od templates help` and exits 0', async () => {
+  it('prints usage on `od-cli templates help` and exits 0', async () => {
     const result = await runCli(['templates', 'help']);
     expect(result.code).toBe(0);
-    expect(result.stdout).toMatch(/od templates/);
+    expect(result.stdout).toMatch(/od-cli templates/);
     expect(result.stdout).toMatch(/save/);
     expect(result.stdout).toMatch(/delete/);
     expect(stub.requests).toHaveLength(0);
@@ -345,10 +345,10 @@ describe('od templates CLI', () => {
     expect(result.stderr).toMatch(/<id>/);
   });
 
-  it('prints usage on `od templates` with no sub-verb and exits 2', async () => {
+  it('prints usage on `od-cli templates` with no sub-verb and exits 2', async () => {
     const result = await runCli(['templates']);
     expect(result.code).toBe(2);
-    expect(result.stdout).toMatch(/od templates/);
+    expect(result.stdout).toMatch(/od-cli templates/);
   });
 
   it('exits non-zero on unknown sub-verb', async () => {

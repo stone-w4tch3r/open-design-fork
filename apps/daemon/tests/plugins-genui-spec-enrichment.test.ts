@@ -1,6 +1,6 @@
 // Plan §6 Phase 2A.5 — `GET /api/runs/:runId/genui/:surfaceId` enriches
 // the response with the surface spec (incl. JSON Schema) pulled out of
-// the AppliedPluginSnapshot. This is the wire that lets `od ui show`
+// the AppliedPluginSnapshot. This is the wire that lets `od-cli ui show`
 // (and the web JsonSchemaFormSurface fallback) inspect the schema for
 // surfaces whose `schema_digest` is the only thing the genui_surfaces
 // table holds. Without enrichment, headless callers can't render

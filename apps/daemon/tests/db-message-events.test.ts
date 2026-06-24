@@ -102,7 +102,7 @@ describe('message event persistence', () => {
       kind: 'tool_use',
       id: 'tool-1',
       name: 'Bash',
-      input: { command: 'od media generate' },
+      input: { command: 'od-cli media generate' },
     });
     appendMessageAgentEvent(db, 'assistant-1', { kind: 'text', text: 'done.' });
 
@@ -114,7 +114,7 @@ describe('message event persistence', () => {
         kind: 'tool_use',
         id: 'tool-1',
         name: 'Bash',
-        input: { command: 'od media generate' },
+        input: { command: 'od-cli media generate' },
       },
       { kind: 'text', text: 'done.' },
     ]);

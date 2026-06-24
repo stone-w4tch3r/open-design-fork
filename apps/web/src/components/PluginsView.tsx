@@ -1938,7 +1938,7 @@ function buildAvailableInstallCommand(
   version: string,
 ): string {
   const suffix = version && version !== 'latest' ? `@${version}` : '';
-  return `od plugin install ${entry.name}${suffix}`;
+  return `od-cli plugin install ${entry.name}${suffix}`;
 }
 
 function buildAvailablePluginProvenance({

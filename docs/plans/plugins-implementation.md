@@ -20,7 +20,7 @@ These are the five rules that decide every downstream design decision. They sit 
 - [x] **I1. `SKILL.md` is the floor; `open-design.json` is a sidecar; never bidirectionally couple.** `packages/plugin-runtime/adapters/agent-skill.ts` synthesizes a schema-valid `PluginManifest` from `SKILL.md` `od:` frontmatter (verified via `packages/plugin-runtime/tests/adapter-agent-skill.test.ts`). The bundled e2e fixture under `apps/daemon/tests/fixtures/plugin-fixtures/sample-plugin/` ships both halves and `apps/daemon/tests/plugins-e2e-fixture.test.ts` exercises the merger.
 - [x] **I2. Apply is a pure function; side effects only after `POST /api/projects` / `POST /api/runs`.** `apps/daemon/src/plugins/apply.ts` is FS- and DB-free; the snapshot writer (`snapshots.ts`) and installer are the only modules that mutate persistent state. `apps/daemon/tests/plugins-apply.test.ts` asserts deterministic snapshots from the same inputs and refuses to touch the registry / FS.
 - [x] **I3. `AppliedPluginSnapshot` is the only contract between "plugin" and "run".** `composeSystemPrompt()` now accepts a `pluginBlock` derived from the snapshot via `pluginPromptBlock(snapshot)` (`apps/daemon/src/plugins/apply.ts`); the run reads context through the snapshot. Plugin runs in web API-fallback mode are rejected at the HTTP layer (Phase 2A wires the 409); the snapshot table is the only writable surface for the contract.
-- [ ] **I4. CLI is the canonical agent-facing API; UI mirrors CLI, not the other way round.** Phase 1: `od plugin install/list/info/uninstall/apply/doctor` and the matching `/api/plugins/*` HTTP routes ship in the same PR. Remaining `od project/run/files/conversation/marketplace` subcommands roll in over Phase 1 / 2C / 3 PRs.
+- [ ] **I4. CLI is the canonical agent-facing API; UI mirrors CLI, not the other way round.** Phase 1: `od-cli plugin install/list/info/uninstall/apply/doctor` and the matching `/api/plugins/*` HTTP routes ship in the same PR. Remaining `od-cli project/run/files/conversation/marketplace` subcommands roll in over Phase 1 / 2C / 3 PRs.
 - [x] **I5. Kernel/userspace boundary (spec §23) is drawn from day 1.** `composeSystemPrompt()` is structured as a pure assembler with a content table (DESIGN.md, craft, skill, plugin block, metadata); the new `pluginBlock` parameter slots in without restructuring. Phase 2A lifts the renderer into `packages/contracts/src/prompts/plugin-block.ts` (PB1).
 
 CI guard placement: each invariant must have at least one automated test that fails when the rule is violated. The test path is recorded next to the box when it lands.
@@ -108,7 +108,7 @@ These notes capture the product/implementation answers that otherwise get lost b
 | `apps/daemon/src/tool-tokens.ts` | exists | Phase 2A: wire to `connector-gate.ts` |
 | `apps/daemon/src/prompts/system.ts` | shipped | Phase 1 — `composeSystemPrompt()` accepts `pluginBlock` derived from snapshot |
 | `apps/daemon/src/server.ts` | shipped | Phase 1 — `/api/plugins/*`, `/api/atoms`, `/api/applied-plugins/:snapshotId` mounted |
-| `apps/daemon/src/cli.ts` | shipped | Phase 1 — `od plugin list/info/install/uninstall/apply/doctor` |
+| `apps/daemon/src/cli.ts` | shipped | Phase 1 — `od-cli plugin list/info/install/uninstall/apply/doctor` |
 | `apps/daemon/src/plugins/registry.ts` | shipped | Phase 1 — install root scan, manifest parse, SQLite reader/writer |
 | `apps/daemon/src/plugins/installer.ts` | shipped | Phase 1 — local-folder install only; symlink + traversal + size guards |
 | `apps/daemon/src/plugins/apply.ts` | shipped | Phase 1 — pure resolver; emits `ApplyResult` + draft snapshot |
@@ -120,9 +120,9 @@ These notes capture the product/implementation answers that otherwise get lost b
 | `apps/daemon/src/plugins/resolve-snapshot.ts` | shipped | Phase 2A — snapshot resolver wired into `POST /api/projects` + `/api/runs` |
 | `apps/daemon/src/plugins/marketplaces.ts` | shipped | Phase 3 — add / list / refresh / remove / trust + `resolvePluginInMarketplaces` |
 | `apps/daemon/src/plugins/gc.ts` | shipped | Phase 5 (early) — snapshot GC worker + boot sweep |
-| `apps/daemon/src/plugins/scaffold.ts` | shipped | Phase 4 — `od plugin scaffold` starter generator |
-| `apps/daemon/src/plugins/export.ts` | shipped | Phase 4 — `od plugin export <projectId> --as …` |
-| `apps/daemon/src/plugins/publish.ts` | shipped | Phase 4 — `od plugin publish --to <catalog>` URL builder |
+| `apps/daemon/src/plugins/scaffold.ts` | shipped | Phase 4 — `od-cli plugin scaffold` starter generator |
+| `apps/daemon/src/plugins/export.ts` | shipped | Phase 4 — `od-cli plugin export <projectId> --as …` |
+| `apps/daemon/src/plugins/publish.ts` | shipped | Phase 4 — `od-cli plugin publish --to <catalog>` URL builder |
 | `apps/daemon/src/plugins/bundled.ts` | shipped | Phase 4 (§23.3.5 entry slice) — boot walker for `plugins/_official/**` |
 | `apps/daemon/src/plugins/atom-bodies.ts` | shipped | Phase 4 (§23.3.2 entry slice) — bundled-atom SKILL.md body loader |
 | `apps/daemon/src/plugins/atoms/build-test.ts` | shipped | Phase 7 — typecheck + test shell-out runner; emits build.passing + tests.passing signals |
@@ -136,16 +136,16 @@ These notes capture the product/implementation answers that otherwise get lost b
 | `apps/daemon/src/plugins/atoms/auto-surfaces.ts` | shipped | Phase 8 — auto-derives `__auto_diff_review_<stageId>` choice surface for each stage that lists `diff-review` |
 | `apps/daemon/src/plugins/atoms/diff-review-genui-bridge.ts` | shipped | Phase 8 — POST /api/runs/:id/genui/:surfaceId/respond \u2192 runDiffReview() decision update |
 | `apps/daemon/src/plugins/atoms/handoff.ts` | shipped | Phase 8 — recordHandoff + isDeployableAppEligible + runHandoffAtom (pipeline-driven promotion ladder) + runAndPersistHandoff (`<cwd>/handoff/manifest.json` round-trip) |
-| `apps/daemon/src/plugins/validate.ts` | shipped | Phase 4 — `od plugin validate <folder>` author-side lint helper |
-| `apps/daemon/src/plugins/pack.ts` | shipped | Phase 4 — `od plugin pack <folder>` distribution archive helper |
-| `apps/daemon/src/plugins/search.ts` | shipped | Phase 4 — `searchInstalledPlugins` helper backing `od plugin list/search` filters |
-| `apps/daemon/src/plugins/diff.ts` | shipped | Phase 4 — `diffPlugins` helper backing `od plugin diff <a> <b>` |
-| `apps/daemon/src/plugins/snapshot-diff.ts` | shipped | Phase 4 — `diffSnapshots` helper backing `od plugin snapshots diff <a> <b>` |
-| `apps/daemon/src/plugins/stats.ts` | shipped | Phase 4 — `pluginInventoryStats` / `snapshotInventoryStats` helpers backing `od plugin stats` |
-| `apps/daemon/src/plugins/simulate.ts` | shipped | Phase 4 — `simulatePipeline` / `parseSignalKv` helpers backing `od plugin simulate` |
-| `apps/daemon/src/plugins/verify.ts` | shipped | Phase 4 — `verifyPlugin` orchestrator backing `od plugin verify` (CI meta-command) |
-| `apps/daemon/src/storage/db-inspect.ts` | shipped | Phase 5 — `inspectSqliteDatabase` helper backing `od daemon db status` |
-| `apps/daemon/src/plugins/events.ts` | shipped | Phase 4 — in-memory plugin event ring buffer + SSE feed backing `od plugin events tail` |
+| `apps/daemon/src/plugins/validate.ts` | shipped | Phase 4 — `od-cli plugin validate <folder>` author-side lint helper |
+| `apps/daemon/src/plugins/pack.ts` | shipped | Phase 4 — `od-cli plugin pack <folder>` distribution archive helper |
+| `apps/daemon/src/plugins/search.ts` | shipped | Phase 4 — `searchInstalledPlugins` helper backing `od-cli plugin list/search` filters |
+| `apps/daemon/src/plugins/diff.ts` | shipped | Phase 4 — `diffPlugins` helper backing `od-cli plugin diff <a> <b>` |
+| `apps/daemon/src/plugins/snapshot-diff.ts` | shipped | Phase 4 — `diffSnapshots` helper backing `od-cli plugin snapshots diff <a> <b>` |
+| `apps/daemon/src/plugins/stats.ts` | shipped | Phase 4 — `pluginInventoryStats` / `snapshotInventoryStats` helpers backing `od-cli plugin stats` |
+| `apps/daemon/src/plugins/simulate.ts` | shipped | Phase 4 — `simulatePipeline` / `parseSignalKv` helpers backing `od-cli plugin simulate` |
+| `apps/daemon/src/plugins/verify.ts` | shipped | Phase 4 — `verifyPlugin` orchestrator backing `od-cli plugin verify` (CI meta-command) |
+| `apps/daemon/src/storage/db-inspect.ts` | shipped | Phase 5 — `inspectSqliteDatabase` helper backing `od-cli daemon db status` |
+| `apps/daemon/src/plugins/events.ts` | shipped | Phase 4 — in-memory plugin event ring buffer + SSE feed backing `od-cli plugin events tail` |
 | `packages/plugin-runtime/src/pipeline-fallback.ts` | shipped | spec §23.3.3 — resolveAppliedPipeline falls back to a bundled scenario when od.pipeline is absent |
 | `plugins/_official/atoms/<atom>/{SKILL.md,open-design.json}` | shipped | Phase 4 / 6 / 7 / 8 — 13 first-party atom plugins (4 implemented + 9 reserved fragments) |
 | `plugins/_official/scenarios/<id>/{SKILL.md,open-design.json}` | shipped | Phase 4 (§23.3.3) — bundled scenario/router/export plugins, including the four taskKind defaults plus `od-default` Home free-form routing |
@@ -214,32 +214,32 @@ These notes capture the product/implementation answers that otherwise get lost b
 
 | Command | Status | Phase |
 | --- | --- | --- |
-| `od plugin install/list/info/uninstall/apply/doctor` | shipped | Phase 1 + Phase 2A — install accepts local / `github:` / `https://*.tar.gz` / **bare plugin name** (Phase 3 resolution) |
-| `od plugin run` apply→start shorthand | shipped | Phase 2A — `--inputs`, `--input k=v`, `--grant-caps`, `--follow` |
-| `od plugin trust` (with `connector:<id>` form) + `--revoke` | shipped | Phase 2A — backed by `POST /api/plugins/:id/trust` |
-| `od plugin snapshots list / prune` | shipped | Phase 5 (early) — operator escape hatch |
-| `od plugin replay` | shipped | Phase 2A |
-| `od ui list/show/respond/revoke/prefill` | shipped | Phase 2A |
-| `od marketplace add/list/info/refresh/remove/trust` | shipped | Phase 3 entry slice |
-| `od project create/list/info/delete` | shipped | Phase 1 follow-up — accepts `--plugin/--inputs/--grant-caps` |
-| `od run start/watch/cancel/list/info` (with `--follow`, ND-JSON) | shipped | Phase 1 follow-up |
-| `od files list/read/write/upload/delete` | shipped | Phase 1 follow-up + Phase 2C |
-| `od daemon start --headless / --serve-web / status / stop` | shipped | Phase 1.5 |
-| `od conversation list/info` | shipped | Phase 2C entry slice |
-| `od files diff` | absent | Phase 2C |
-| `od project import` (CLI wrapper of `/api/import/folder`) | absent | Phase 2C |
-| `od conversation new` | absent | Phase 2C |
-| `od plugin scaffold` (interactive starter) | shipped | Phase 4 — `apps/daemon/src/plugins/scaffold.ts` + `od plugin scaffold --id <id>` |
-| `od plugin export <projectId> --as od\|claude-plugin\|agent-skill` | shipped | Phase 4 — `apps/daemon/src/plugins/export.ts` + `POST /api/applied-plugins/export` |
-| `od plugin publish --to anthropics-skills\|awesome-agent-skills\|clawhub\|skills-sh` | shipped | Phase 4 — `apps/daemon/src/plugins/publish.ts` + `--open` browser launch |
-| `od atoms list / show` | shipped | Phase 4 — wraps `GET /api/atoms` |
-| `od skills list / show` | shipped | Phase 4 — wraps `GET /api/skills{,/:id}` |
-| `od design-systems list / show` | shipped | Phase 4 — wraps `GET /api/design-systems{,/:id}` |
-| `od craft list / show` | shipped | Phase 4 — new `GET /api/craft{,/:id}` |
-| `od status / od version` | shipped | Phase 4 |
-| `od marketplace search "<query>" [--tag <t>]` | shipped | Phase 3 — substring search over every configured catalog |
-| `od skills/design-systems/craft/atoms list/show` | absent | Phase 4 |
-| `od status/doctor/version/config` | partial | Phase 4 (some pieces exist; audit) |
+| `od-cli plugin install/list/info/uninstall/apply/doctor` | shipped | Phase 1 + Phase 2A — install accepts local / `github:` / `https://*.tar.gz` / **bare plugin name** (Phase 3 resolution) |
+| `od-cli plugin run` apply→start shorthand | shipped | Phase 2A — `--inputs`, `--input k=v`, `--grant-caps`, `--follow` |
+| `od-cli plugin trust` (with `connector:<id>` form) + `--revoke` | shipped | Phase 2A — backed by `POST /api/plugins/:id/trust` |
+| `od-cli plugin snapshots list / prune` | shipped | Phase 5 (early) — operator escape hatch |
+| `od-cli plugin replay` | shipped | Phase 2A |
+| `od-cli ui list/show/respond/revoke/prefill` | shipped | Phase 2A |
+| `od-cli marketplace add/list/info/refresh/remove/trust` | shipped | Phase 3 entry slice |
+| `od-cli project create/list/info/delete` | shipped | Phase 1 follow-up — accepts `--plugin/--inputs/--grant-caps` |
+| `od-cli run start/watch/cancel/list/info` (with `--follow`, ND-JSON) | shipped | Phase 1 follow-up |
+| `od-cli files list/read/write/upload/delete` | shipped | Phase 1 follow-up + Phase 2C |
+| `od-cli daemon start --headless / --serve-web / status / stop` | shipped | Phase 1.5 |
+| `od-cli conversation list/info` | shipped | Phase 2C entry slice |
+| `od-cli files diff` | absent | Phase 2C |
+| `od-cli project import` (CLI wrapper of `/api/import/folder`) | absent | Phase 2C |
+| `od-cli conversation new` | absent | Phase 2C |
+| `od-cli plugin scaffold` (interactive starter) | shipped | Phase 4 — `apps/daemon/src/plugins/scaffold.ts` + `od-cli plugin scaffold --id <id>` |
+| `od-cli plugin export <projectId> --as od\|claude-plugin\|agent-skill` | shipped | Phase 4 — `apps/daemon/src/plugins/export.ts` + `POST /api/applied-plugins/export` |
+| `od-cli plugin publish --to anthropics-skills\|awesome-agent-skills\|clawhub\|skills-sh` | shipped | Phase 4 — `apps/daemon/src/plugins/publish.ts` + `--open` browser launch |
+| `od-cli atoms list / show` | shipped | Phase 4 — wraps `GET /api/atoms` |
+| `od-cli skills list / show` | shipped | Phase 4 — wraps `GET /api/skills{,/:id}` |
+| `od-cli design-systems list / show` | shipped | Phase 4 — wraps `GET /api/design-systems{,/:id}` |
+| `od-cli craft list / show` | shipped | Phase 4 — new `GET /api/craft{,/:id}` |
+| `od-cli status / od-cli version` | shipped | Phase 4 |
+| `od-cli marketplace search "<query>" [--tag <t>]` | shipped | Phase 3 — substring search over every configured catalog |
+| `od-cli skills/design-systems/craft/atoms list/show` | absent | Phase 4 |
+| `od-cli status/doctor/version/config` | partial | Phase 4 (some pieces exist; audit) |
 
 ### 3.6 Web components
 
@@ -303,7 +303,7 @@ Three reads from the graph (drove the §6 phase reorder)
 - [x] **F4. `PluginAssetRef.stageAt` defaults to `'run-start'`, never `'project-create'`.** Default baked into `packages/contracts/src/plugins/apply.ts`.
 - [ ] **F5. `--json` output uses contracts types; no inline reshape in `cli.ts`.** Phase 1 CLI ships `--json` for `list/info/apply/doctor` returning the daemon JSON verbatim; the next CLI rev imports `ApplyResult` etc. from contracts to satisfy the compile-time guarantee.
 - [x] **F6. `OD_MAX_DEVLOOP_ITERATIONS` lives in `apps/daemon/src/app-config.ts`, default 10, override via env.** Read via `readPluginEnvKnobs()`; consumed by Phase 2A `pipeline.ts`.
-- [ ] **F7. `od plugin doctor` validates `od.connectors.required[]` against `connectorService.listAll()` from Phase 1.** Phase 1 doctor validates manifest schema, atoms, and resolved skill / DS / craft refs; the connector lookup wires in once `connectorService` is exposed to the doctor module (Phase 1 cleanup PR).
+- [ ] **F7. `od-cli plugin doctor` validates `od.connectors.required[]` against `connectorService.listAll()` from Phase 1.** Phase 1 doctor validates manifest schema, atoms, and resolved skill / DS / craft refs; the connector lookup wires in once `connectorService` is exposed to the doctor module (Phase 1 cleanup PR).
 - [x] **F8. Cross-conversation cache (`genui_surfaces` lookup) goes live with the table — i.e. Phase 2A — and a daemon test asserts the second `oauth-prompt` does not broadcast.** Covered by `apps/daemon/tests/plugins-pipeline-runner.test.ts` (`reuses a project-tier surface answer across conversations`).
 - [x] **F9. Snapshot lifecycle env vars (PB2)** live in `apps/daemon/src/app-config.ts` from Phase 1: `OD_SNAPSHOT_UNREFERENCED_TTL_DAYS` (default `30`, set to `0` to disable), `OD_SNAPSHOT_RETENTION_DAYS` (default unset, opt-in), `OD_SNAPSHOT_GC_INTERVAL_MS` (default `6 * 60 * 60 * 1000`). All three live in `readPluginEnvKnobs()`; `applied_plugin_snapshots.expires_at` is stamped on insert; the GC worker lands Phase 5.
 
@@ -352,8 +352,8 @@ Deliverables (week 2: surface layer)
 
 - [x] HTTP: `GET /api/plugins`, `GET /api/plugins/:id`, `POST /api/plugins/install` (SSE), `POST /api/plugins/:id/uninstall`, `POST /api/plugins/:id/apply`, `POST /api/plugins/:id/doctor`, `GET /api/atoms`, `GET /api/applied-plugins/:snapshotId`. `POST /api/projects` / `POST /api/runs` continue to accept their existing payloads; the explicit `pluginId` / `appliedPluginSnapshotId` plumbing lands as a follow-up Phase 1 PR once the `runs` SQL migration is in place.
 - [x] `composeSystemPrompt()` in `apps/daemon/src/prompts/system.ts` accepts a `pluginBlock` rendered from the snapshot via `pluginPromptBlock(snapshot)` and emits `## Active plugin` + `## Plugin inputs` sections. Shape: pure assembler + content table (per I5).
-- [x] CLI: `od plugin install/list/info/uninstall/apply/doctor`. `od project / run / files` subcommands stay scheduled for the Phase 1 follow-up PR.
-- [ ] Phase 1 `od plugin doctor` covers: schema validation, SKILL.md parse, atom id existence check, resolved-context ref check, digest drift detection. MCP dry-launch and connector existence (F7) land in the Phase 1 cleanup PR.
+- [x] CLI: `od-cli plugin install/list/info/uninstall/apply/doctor`. `od-cli project / run / files` subcommands stay scheduled for the Phase 1 follow-up PR.
+- [ ] Phase 1 `od-cli plugin doctor` covers: schema validation, SKILL.md parse, atom id existence check, resolved-context ref check, digest drift detection. MCP dry-launch and connector existence (F7) land in the Phase 1 cleanup PR.
 
 Validation
 
@@ -361,11 +361,11 @@ Validation
 - [x] `apps/daemon/tests/plugins-{apply,snapshots,installer,e2e-fixture}.test.ts` cover apply purity, snapshot writer, installer guards, and the closed-loop install→apply→snapshot→doctor walk.
 - [x] **e2e-1 closed loop** — `apps/daemon/tests/plugins-e2e-fixture.test.ts` runs the §12.5 walk against the bundled `apps/daemon/tests/fixtures/plugin-fixtures/sample-plugin/` fixture without spinning the HTTP server.
 - [ ] **e2e-2 pure apply across runs** — Phase 1 follow-up: drive `applyPlugin` through `POST /api/plugins/:id/apply` against a running daemon and assert two consecutive applies share the same `manifestSourceDigest`.
-- [ ] **e2e-3 headless run** — needs `od daemon start --headless` (Phase 1.5) and the `od run start --plugin <id>` plumbing (Phase 1 follow-up).
+- [ ] **e2e-3 headless run** — needs `od-cli daemon start --headless` (Phase 1.5) and the `od-cli run start --plugin <id>` plumbing (Phase 1 follow-up).
 
 Exit criterion
 
-- Phase 1 daemon-only walkthrough is green: `od plugin install --source <fixture>` → `od plugin list` → `od plugin apply <id>` produces a stable `AppliedPluginSnapshot`. The §12.5 web-driven walkthrough requires the Phase 1 follow-up PR + Phase 1.5 headless flag.
+- Phase 1 daemon-only walkthrough is green: `od-cli plugin install --source <fixture>` → `od-cli plugin list` → `od-cli plugin apply <id>` produces a stable `AppliedPluginSnapshot`. The §12.5 web-driven walkthrough requires the Phase 1 follow-up PR + Phase 1.5 headless flag.
 
 ### Phase 1.5 — Headless daemon lifecycle subset (1 d)
 
@@ -373,10 +373,10 @@ Pulled out of spec §16 Phase 5 because Phase 1 e2e needs it. Avoids "Phase 1 lo
 
 Deliverables
 
-- [x] `od daemon start --headless` flag (no electron, no web bundle).
-- [x] `od daemon start --serve-web` flag (web UI without electron). Today this is an alias of `--headless` because the v1 daemon serves both API and web UI from the same Express app; the flag is reserved so packaged callers can branch on it.
+- [x] `od-cli daemon start --headless` flag (no electron, no web bundle).
+- [x] `od-cli daemon start --serve-web` flag (web UI without electron). Today this is an alias of `--headless` because the v1 daemon serves both API and web UI from the same Express app; the flag is reserved so packaged callers can branch on it.
 - [x] Honor `OD_BIND_HOST` and `OD_PORT` in headless mode (the flags forward into the env so the existing daemon code path picks them up unchanged).
-- [x] `od daemon stop`, `od daemon status --json`.
+- [x] `od-cli daemon stop`, `od-cli daemon status --json`.
 
 Validation
 
@@ -400,13 +400,13 @@ Deliverables (daemon)
 
 Deliverables (CLI)
 
-- [x] `od plugin trust <id> --capabilities …` (with `connector:<id>` form) + `--revoke`.
-- [x] `od plugin apply --grant-caps a,b` + `--input k=v` (repeated).
-- [x] `od plugin replay <runId>`.
-- [x] `od ui list/show/respond/revoke/prefill`.
+- [x] `od-cli plugin trust <id> --capabilities …` (with `connector:<id>` form) + `--revoke`.
+- [x] `od-cli plugin apply --grant-caps a,b` + `--input k=v` (repeated).
+- [x] `od-cli plugin replay <runId>`.
+- [x] `od-cli ui list/show/respond/revoke/prefill`.
 - [x] CLI structured error envelope for §12.4 exit codes (64–73).
-- [x] `od plugin run <id>` apply→start shorthand (full ND-JSON streaming via `od run watch` lands as part of the Phase 1 follow-up).
-- [x] `od plugin snapshots list / prune` (operator escape hatch).
+- [x] `od-cli plugin run <id>` apply→start shorthand (full ND-JSON streaming via `od-cli run watch` lands as part of the Phase 1 follow-up).
+- [x] `od-cli plugin snapshots list / prune` (operator escape hatch).
 
 Deliverables (web)
 
@@ -430,13 +430,13 @@ Validation
 Deliverables
 
 - [x] `GenUISurfaceRenderer` extended for `form` and `choice`; JSON Schema → React form bridge (small, in-tree; no external dep added). Strict subset: `type:object` properties whose leaves are scalars (`string` / `number` / `integer` / `boolean`) or single-level enums; nested objects/arrays fall back to the JSON textarea. `defaultValue` is honoured so cross-conversation re-asks pre-fill. (`apps/web/src/components/GenUISurfaceRenderer.tsx` `JsonSchemaFormSurface` + `readObjectSchemaFields`).
-- [x] CLI parity: `GET /api/runs/:runId/genui/:surfaceId` enriches the response with the snapshot's surface spec (incl. JSON Schema). `od ui show --schema` prints just the schema for headless agents (`apps/daemon/src/cli.ts:UI_BOOLEAN_FLAGS` + the `--schema` shortcut in `runUiShow`).
+- [x] CLI parity: `GET /api/runs/:runId/genui/:surfaceId` enriches the response with the snapshot's surface spec (incl. JSON Schema). `od-cli ui show --schema` prints just the schema for headless agents (`apps/daemon/src/cli.ts:UI_BOOLEAN_FLAGS` + the `--schema` shortcut in `runUiShow`).
 
 Validation
 
 - [x] Web test: `apps/web/tests/components/GenUISurfaceRenderer.schema-form.test.tsx` covers the structured form path (string + select + integer + boolean), default-value seeding, single-enum choice routing through the existing button-group renderer, and the JSON-textarea fallback for unsupported leaves.
 - [x] Daemon test: `apps/daemon/tests/plugins-genui-spec-enrichment.test.ts` boots the daemon, installs a fixture plugin with a form surface, creates a project + snapshot, drops a `genui_surfaces` row, and asserts the `GET /api/runs/:runId/genui/:surfaceId` response carries `spec.schema` exactly as declared in the manifest.
-- [ ] Daemon test (deferred): a `form` surface answered via `od ui respond --value-json '...'` and a UI answer both emit `genui_surface_response` with `respondedBy: 'user'` — kept open for the dedicated CLI ↔ UI parity sweep in Phase 4 e2e-9.
+- [ ] Daemon test (deferred): a `form` surface answered via `od-cli ui respond --value-json '...'` and a UI answer both emit `genui_surface_response` with `respondedBy: 'user'` — kept open for the dedicated CLI ↔ UI parity sweep in Phase 4 e2e-9.
 
 ### Phase 2B — Marketplace deep UI + ChatComposer apply + preview sandbox (4–6 d)
 
@@ -457,25 +457,25 @@ Validation
 
 Deliverables
 
-- [ ] `od files write/upload/delete/diff`.
-- [ ] `od project delete/import`, `od run list/logs --since`.
-- [ ] `od conversation list/new/info` (basic).
+- [ ] `od-cli files write/upload/delete/diff`.
+- [ ] `od-cli project delete/import`, `od-cli run list/logs --since`.
+- [ ] `od-cli conversation list/new/info` (basic).
 
 Validation
 
-- [ ] Extend the §12.5 walk-through: `od project import` an external folder → `od plugin apply` → `od plugin replay <runId>` reruns on top.
+- [ ] Extend the §12.5 walk-through: `od-cli project import` an external folder → `od-cli plugin apply` → `od-cli plugin replay <runId>` reruns on top.
 
 ### Phase 3 — Federated marketplaces + tiered trust + bundle plugins (3–5 d)
 
 Deliverables
 
-- [x] `od marketplace add/list/info/refresh/remove/trust` — Phase 3 entry slice.
+- [x] `od-cli marketplace add/list/info/refresh/remove/trust` — Phase 3 entry slice.
 - [x] `GET / POST /api/marketplaces`, `POST /api/marketplaces/:id/trust`, `GET /api/marketplaces/:id/plugins`.
-- [x] `od plugin install <name>` resolves through configured marketplaces (`resolvePluginInMarketplaces` + `POST /api/plugins/install` bare-name detection). Marketplace trust does NOT auto-propagate — see spec §9.
+- [x] `od-cli plugin install <name>` resolves through configured marketplaces (`resolvePluginInMarketplaces` + `POST /api/plugins/install` bare-name detection). Marketplace trust does NOT auto-propagate — see spec §9.
 - [ ] Trust UI on `PluginDetailView` (capability checklist + Grant action).
 - [ ] Apply pipeline gates by `trust` + `capabilities_granted` (already partly in Phase 2A; this phase wires UI + marketplace).
 - [ ] Bundle plugin installer (multiple skills + DS + craft → registry under namespaced ids).
-- [ ] `od plugin doctor <id>` runs full validation including bundle expansion.
+- [ ] `od-cli plugin doctor <id>` runs full validation including bundle expansion.
 
 Validation
 
@@ -487,18 +487,18 @@ Validation
 Deliverables
 
 - [x] `docs/atoms.md`; `GET /api/atoms` returns implemented + reserved (with `(planned)` marker). Source of truth: `apps/daemon/src/plugins/atoms.ts`.
-- [x] `od plugin export <projectId> --as od|claude-plugin|agent-skill` — `apps/daemon/src/plugins/export.ts` + `POST /api/applied-plugins/export`.
-- [x] `od plugin run <id> --input k=v --follow` (apply + run start wrapper) — landed in §3.B3 (Phase 2A). Full ND-JSON streaming via `od run watch` is also shipped (Phase 1 follow-up §3.F1).
-- [x] `od plugin scaffold` interactive starter — `apps/daemon/src/plugins/scaffold.ts`.
-- [x] `od plugin publish --to anthropics-skills|awesome-agent-skills|clawhub|skills-sh` (PR template launcher) — `apps/daemon/src/plugins/publish.ts`.
-- [x] CLI parity remainder: `od skills/design-systems/craft/atoms list/show`, `od status`, `od version`, `od marketplace search`, `od doctor`, `od config get/set/list/unset`.
+- [x] `od-cli plugin export <projectId> --as od|claude-plugin|agent-skill` — `apps/daemon/src/plugins/export.ts` + `POST /api/applied-plugins/export`.
+- [x] `od-cli plugin run <id> --input k=v --follow` (apply + run start wrapper) — landed in §3.B3 (Phase 2A). Full ND-JSON streaming via `od-cli run watch` is also shipped (Phase 1 follow-up §3.F1).
+- [x] `od-cli plugin scaffold` interactive starter — `apps/daemon/src/plugins/scaffold.ts`.
+- [x] `od-cli plugin publish --to anthropics-skills|awesome-agent-skills|clawhub|skills-sh` (PR template launcher) — `apps/daemon/src/plugins/publish.ts`.
+- [x] CLI parity remainder: `od-cli skills/design-systems/craft/atoms list/show`, `od-cli status`, `od-cli version`, `od-cli marketplace search`, `od-cli doctor`, `od-cli config get/set/list/unset`.
 - [x] Optional `plugins/_official/atoms/<atom>/SKILL.md` extraction (spec §23.3.2 patch 2) — entry slice ships four atom SKILL.md fragments + the bundled boot walker; the system.ts → SKILL.md prompt-composer rewiring stays open.
 - [x] `@open-design/agui-adapter` package; `GET /api/runs/:runId/agui` SSE endpoint emits AG-UI canonical events.
 - [x] Plugin manifest upgrade: `od.genui.surfaces[].component` (capability gate `genui:custom-component`) — schema accepts the field; doctor flags missing-capability + path-traversal; web sandbox loader stays scheduled.
 
 Validation
 
-- [ ] **e2e-9 UI ↔ CLI parity**: pick 5 desktop UI workflows; replay each through `od …` only; produced artifacts byte-for-byte equal.
+- [ ] **e2e-9 UI ↔ CLI parity**: pick 5 desktop UI workflows; replay each through `od-cli …` only; produced artifacts byte-for-byte equal.
 - [ ] AG-UI smoke: a CopilotKit React client subscribes to `/api/runs/:runId/agui` and renders surfaces unmodified. This is an external-interop smoke, not a blocker for OD-native web/desktop rendering.
 
 ### Phase 5 — Cloud deployment (parallel; can start after Phase 1.5)
@@ -511,11 +511,11 @@ Deliverables
 - [x] Bound-API-token guard: daemon refuses to bind `OD_BIND_HOST=<non-loopback>` without `OD_API_TOKEN`; bearer middleware on `/api/*` skipped only on loopback peers and on the open probes (`/api/health`, `/api/version`, `/api/daemon/status`).
 - [x] `ProjectStorage` adapter substrate — `LocalProjectStorage` (v1 default) wired + tested; `S3ProjectStorage` interface-locked stub; `resolveProjectStorage` reads `OD_PROJECT_STORAGE`. AWS SDK wiring stays as the next Phase 5 PR.
 - [x] `DaemonDb` adapter substrate — `resolveDaemonDbConfig` reads `OD_DAEMON_DB` + `OD_PG_*`; the SQLite path is the only reachable backend until the postgres adapter lands.
-- [x] **Snapshot retention enforcement job (PB2).** Landed early (§3.A5): periodic worker (`OD_SNAPSHOT_GC_INTERVAL_MS`, default 6 h) deletes expired rows. Referenced-row TTL via `OD_SNAPSHOT_RETENTION_DAYS` stays opt-in. CLI escape hatch: `od plugin snapshots prune --before <ts>`.
+- [x] **Snapshot retention enforcement job (PB2).** Landed early (§3.A5): periodic worker (`OD_SNAPSHOT_GC_INTERVAL_MS`, default 6 h) deletes expired rows. Referenced-row TTL via `OD_SNAPSHOT_RETENTION_DAYS` stays opt-in. CLI escape hatch: `od-cli plugin snapshots prune --before <ts>`.
 
 Validation
 
-- [ ] `docker run` smoke: image starts, web UI renders, `od plugin install` works inside container.
+- [ ] `docker run` smoke: image starts, web UI renders, `od-cli plugin install` works inside container.
 - [ ] Multi-cloud smoke: deploy compose to AWS Fargate, GCP Cloud Run, Azure Container Apps; produce a fixed plugin's artifact byte-for-byte equal across clouds.
 - [ ] Pluggable storage smoke: same plugin alternated between local-disk + SQLite and S3 + Postgres; artifacts identical.
 
@@ -548,7 +548,7 @@ These were originally spec §18 open questions; they are now resolved and propag
 
 v1 ships when **all** of the following pass on a clean Linux CI container without electron. Each row links to the daemon / e2e test path that asserts it.
 
-- [x] **e2e-1 cold install** — `od plugin install ./fixtures/sample-plugin` →
+- [x] **e2e-1 cold install** — `od-cli plugin install ./fixtures/sample-plugin` →
   - daemon-managed plugin storage contains the sample plugin. This plan MUST
     NOT define daemon data paths; read root `AGENTS.md` → **Daemon data
     directory contract** before documenting storage.
@@ -585,7 +585,7 @@ Plus repo-wide gates
 | Field | Value |
 | --- | --- |
 | Current phase | Phase 2A + 1 + 1.5 + 2B + 2C entry slice + 3 (full) + 4 (full incl. OD_BUNDLED_ATOM_PROMPTS default ON) + 5 (full incl. live S3 impl; postgres adapter still stubbed) + 6 (full incl. asset rasterisation) + 7 (all six atom impls) + 8 (full incl. GenUI \u2192 decision bridge) + scenarios bundle + bundled-scenario fallback resolver |
-| Next planned PR | (a) Phase 2C — `od files write/upload/delete/diff` + `od project import` + `od conversation new`. (b) Phase 3 — Trust UI on `PluginDetailView` + bundle plugin installer. (c) Phase 4 e2e-9 — UI ↔ CLI parity walkthrough (5 workflows). (d) postgres adapter wiring inside the DaemonDb resolver. (e) Scenario registry convergence so Home chips, plugin filters, composer tools, and `@search` project from the same manifest/scenario taxonomy. |
+| Next planned PR | (a) Phase 2C — `od-cli files write/upload/delete/diff` + `od-cli project import` + `od-cli conversation new`. (b) Phase 3 — Trust UI on `PluginDetailView` + bundle plugin installer. (c) Phase 4 e2e-9 — UI ↔ CLI parity walkthrough (5 workflows). (d) postgres adapter wiring inside the DaemonDb resolver. (e) Scenario registry convergence so Home chips, plugin filters, composer tools, and `@search` project from the same manifest/scenario taxonomy. |
 | Open spec push-backs | none — PB1 / PB2 resolved (see §7) |
 | Last sync against `docs/plugins-spec.md` | 2026-05-13 (clarified default/no-plugin behavior, `od-default` routing, daemon system-prompt layering, plugin-assembled pipeline stages, OD-native controlled GenUI rendering, AG-UI adapter as interoperability only, and the current Home rail vs PluginsHome facet convergence gap) |
 

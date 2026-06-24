@@ -1,6 +1,6 @@
 // Plan §3.F4 / spec §8 e2e-3 anchor.
 //
-// Verifies the headless `od plugin install → project create → run start`
+// Verifies the headless `od-cli plugin install → project create → run start`
 // loop end-to-end at the HTTP layer (the same paths the CLI subcommands
 // from §3.F1 / §3.F2 hit). Without an actual agent backend we can't
 // assert "first ND-JSON event has kind='pipeline_stage_started'" — that

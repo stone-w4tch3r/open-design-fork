@@ -110,27 +110,27 @@ Open Design が何であり、何ができるのかを手早く見ていきま�
 
 ## プラットフォーム互換性
 
-> Open Design は、主流のコーディングエージェントがネイティブに利用する **スキル、CLI、MCP サーバー**として提供されます。OD をインストールすれば、`od mcp install <agent>` 一発で MCP サーバーがそのエージェントの設定に組み込まれ、どのエージェントの内部からでも同じツールを呼び出せます。
+> Open Design は、主流のコーディングエージェントがネイティブに利用する **スキル、CLI、MCP サーバー**として提供されます。OD をインストールすれば、`od-cli mcp install <agent>` 一発で MCP サーバーがそのエージェントの設定に組み込まれ、どのエージェントの内部からでも同じツールを呼び出せます。
 
 | コーディングエージェント／プラットフォーム &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | ステータス &nbsp;&nbsp; | MCP サーバーのワンラインインストール &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |
 |---|:---:|---|
-| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ 対応済み | `od mcp install claude` |
-| [Codex CLI](https://github.com/openai/codex) | ✅ 対応済み | `od mcp install codex` |
-| [Cursor](https://www.cursor.com/cli) | ✅ 対応済み | `od mcp install cursor` |
-| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ 対応済み | `od mcp install copilot` |
-| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ 対応済み | `od mcp install copilot` |
-| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ 対応済み | `od mcp install gemini` |
-| [OpenCode](https://opencode.ai/) | ✅ 対応済み | `od mcp install opencode` |
-| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ 対応済み | `od mcp install openclaw` |
-| [Antigravity](https://antigravity.google) | ✅ 対応済み | `od mcp install antigravity` |
-| [Cline](https://github.com/cline/cline) | ✅ 対応済み | `od mcp install cline` |
-| [Trae](https://www.trae.ai/) | ✅ 対応済み | `od mcp install trae` |
-| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ 対応済み | `od mcp install kimi` |
-| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ 対応済み | `od mcp install pi` |
-| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ 対応済み | `od mcp install vibe` |
-| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ 対応済み | `od mcp install hermes` |
+| [Claude Code](https://docs.anthropic.com/en/docs/claude-code) | ✅ 対応済み | `od-cli mcp install claude` |
+| [Codex CLI](https://github.com/openai/codex) | ✅ 対応済み | `od-cli mcp install codex` |
+| [Cursor](https://www.cursor.com/cli) | ✅ 対応済み | `od-cli mcp install cursor` |
+| [VS Code + GitHub Copilot](https://github.com/features/copilot) | ✅ 対応済み | `od-cli mcp install copilot` |
+| [GitHub Copilot CLI](https://github.com/features/copilot/cli) | ✅ 対応済み | `od-cli mcp install copilot` |
+| [Gemini CLI](https://github.com/google-gemini/gemini-cli) | ✅ 対応済み | `od-cli mcp install gemini` |
+| [OpenCode](https://opencode.ai/) | ✅ 対応済み | `od-cli mcp install opencode` |
+| [OpenClaw](https://github.com/openclaw/openclaw) | ✅ 対応済み | `od-cli mcp install openclaw` |
+| [Antigravity](https://antigravity.google) | ✅ 対応済み | `od-cli mcp install antigravity` |
+| [Cline](https://github.com/cline/cline) | ✅ 対応済み | `od-cli mcp install cline` |
+| [Trae](https://www.trae.ai/) | ✅ 対応済み | `od-cli mcp install trae` |
+| [Kimi CLI](https://github.com/MoonshotAI/kimi-cli) | ✅ 対応済み | `od-cli mcp install kimi` |
+| [Pi Agent](https://github.com/badlogic/pi-mono) | ✅ 対応済み | `od-cli mcp install pi` |
+| [Mistral Vibe CLI](https://github.com/mistralai/mistral-vibe) | ✅ 対応済み | `od-cli mcp install vibe` |
+| [Hermes Agent](https://github.com/nousresearch/hermes-agent) | ✅ 対応済み | `od-cli mcp install hermes` |
 
-`od mcp install <agent> --print` でドライランのプレビュー · `--uninstall` で削除 · 完全な一覧は `od mcp install --help` で確認できます。
+`od-cli mcp install <agent> --print` でドライランのプレビュー · `--uninstall` で削除 · 完全な一覧は `od-cli mcp install --help` で確認できます。
 
 <p align="center">
   <img src="https://repo-assets.open-design.ai/resources/images/coding-agents.png" alt="The 21 coding-agent CLIs Open Design supports — Claude Code · Codex · OpenCode · Hermes · Antigravity · Gemini · Grok Build · Kimi · Cursor Agent · Qwen · Qoder · GitHub Copilot · Pi · Kiro · Kilo · Mistral Vibe · DeepSeek · Reasonix · Aider · Devin · Trae" width="100%" />
@@ -302,7 +302,7 @@ GUI を一度も開くことなく Open Design を使えます——Claude Code�
 
 ```bash
 # One-line install into the agent you're using:
-od mcp install <agent>
+od-cli mcp install <agent>
 # <agent> = claude | codex | cursor | copilot | openclaw | antigravity | gemini
 #         | pi | vibe | hermes | cline | kimi | trae | opencode
 ```
@@ -361,14 +361,14 @@ Open Design は **stdio MCP サーバー**とエージェントごとの**イン
 
 ```bash
 # One-line install (16+ CLIs supported):
-od mcp install <agent>
+od-cli mcp install <agent>
 
 # Then the agent can:
-od search-files "primary button"      # search files across projects
-od get-file design-systems/linear-app/DESIGN.md
-od get-artifact <slug>                # latest rendered artifact
-od plugin run web-prototype --brief "..."
-od skill list --scenario marketing
+od-cli search-files "primary button"      # search files across projects
+od-cli get-file design-systems/linear-app/DESIGN.md
+od-cli get-artifact <slug>                # latest rendered artifact
+od-cli plugin run web-prototype --brief "..."
+od-cli skill list --scenario marketing
 ```
 
 **なぜ MCP なのか？** イテレーションのたびに zip をエクスポートして再アタッチすると、フローが途切れます。MCP はデザインソースを直接公開します——エージェントは常にライブのファイルを見ます。
@@ -469,20 +469,20 @@ od skill list --scenario marketing
 
 ### プラグインを使う
 
-プラグインは **ウェブ UI** と **`od` CLI** の間で完全に同等です——同じ `/api/plugins` エンドポイントなので、どちらでも合うほうを選べます。
+プラグインは **ウェブ UI** と **`od-cli` CLI** の間で完全に同等です——同じ `/api/plugins` エンドポイントなので、どちらでも合うほうを選べます。
 
 **デスクトップ／ウェブアプリで:** **Plugin** ページを開いてマーケットプレイスを閲覧し、**Install** をクリックします。プロジェクトの Studio 内では、プラグインはクリックして適用するコンポーザーのチップとして（それらが宣言する入力とともに）表示されます。
 
 **コマンドラインで**（UI なしで動作——これは外部エージェントが使うパスです）:
 
 ```bash
-od plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
-od plugin search "landing page"      # search by keyword
-od plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
-od plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
-od plugin apply od-default --input brief="a one-page pitch for our seed round"
-od plugin upgrade od-default         # upgrade
-od plugin uninstall od-default       # uninstall
+od-cli plugin list                       # list installed plugins (--task-kind / --mode / --tag filters)
+od-cli plugin search "landing page"      # search by keyword
+od-cli plugin info od-default            # inspect a plugin's metadata, inputs, capabilities
+od-cli plugin install od-figma-migration # install from a registry; also accepts ./local-folder or an https://… link
+od-cli plugin apply od-default --input brief="a one-page pitch for our seed round"
+od-cli plugin upgrade od-default         # upgrade
+od-cli plugin uninstall od-default       # uninstall
 ```
 
 すべてのコマンドが `--json` をサポートしているため、`jq` / `xargs` を通じて自動化にパイプできます。
@@ -505,8 +505,8 @@ my-plugin/
 ローカルでスキャフォールド + 検証:
 
 ```bash
-od plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
-od plugin validate ./my-plugin                          # check manifest / file layout
+od-cli plugin scaffold --id my-plugin --title "My Plugin"   # generate the skeleton
+od-cli plugin validate ./my-plugin                          # check manifest / file layout
 pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ```
 
@@ -515,7 +515,7 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 ### プラグインを貢献する
 
 1. プラグインフォルダを [`plugins/community/`](../../plugins/community/)（サードパーティプラグイン）にドロップするか、または——Open Design に同梱して提供するには——[`plugins/_official/`](../../plugins/_official/) の該当するティアにドロップします。
-2. 検証を通過させます: `od plugin validate`、`pnpm guard`、`pnpm --filter @open-design/plugin-runtime typecheck`。
+2. 検証を通過させます: `od-cli plugin validate`、`pnpm guard`、`pnpm --filter @open-design/plugin-runtime typecheck`。
 3. [`plugins/spec/CONTRIBUTING.md`](../../plugins/spec/CONTRIBUTING.md) のテンプレートを使って PR を記入します（ID、バージョン、レーン、モード、機能、トリガー例。ビジュアルプラグインにはスクリーンショット／プレビューを添付）。
 4. 外部レジストリ（skills.sh / ClawHub / スタンドアロンの GitHub）に公開する → [`plugins/spec/PUBLISHING-REGISTRIES.md`](../../plugins/spec/PUBLISHING-REGISTRIES.md)。
 
@@ -581,8 +581,8 @@ pnpm guard && pnpm --filter @open-design/plugin-runtime typecheck
 - [x] パッケージ化された Electron ビルド — macOS（Apple Silicon + Intel） + Windows（x64） + Linux AppImage（オプションのレーン）
 - [ ] コメントモードの外科的な編集 — 一部提供済み。信頼性の高いターゲット指定のパッチ適用は進行中
 - [ ] AI が発行する tweaks パネルの UX — 未実装
-- [ ] `npx od init` で `DESIGN.md` を備えたプロジェクトをスキャフォールド
-- [ ] プラグイン SDK + `od plugin {add,list,remove,test,publish}` CLI
+- [ ] `npx od-cli init` で `DESIGN.md` を備えたプロジェクトをスキャフォールド
+- [ ] プラグイン SDK + `od-cli plugin {add,list,remove,test,publish}` CLI
 - [ ] Figma / Pencil → React / Next / Vue の移行プラグイン（アルファ）
 - [ ] 既存コードベースのリフレッシュプラグイン（git リポジトリ + `DESIGN.md` に向ける）
 

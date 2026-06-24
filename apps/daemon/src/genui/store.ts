@@ -160,7 +160,7 @@ export function respondSurface(db: SqliteDb, input: RespondSurfaceInput): Surfac
   return rowFromDb(row);
 }
 
-// Pre-answer a surface (spec §10.3.4 `od ui prefill`). Writes a row in
+// Pre-answer a surface (spec §10.3.4 `od-cli ui prefill`). Writes a row in
 // `resolved` state without a prior `pending` row; subsequent
 // `lookupResolved()` will hit the cache and skip the broadcast.
 export function prefillSurface(db: SqliteDb, input: PrefillSurfaceInput): SurfaceRow {

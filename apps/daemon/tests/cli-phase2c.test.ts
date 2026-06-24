@@ -100,7 +100,7 @@ describe('Phase 2C CLI wrappers', () => {
           resolve({ stdout, stderr });
           return;
         }
-        reject(new Error(`od ${args.join(' ')} exited ${code}\nstdout:\n${stdout}\nstderr:\n${stderr}`));
+        reject(new Error(`od-cli ${args.join(' ')} exited ${code}\nstdout:\n${stdout}\nstderr:\n${stderr}`));
       });
       child.stdin.end(options.input ?? '');
     });
@@ -145,7 +145,7 @@ describe('Phase 2C CLI wrappers', () => {
       child.on('close', (code) => {
         clearTimeout(timeout);
         if (code === 0) {
-          reject(new Error(`od ${args.join(' ')} unexpectedly exited 0\nstdout:\n${stdout}\nstderr:\n${stderr}`));
+          reject(new Error(`od-cli ${args.join(' ')} unexpectedly exited 0\nstdout:\n${stdout}\nstderr:\n${stderr}`));
           return;
         }
         resolve({ code, stdout, stderr });

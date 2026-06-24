@@ -2,7 +2,7 @@
 // (entry slice).
 //
 // Stores user-configured federated catalog indexes in
-// `plugin_marketplaces`. The actual `od plugin install <name>` resolution
+// `plugin_marketplaces`. The actual `od-cli plugin install <name>` resolution
 // through these catalogs lands in Phase 3 alongside the trust UI; this
 // module is the storage + refresh half so the desktop / CLI can already
 // register and inspect catalogs.
