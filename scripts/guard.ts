@@ -78,7 +78,7 @@ const residualAllowedExactPaths = new Set([
   "scripts/import-prompt-templates.mjs",
   "scripts/postinstall.mjs",
   // Checked-in bin shim so pnpm can link `od` before daemon dist output exists.
-  "apps/daemon/bin/od.mjs",
+  "apps/daemon/bin/od-cli.mjs",
   "apps/packaged/esbuild.config.mjs",
   // Browser service workers must be served as JavaScript files.
   "apps/web/public/od-notifications-sw.js",

@@ -8,7 +8,7 @@ const distEntry = resolve(entryDir, "../dist/cli.js");
 
 if (!existsSync(distEntry)) {
   throw new Error(
-    "Open Design daemon is not built. Reinstall the package or run 'od doctor'."
+    "Open Design daemon is not built. Reinstall the package or run 'od-cli doctor'."
   );
 }
 

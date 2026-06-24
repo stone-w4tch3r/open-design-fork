@@ -23,7 +23,7 @@ const packageDir = resolve(scriptDir, "..");
 const packageJsonPath = resolve(packageDir, "package.json");
 const distDir = resolve(packageDir, "dist");
 const distCliPath = resolve(distDir, "cli.js");
-const binOdPath = resolve(packageDir, "bin", "od.mjs");
+const binOdPath = resolve(packageDir, "bin", "od-cli.mjs");
 const resourcesDir = resolve(packageDir, "resources");
 
 // ---------------------------------------------------------------------------
@@ -174,7 +174,7 @@ add(
 
 // 2b. bin/od.mjs exists
 add(
-  "bin/od.mjs exists",
+  "bin/od-cli.mjs exists",
   existsSync(binOdPath),
   existsSync(binOdPath) ? "" : `File not found: ${binOdPath}`,
 );
@@ -203,24 +203,24 @@ if (!existsSync(resourcesDir)) {
 }
 
 // ---------------------------------------------------------------------------
-// 3. bin/od.mjs sets OD_RESOURCE_ROOT
+// 3. bin/od-cli.mjs sets OD_RESOURCE_ROOT
 // ---------------------------------------------------------------------------
 
 if (existsSync(binOdPath)) {
   const binContent = readFileSync(binOdPath, "utf-8");
   const hasResourceRoot = binContent.includes("OD_RESOURCE_ROOT");
   add(
-    "bin/od.mjs sets OD_RESOURCE_ROOT",
+    "bin/od-cli.mjs sets OD_RESOURCE_ROOT",
     hasResourceRoot,
     hasResourceRoot
       ? ""
-      : "OD_RESOURCE_ROOT is not referenced in bin/od.mjs. The entrypoint must set it for packaged resource resolution.",
+      : "OD_RESOURCE_ROOT is not referenced in bin/od-cli.mjs. The entrypoint must set it for packaged resource resolution.",
   );
 } else {
   add(
-    "bin/od.mjs sets OD_RESOURCE_ROOT",
+    "bin/od-cli.mjs sets OD_RESOURCE_ROOT",
     false,
-    "bin/od.mjs does not exist — cannot check OD_RESOURCE_ROOT",
+    "bin/od-cli.mjs does not exist — cannot check OD_RESOURCE_ROOT",
   );
 }
 

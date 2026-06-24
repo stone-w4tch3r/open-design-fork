@@ -1,7 +1,7 @@
 # @open-design/daemon
 
 Open Design local daemon and CLI. Start the daemon, open the web UI, or drive
-design workflows headlessly through the `od` command.
+design workflows headlessly through the `od-cli` command.
 
 ## Install
 
@@ -21,19 +21,19 @@ npm install -g @open-design/daemon
 
 ```bash
 # Start the daemon and open the web UI
-od
+od-cli
 
 # Headless mode (no browser)
-od --no-open
+od-cli --no-open
 
 # Check daemon status
-od daemon status
+od-cli daemon status
 
 # Install MCP server into your coding agent
-od mcp install claude
+od-cli mcp install claude
 
 # List available commands
-od --help
+od-cli --help
 ```
 
 ## Troubleshooting
@@ -51,8 +51,8 @@ If `npm install` fails with node-gyp errors, make sure your C++ toolchain is ins
 The daemon defaults to port 7456. Override with `--port` or `OD_PORT`:
 
 ```bash
-od --port 9000
-OD_PORT=9000 od
+od-cli --port 9000
+OD_PORT=9000 od-cli
 ```
 
 ### Daemon not built
